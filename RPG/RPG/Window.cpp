@@ -28,7 +28,11 @@ void Window::Update() {
 	while (window.pollEvent(event)) {
 		if (event.type == sf::Event::Closed)
 			Close(); 
+		if (window.hasFocus()) {
+			eventManager.ProcessEvent(event);
+		}
 	}
+	eventManager.Update();
 }
 
 void Window::Display() {

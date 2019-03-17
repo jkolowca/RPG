@@ -1,0 +1,8 @@
+resize 95;
+select 58;
+escape 36;
+interact 57;
+up 22, 73;
+down 18, 74;
+right 3, 72;
+left 0, 71;
