@@ -1,5 +1,6 @@
 #pragma once
 #include "Window.h"
+#include "Shared.h"
 class Application {
 public:
 	Application();
@@ -11,4 +12,5 @@ public:
 	Window* GetWindow();
 private:
 	Window window;
+	Shared shared;
 };

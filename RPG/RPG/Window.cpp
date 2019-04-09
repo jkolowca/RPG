@@ -49,6 +49,10 @@ void Window::Close() {
 	isOpen = false;
 }
 
+EventManager* Window::GetEventManager() {
+	return &eventManager;
+}
+
 sf::Vector2u Window::GetSize() {
 	return size;
 }

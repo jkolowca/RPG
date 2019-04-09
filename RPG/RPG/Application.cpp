@@ -1,6 +1,9 @@
 #include "Application.h"
 
-Application::Application() {}
+Application::Application() {
+	shared.window = &window;
+	shared.eventManager = window.GetEventManager();
+}
 Application::~Application() {}
 
 void Application::Update() {

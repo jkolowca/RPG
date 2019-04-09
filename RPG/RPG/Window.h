@@ -20,6 +20,7 @@ public:
 
 	void Close();
 	
+	EventManager* GetEventManager();
 	sf::Vector2u GetSize();
 	bool IsOpen();
 private:
