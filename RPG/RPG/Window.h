@@ -20,6 +20,7 @@ public:
 
 	void Close();
 	
+	sf::RenderWindow* GetRenderWindow();
 	EventManager* GetEventManager();
 	sf::Vector2u GetSize();
 	bool IsOpen();

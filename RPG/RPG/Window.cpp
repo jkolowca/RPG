@@ -1,4 +1,5 @@
 #include "Window.h"
+#include "Application.h"
 
 Window::Window() 
 	:isOpen(true), isFullscreen(false){
@@ -59,4 +60,8 @@ sf::Vector2u Window::GetSize() {
 
 bool Window::IsOpen() {
 	return isOpen;
+}
+
+sf::RenderWindow* Window::GetRenderWindow() {
+	return &window;
 }

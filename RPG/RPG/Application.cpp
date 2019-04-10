@@ -1,17 +1,16 @@
 #include "Application.h"
 
-Application::Application() {
-	shared.window = &window;
-	shared.eventManager = window.GetEventManager();
-}
+Application::Application(): s_manager(&shared), shared{&window, window.GetEventManager(), window.GetRenderWindow()} {}
 Application::~Application() {}
 
 void Application::Update() {
-	window.Clear();
 	window.Update();
+}
+void Application::Render() {
+	window.Clear();
+	s_manager.Draw();
 	window.Display();
 }
-void Application::Render() {}
 
 Window* Application::GetWindow() {
 	return &window;

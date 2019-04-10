@@ -1,6 +1,7 @@
 #pragma once
 #include "Window.h"
 #include "Shared.h"
+#include "ScreenManager.h"
 class Application {
 public:
 	Application();
@@ -13,4 +14,5 @@ public:
 private:
 	Window window;
 	Shared shared;
+	ScreenManager s_manager;
 };

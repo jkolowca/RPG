@@ -7,11 +7,12 @@ EventManager::EventManager() {
 }
 EventManager::~EventManager(){}
 
-void EventManager::AddCallback(std::string _name, void(*_function)(sf::Event::KeyEvent)) {
-	callbacks[_name] = _function;
+
+void EventManager::RemoveCallback(std::string _name) {
+	callbacks.erase(_name);
 }
 
-void EventManager::RemoveCallbacks() {
+void EventManager::RemoveAllCallbacks() {
 	callbacks.clear();
 }
 
