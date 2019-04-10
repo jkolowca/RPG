@@ -49,10 +49,12 @@ void Button::SetPosition(sf::Vector2f _position) {
 
 void Button::Select() {
 	selected = true;
+	SetColor(sf::Color(0, 200, 200));
 }
 
 void Button::Deselect() {
 	selected = false;
+	SetColor(sf::Color(0, 128, 128));
 }
 
 bool Button::IsSelected() {

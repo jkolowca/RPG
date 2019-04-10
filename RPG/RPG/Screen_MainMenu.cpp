@@ -66,15 +66,17 @@ void Screen_MainMenu::select(sf::Event::KeyEvent) {
 	}
 }
 void Screen_MainMenu::up(sf::Event::KeyEvent) {
-	if (selected < 2) {
+	if (selected > 0) {
 		buttons[selected].Deselect();
-		buttons[++selected].Select();
+		selected--;
+		buttons[selected].Select();
 	}
 }
 void Screen_MainMenu::down(sf::Event::KeyEvent) {
-	if (selected > 0) {
+	if (selected < 2) {
 		buttons[selected].Deselect();
-		buttons[--selected].Select();
+		selected++;
+		buttons[selected].Select();
 	}
 }
 void Screen_MainMenu::escape(sf::Event::KeyEvent) {

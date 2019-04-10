@@ -50,4 +50,5 @@ void EventManager::Update() {
 			callbacks[it.first](it.second);
 		}
 	}
+	events.clear();
 }
