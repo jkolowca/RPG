@@ -17,5 +17,4 @@ public:
 	void Interact(sf::Event::KeyEvent);
 private:
 	Sprite sprite;
-	sf::Text text;
 };

@@ -1,10 +1,9 @@
 #include "Text.h"
 
 Text::Text() {
-	//SetFont("dep\\norwester.otf");
+	SetFont("dep\\norwester.otf");
 	SetText("");
 	SetSize(15);
-	SetColor(sf::Color::White);
 	SetPosition(sf::Vector2f(0.0f, 0.0f));
 }
 Text::~Text() {}

@@ -2,8 +2,7 @@
 #include "ScreenManager.h"
 #include "Application.h"
 
-Screen_MainMenu::Screen_MainMenu(ScreenManager* _manager): Screen(_manager) {}
-Screen_MainMenu::~Screen_MainMenu() {
+Screen_MainMenu::Screen_MainMenu(ScreenManager* _manager) : Screen(_manager) {
 	title.SetSize(25);
 	title.SetText("MAIN MENU");
 
@@ -17,6 +16,7 @@ Screen_MainMenu::~Screen_MainMenu() {
 		buttons[i].SetLabel(str[i]);
 	}
 }
+Screen_MainMenu::~Screen_MainMenu() {}
 
 void Screen_MainMenu::Activate() {
 	Position();
@@ -37,10 +37,10 @@ void Screen_MainMenu::Deactivate() {
 
 void Screen_MainMenu::Update(const sf::Time& l_time) {}
 void Screen_MainMenu::Draw() {
-	title.Draw(manager->GetShared()->window->GetRenderWindow());
-	//for (int i = 0; i < 3; ++i) {
-	//	buttons[i].Draw(manager->GetShared()->renderWindow);
-	//}
+	for (int i = 0; i < 3; ++i) {
+		buttons[i].Draw(manager->GetShared()->renderWindow);
+	}
+	title.Draw(manager->GetShared()->renderWindow);
 }
 void Screen_MainMenu::Position() {
 	sf::Vector2u windowSize = manager->GetShared()->renderWindow->getSize();
@@ -67,14 +67,14 @@ void Screen_MainMenu::select(sf::Event::KeyEvent) {
 }
 void Screen_MainMenu::up(sf::Event::KeyEvent) {
 	if (selected < 2) {
-		buttons[selected++].Deselect();
-		buttons[selected].Select();
+		buttons[selected].Deselect();
+		buttons[++selected].Select();
 	}
 }
 void Screen_MainMenu::down(sf::Event::KeyEvent) {
 	if (selected > 0) {
-		buttons[selected--].Deselect();
-		buttons[selected].Select();
+		buttons[selected].Deselect();
+		buttons[--selected].Select();
 	}
 }
 void Screen_MainMenu::escape(sf::Event::KeyEvent) {
