@@ -1,11 +1,11 @@
 #pragma once
-#include "Screen.h"
+#include "View.h"
 #include "Button.h"
 
-class Screen_MainMenu : public Screen {
+class View_MainMenu : public View {
 public:
-	Screen_MainMenu(ScreenManager*);
-	~Screen_MainMenu();
+	View_MainMenu(ViewManager*);
+	~View_MainMenu();
 
 	void Activate();
 	void Deactivate();

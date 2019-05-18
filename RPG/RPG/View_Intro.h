@@ -1,11 +1,11 @@
 #pragma once
-#include "Screen.h"
+#include "View.h"
 #include "Sprite.h"
 
-class Screen_Intro : public Screen {
+class View_Intro : public View {
 public:
-	Screen_Intro(ScreenManager*);
-	~Screen_Intro();
+	View_Intro(ViewManager*);
+	~View_Intro();
 
 	void Activate();
 	void Deactivate();
@@ -15,6 +15,7 @@ public:
 	void Position();
 
 	void Interact(sf::Event::KeyEvent);
+	void Escape(sf::Event::KeyEvent);
 private:
 	Sprite sprite;
 };

@@ -4,7 +4,7 @@
 #include <functional>
 #include <SFML\Window\Event.hpp>
 
-class Screen;
+class View;
 
 class EventManager {
 public:

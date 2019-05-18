@@ -1,8 +1,8 @@
-#include "Screen_MainMenu.h"
-#include "ScreenManager.h"
+#include "View_MainMenu.h"
+#include "ViewManager.h"
 #include "Application.h"
 
-Screen_MainMenu::Screen_MainMenu(ScreenManager* _manager) : Screen(_manager) {
+View_MainMenu::View_MainMenu(ViewManager* _manager) : View(_manager) {
 	title.SetSize(25);
 	title.SetText("MAIN MENU");
 
@@ -16,33 +16,33 @@ Screen_MainMenu::Screen_MainMenu(ScreenManager* _manager) : Screen(_manager) {
 		buttons[i].SetLabel(str[i]);
 	}
 }
-Screen_MainMenu::~Screen_MainMenu() {}
+View_MainMenu::~View_MainMenu() {}
 
-void Screen_MainMenu::Activate() {
+void View_MainMenu::Activate() {
 	Position();
 	buttons[selected].Deselect();
 	buttons[0].Select();
 	selected = 0;
-	manager->GetShared()->eventManager->AddCallback("select", &Screen_MainMenu::select, this);
-	manager->GetShared()->eventManager->AddCallback("up", &Screen_MainMenu::up, this);
-	manager->GetShared()->eventManager->AddCallback("down", &Screen_MainMenu::down, this);
-	manager->GetShared()->eventManager->AddCallback("escape", &Screen_MainMenu::escape, this);
+	manager->GetShared()->eventManager->AddCallback("select", &View_MainMenu::select, this);
+	manager->GetShared()->eventManager->AddCallback("up", &View_MainMenu::up, this);
+	manager->GetShared()->eventManager->AddCallback("down", &View_MainMenu::down, this);
+	manager->GetShared()->eventManager->AddCallback("escape", &View_MainMenu::escape, this);
 }
-void Screen_MainMenu::Deactivate() {
+void View_MainMenu::Deactivate() {
 	manager->GetShared()->eventManager->RemoveCallback("select");
 	manager->GetShared()->eventManager->RemoveCallback("up");
 	manager->GetShared()->eventManager->RemoveCallback("down");
 	manager->GetShared()->eventManager->RemoveCallback("escape");
 }
 
-void Screen_MainMenu::Update(const sf::Time& l_time) {}
-void Screen_MainMenu::Draw() {
+void View_MainMenu::Update(const sf::Time& l_time) {}
+void View_MainMenu::Draw() {
 	for (int i = 0; i < 3; ++i) {
 		buttons[i].Draw(manager->GetShared()->renderWindow);
 	}
 	title.Draw(manager->GetShared()->renderWindow);
 }
-void Screen_MainMenu::Position() {
+void View_MainMenu::Position() {
 	sf::Vector2u windowSize = manager->GetShared()->renderWindow->getSize();
 	sf::Vector2f buttonPos = sf::Vector2f(windowSize.x / 2.0f, windowSize.y / 2.0f - 0.5f*(buttons[0].GetSize().y + 10));
 
@@ -54,7 +54,7 @@ void Screen_MainMenu::Position() {
 	}
 }
 
-void Screen_MainMenu::select(sf::Event::KeyEvent) {
+void View_MainMenu::select(sf::Event::KeyEvent) {
 	if (selected == 0) {
 		manager->SwitchTo(Intro);
 	}
@@ -65,20 +65,20 @@ void Screen_MainMenu::select(sf::Event::KeyEvent) {
 		manager->GetShared()->window->Close();
 	}
 }
-void Screen_MainMenu::up(sf::Event::KeyEvent) {
+void View_MainMenu::up(sf::Event::KeyEvent) {
 	if (selected > 0) {
 		buttons[selected].Deselect();
 		selected--;
 		buttons[selected].Select();
 	}
 }
-void Screen_MainMenu::down(sf::Event::KeyEvent) {
+void View_MainMenu::down(sf::Event::KeyEvent) {
 	if (selected < 2) {
 		buttons[selected].Deselect();
 		selected++;
 		buttons[selected].Select();
 	}
 }
-void Screen_MainMenu::escape(sf::Event::KeyEvent) {
+void View_MainMenu::escape(sf::Event::KeyEvent) {
 	manager->GetShared()->window->Close();
 }
