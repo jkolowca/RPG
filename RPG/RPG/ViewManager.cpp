@@ -1,11 +1,13 @@
 #include "ViewManager.h"
 #include "View_Intro.h"
 #include "View_MainMenu.h"
+#include "View_Game.h"
 
 ViewManager::ViewManager(Shared* _shared) {
 	shared = _shared;
 	RegisterView<View_Intro>(Intro);
 	RegisterView<View_MainMenu>(MainMenu);
+	RegisterView<View_Game>(Game);
 	SwitchTo(Intro);
 }
 

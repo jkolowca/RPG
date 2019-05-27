@@ -56,7 +56,7 @@ void View_MainMenu::Position() {
 
 void View_MainMenu::select(sf::Event::KeyEvent) {
 	if (selected == 0) {
-		manager->SwitchTo(Intro);
+		manager->SwitchTo(Game);
 	}
 	else if (selected == 1) {
 		manager->SwitchTo(Intro);

@@ -18,7 +18,7 @@ void EventManager::RemoveAllCallbacks() {
 
 void EventManager::ImportHandles() {
 	std::ifstream file;
-	file.open("keys.txt"); 
+	file.open("dep\\keys.txt"); 
 	if (!file) {
 		std::cout << "couldn't load settings!";
 		return;

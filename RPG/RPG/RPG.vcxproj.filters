@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Resource Files\map">
+      <UniqueIdentifier>{cdb53dd6-e671-4647-a4d1-3dba0a029d57}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -97,8 +100,16 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="keys.txt">
+    <Text Include="dep\keys.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="dep\map\lev0.txt">
+      <Filter>Resource Files\map</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="dep\norwester.otf">
+      <Filter>Resource Files</Filter>
+    </Font>
   </ItemGroup>
 </Project>

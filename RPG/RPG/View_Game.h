@@ -1,5 +1,6 @@
 #pragma once
 #include "View.h"
+#include "Map.h"
 
 class View_Game : public View {
 public:
@@ -21,4 +22,5 @@ public:
 	void Left(sf::Event::KeyEvent);
 
 private:
+	Map map;
 };
