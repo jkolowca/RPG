@@ -16,7 +16,7 @@ void Window::Create() {
 			sf::VideoMode::getDesktopMode().height);
 	}
 	else size = WINDOWSIZE;
-	window.create(sf::VideoMode(size.x, size.y, 32), title, sf::Style::Close);
+	window.create(sf::VideoMode(size.x, size.y, 32), title, sf::Style::None);
 	window.setFramerateLimit(60);
 }
 

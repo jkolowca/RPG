@@ -30,9 +30,7 @@ void View_Game::Deactivate() {
 void View_Game::Update(const sf::Time& l_time) {}
 
 void View_Game::Draw() {
-	map.Draw(0);
-
-	map.Draw(1);
+	map.Draw();
 }
 
 void View_Game::Position() {
@@ -47,14 +45,14 @@ void View_Game::Escape(sf::Event::KeyEvent) {
 	manager->SwitchTo(MainMenu);
 }
 void View_Game::Up(sf::Event::KeyEvent) {
-	manager->SwitchTo(MainMenu);
+	map.playerposition.y--;
 }
 void View_Game::Down(sf::Event::KeyEvent) {
-	manager->SwitchTo(MainMenu);
+	map.playerposition.y++;
 }
 void View_Game::Right(sf::Event::KeyEvent) {
-	manager->SwitchTo(MainMenu);
+	map.playerposition.x++;
 }
 void View_Game::Left(sf::Event::KeyEvent) {
-	manager->SwitchTo(MainMenu);
+	map.playerposition.x--;
 }

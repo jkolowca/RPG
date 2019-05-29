@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "EventManager.h"
 
-#define WINDOWSIZE sf::Vector2u(1300,800);
+#define WINDOWSIZE sf::Vector2u(1200,800);
 
 class Window {
 public:
