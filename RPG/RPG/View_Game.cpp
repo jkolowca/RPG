@@ -7,7 +7,7 @@ View_Game::~View_Game() {}
 
 void View_Game::Activate() {
 	Position();
-	map.Load(1);
+	map.Load(0);
 	manager->GetShared()->eventManager->AddCallback("select", &View_Game::Interact, this);
 	manager->GetShared()->eventManager->AddCallback("interact", &View_Game::Interact, this);
 	manager->GetShared()->eventManager->AddCallback("escape", &View_Game::Escape, this);

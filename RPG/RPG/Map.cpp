@@ -127,9 +127,7 @@ bool Map::Draw(int _layer) {
 			}
 		}
 	}
-	if (_layer + 1 != layers) {
-		shared->renderWindow->draw(player);
-	}
+	shared->renderWindow->draw(player);
 	return true;
 
 };
