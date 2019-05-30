@@ -1,6 +1,6 @@
 #include "Application.h"
 
-Application::Application(): s_manager(&shared), shared{&window, window.GetEventManager(), window.GetRenderWindow()} {}
+Application::Application(): v_manager(&shared), shared{&window, window.GetEventManager(), window.GetRenderWindow()} {}
 Application::~Application() {}
 
 void Application::Update() {
@@ -8,7 +8,7 @@ void Application::Update() {
 }
 void Application::Render() {
 	window.Clear();
-	s_manager.Draw();
+	v_manager.Draw();
 	window.Display();
 }
 

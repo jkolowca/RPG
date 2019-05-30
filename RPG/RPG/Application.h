@@ -14,5 +14,5 @@ public:
 private:
 	Window window;
 	Shared shared;
-	ViewManager s_manager;
+	ViewManager v_manager;
 };

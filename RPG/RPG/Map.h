@@ -23,7 +23,7 @@ public:
 };
 struct TileInfo {
 	std::shared_ptr<Tile> tile;
-	bool solid;
+	bool solid=false;
 };
 
 class Array3d {

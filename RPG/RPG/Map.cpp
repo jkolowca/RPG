@@ -135,11 +135,11 @@ bool Map::Draw(int _layer) {
 };
 
 bool Map::MakeMove(int _x, int _y) {
-	bool solid = false;
+	bool s = false;
 	for (unsigned int i = 0; i < layers; i++) {
-		if (map(layers, playerposition.x + _x, playerposition.y + _y).solid) solid = true;
+		if (map(i, playerposition.x + _x, playerposition.y + _y).solid) s = true;
 }
-	if (!solid) {
+	if (!s) {
 		playerposition = { playerposition.x + _x, playerposition.y + _y };
 		return true;
 	}
