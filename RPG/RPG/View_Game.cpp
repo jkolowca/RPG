@@ -7,7 +7,7 @@ View_Game::~View_Game() {}
 
 void View_Game::Activate() {
 	Position();
-	map.Load(0);
+	map.Load(1);
 	manager->GetShared()->eventManager->AddCallback("select", &View_Game::Interact, this);
 	manager->GetShared()->eventManager->AddCallback("interact", &View_Game::Interact, this);
 	manager->GetShared()->eventManager->AddCallback("escape", &View_Game::Escape, this);
@@ -30,7 +30,8 @@ void View_Game::Deactivate() {
 void View_Game::Update(const sf::Time& l_time) {}
 
 void View_Game::Draw() {
-	map.Draw();
+	map.Draw(0);
+	map.Draw(1);
 }
 
 void View_Game::Position() {

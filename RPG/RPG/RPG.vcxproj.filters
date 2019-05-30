@@ -106,7 +106,7 @@
     <Text Include="dep\map\lev0.txt">
       <Filter>Resource Files\map</Filter>
     </Text>
-    <Text Include="lev1.txt">
+    <Text Include="dep\map\lev1.txt">
       <Filter>Resource Files\map</Filter>
     </Text>
   </ItemGroup>

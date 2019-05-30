@@ -157,7 +157,7 @@
   <ItemGroup>
     <Text Include="dep\keys.txt" />
     <Text Include="dep\map\lev0.txt" />
-    <Text Include="lev1.txt" />
+    <Text Include="dep\map\lev1.txt" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="dep\norwester.otf" />

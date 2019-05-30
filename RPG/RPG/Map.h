@@ -9,12 +9,7 @@
 #include <cmath>
 #include "Shared.h"
 
-enum MapSize {
-	XSize = 30,
-	YSize = 20,
-	TileSize = 72,
-	Layers = 2
-};
+#define TileSize 72
 
 class Tile {
 	sf::Texture texture;
@@ -31,6 +26,26 @@ struct TileInfo {
 	bool solid;
 };
 
+class Array3d {
+public:
+	Array3d() {};
+	~Array3d() {
+		delete[]arr;
+	};
+	void create(int _layer, int _column, int _row) {
+		delete[]arr;
+		layer = _layer;
+		column = _column;
+		row = _row;
+		arr = new TileInfo[layer*column*row];
+	}
+
+	TileInfo& operator()(int K, int L, int M) {
+		return arr[(K*column + L)*row + M];
+	}
+	unsigned int layer, column, row;
+	TileInfo* arr;
+};
 
 class Map {
 public:
@@ -44,10 +59,13 @@ public:
 
 	void Load(int _level);
 
-	void Draw();
+	int Draw(int _layer);
 	sf::Vector2i playerposition;
 private:
-	TileInfo map[XSize][YSize];
+
+	sf::Vector2i mapSize;
+	int layers;
+	Array3d mmap;
 	Shared* shared;
 	sf::RectangleShape player;
 };

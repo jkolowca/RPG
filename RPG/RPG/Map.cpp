@@ -26,7 +26,16 @@ void Map::Load(int _level) {
 	int layer = 0;
 	sf::Vector2i position = { 0,0 }, tiletype;
 	std::regex r("(\\d*):(\\d*)");
+	std::regex size("(\\d*)x(\\d*)x(\\d*)");
 	std::smatch m;
+
+	getline(file, tmp);
+	std::regex_search(tmp, m, size);
+	layers = stoi(m[1]);
+	mapSize = {stoi(m[2]), stoi(m[3])};
+
+	mmap.create(layers, mapSize.x, mapSize.y);
+	
 
 	std::map<std::pair<int, int>, std::shared_ptr<Tile>> existingTiles;
 	while (getline(file, tmp)) {
@@ -46,7 +55,7 @@ void Map::Load(int _level) {
 				existingTiles[{tiletype.x, tiletype.y}] = ptr;
 			}
 
-			map[position.x][position.y].tile = existingTiles[{tiletype.x, tiletype.y}];
+			mmap(layer,position.x,position.y).tile = existingTiles[{tiletype.x, tiletype.y}];
 			tmp = m.suffix().str();
 			position.x++;
 		}
@@ -55,42 +64,43 @@ void Map::Load(int _level) {
 
 }
 
-void Map::Draw() {
-	sf::Vector2u windowsize = shared->renderWindow->getSize();
-	sf::Vector2i margin = { (int)(windowsize.x / 2 - (TileSize / 2)) / TileSize+1,(int)(windowsize.y / 2 - (TileSize / 2)) / TileSize+1 };
+int Map::Draw(int _layer) {
+	if (_layer + 1 > layers)return -1;
+	sf::Vector2i windowsize = { (int)shared->renderWindow->getSize().x, (int)shared->renderWindow->getSize().y };
+	sf::Vector2i margin = { (windowsize.x / 2 - (TileSize / 2)) / TileSize+1,(windowsize.y / 2 - (TileSize / 2)) / TileSize+1 };
 
 	sf::Vector2i firstDrawn = { 0,0 }, numberDrawn = { 2 * margin.x + 1, 2 * margin.y + 1 };
-	sf::Vector2f offset = { (float)windowsize.x/2 - margin.x*TileSize, (float)windowsize.y/2 - margin.y*TileSize };
+	sf::Vector2i offset = { windowsize.x/2 - margin.x*TileSize, windowsize.y/2 - margin.y*TileSize };
 	
-	if (XSize < windowsize.x / TileSize) {
-		numberDrawn.x = XSize;
-		offset.x = TileSize / 2 + windowsize.x / 2 - XSize*TileSize/2;
+	if (mapSize.x < windowsize.x / TileSize) {
+		numberDrawn.x = mapSize.x;
+		offset.x = TileSize / 2 + windowsize.x / 2 - mapSize.x*TileSize/2;
 	}
 	else if (playerposition.x < margin.x) {
 		numberDrawn.x = windowsize.x/TileSize +1;
 		offset.x = TileSize / 2;
 	}
-	else if (XSize - playerposition.x - 1 < margin.x) {
+	else if (mapSize.x - playerposition.x - 1 < margin.x) {
 		numberDrawn.x = windowsize.x / TileSize + 1;
-		firstDrawn.x = XSize - numberDrawn.x;
-		offset.x = (float)windowsize.x - numberDrawn.x*TileSize+TileSize/2;
+		firstDrawn.x = mapSize.x - numberDrawn.x;
+		offset.x = windowsize.x - numberDrawn.x*TileSize+TileSize/2;
 	}
 	else {
 		firstDrawn.x = playerposition.x - margin.x;
 	}
 
-	if (YSize < windowsize.y / TileSize) {
-		numberDrawn.y = YSize;
-		offset.y = TileSize / 2 + windowsize.y / 2 - YSize*TileSize/2;
+	if (mapSize.y < windowsize.y / TileSize) {
+		numberDrawn.y = mapSize.y;
+		offset.y = TileSize / 2 + windowsize.y / 2 - mapSize.y*TileSize/2;
 	}
 	else if (playerposition.y < margin.y) {
 		numberDrawn.y = windowsize.y / TileSize + 1;
 		offset.y = TileSize / 2;
 	}
-	else if (YSize - playerposition.y - 1 < margin.y) {
+	else if (mapSize.y - playerposition.y - 1 < margin.y) {
 		numberDrawn.y = windowsize.y / TileSize + 1;
-		firstDrawn.y = YSize - numberDrawn.y;
-		offset.y = (float)windowsize.y - numberDrawn.y*TileSize+TileSize/2;
+		firstDrawn.y = mapSize.y - numberDrawn.y;
+		offset.y = windowsize.y - numberDrawn.y*TileSize+TileSize/2;
 	}
 	else {
 		firstDrawn.y = playerposition.y - margin.y;
@@ -100,15 +110,18 @@ void Map::Draw() {
 	for (int x = 0; x < numberDrawn.x; x++) {
 		for (int y = 0; y < numberDrawn.y; y++) {
 			if (firstDrawn.x + x == playerposition.x&&firstDrawn.y + y == playerposition.y) {
-				player.setPosition({ offset.x + x * 72, offset.y + y * 72 });
+				player.setPosition({ (float)offset.x + x * 72, (float)offset.y + y * 72 });
 			}
-			if (map[firstDrawn.x + x][firstDrawn.y + y].tile) {
+			if (mmap(_layer, firstDrawn.x + x,firstDrawn.y + y).tile) {
 				
-				map[firstDrawn.x + x][firstDrawn.y + y].tile->Position({ offset.x + x * 72, offset.y + y * 72 });
-				map[firstDrawn.x + x][firstDrawn.y + y].tile->Draw();
+				mmap(_layer, firstDrawn.x + x, firstDrawn.y + y).tile->Position({ (float)offset.x + x * 72, (float)offset.y + y * 72 });
+				mmap(_layer, firstDrawn.x + x, firstDrawn.y + y).tile->Draw();
 			}
 		}
 	}
-	shared->renderWindow->draw(player);
+	if (_layer + 1 != layers) {
+		shared->renderWindow->draw(player);
+	}
+	return 1;
 
 };
