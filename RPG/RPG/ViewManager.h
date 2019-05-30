@@ -30,13 +30,13 @@ private:
 
 	template<class T>
 	void RegisterView(ViewType _type) {
-		screens[_type] = [this]() -> View*
+		views[_type] = [this]() -> View*
 		{
 			return new T(this);
 		};
 	}
 
-	std::vector<std::pair<ViewType, View*>> screens_container;
-	std::map<ViewType, std::function<View*(void)>> screens;
+	std::vector<std::pair<ViewType, View*>> views_container;
+	std::map<ViewType, std::function<View*(void)>> views;
 	Shared* shared;
 };

@@ -13,6 +13,27 @@ void Tile::Position(sf::Vector2f _position) {
 	sprite.setPosition(_position);
 }
 
+
+Array3d::~Array3d() {
+	delete[]arr;
+};
+void Array3d::Create(int _layer, int _column, int _row) {
+	delete[]arr;
+	layer = _layer;
+	column = _column;
+	row = _row;
+	arr = new TileInfo[layer*column*row];
+}
+TileInfo& Array3d::operator()(int K, int L, int M) {
+	return arr[(K*column + L)*row + M];
+}
+
+
+Map::Map(Shared* _shared) : shared(_shared) {
+	player.setSize({ TileSize, TileSize });
+	player.setFillColor(sf::Color::Red);
+	player.setOrigin({ TileSize / 2, TileSize / 2 });
+}
 void Map::Load(int _level) {
 	std::string tmp = "dep\\map\\lev" + std::to_string(_level) + ".txt";
 
@@ -39,7 +60,7 @@ void Map::Load(int _level) {
 	std::regex_search(tmp, m, pp);
 	playerposition = { stoi(m[1]),stoi(m[2]) };
 
-	map.create(layers, mapSize.x, mapSize.y);
+	map.Create(layers, mapSize.x, mapSize.y);
 	
 
 	std::map<std::pair<int, int>, std::shared_ptr<Tile>> existingTiles;
@@ -71,7 +92,6 @@ void Map::Load(int _level) {
 	}
 
 }
-
 bool Map::Draw(int _layer) {
 	if (_layer + 1 > layers)return false;
 	sf::Vector2i windowsize = { (int)shared->renderWindow->getSize().x, (int)shared->renderWindow->getSize().y };
@@ -131,7 +151,6 @@ bool Map::Draw(int _layer) {
 	return true;
 
 };
-
 bool Map::MakeMove(int _x, int _y) {
 	bool s = false;
 	for (unsigned int i = 0; i < layers; i++) {

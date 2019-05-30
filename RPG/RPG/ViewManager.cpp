@@ -14,38 +14,38 @@ ViewManager::ViewManager(Shared* _shared) {
 ViewManager::~ViewManager() {}
 
 void ViewManager::SwitchTo(ViewType _type) {
-	for (auto itr = screens_container.begin(); itr != screens_container.end(); ++itr)
+	for (auto itr = views_container.begin(); itr != views_container.end(); ++itr)
 	{
 		if (itr->first == _type) {
-			screens_container.back().second->Deactivate();
+			views_container.back().second->Deactivate();
 			ViewType tmp_type = itr->first;
 			View* tmp_screen = itr->second;
-			screens_container.erase(itr);
-			screens_container.emplace_back(tmp_type, tmp_screen);
+			views_container.erase(itr);
+			views_container.emplace_back(tmp_type, tmp_screen);
 			tmp_screen->Activate();
 			return;
 		}
 	}
 
 	// State with l_type wasn't found.
-	if (!screens_container.empty())  screens_container.back().second->Deactivate(); 
+	if (!views_container.empty())  views_container.back().second->Deactivate(); 
 	CreateState(_type);
-	screens_container.back().second->Activate();
+	views_container.back().second->Activate();
 }
 
 void ViewManager::CreateState(ViewType _type) {
-	auto newView = screens.find(_type);
-	if (newView == screens.end()) return; 
+	auto newView = views.find(_type);
+	if (newView == views.end()) return; 
 	View* screen = newView->second();
-	screens_container.emplace_back(_type, screen);
+	views_container.emplace_back(_type, screen);
 
 }
 void ViewManager::RemoveState(ViewType _type) {
-	for (auto itr = screens_container.begin(); itr != screens_container.end(); ++itr)
+	for (auto itr = views_container.begin(); itr != views_container.end(); ++itr)
 	{
 		if (itr->first == _type) {
 			delete itr->second;
-			screens_container.erase(itr);
+			views_container.erase(itr);
 			return;
 		}
 	}
@@ -56,5 +56,5 @@ Shared* ViewManager::GetShared() {
 }
 
 void ViewManager::Draw() {
-	screens_container.back().second->Draw();
+	views_container.back().second->Draw();
 }

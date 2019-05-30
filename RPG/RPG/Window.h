@@ -17,13 +17,13 @@ public:
 	void Update();
 
 	void SwitchFullscreen();
-
 	void Close();
 	
 	sf::RenderWindow* GetRenderWindow();
 	EventManager* GetEventManager();
 	sf::Vector2u GetSize();
 	bool IsOpen();
+
 private:
 	bool isFullscreen;
 	bool isOpen;

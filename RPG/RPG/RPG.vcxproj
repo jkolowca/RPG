@@ -132,6 +132,7 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Text.cpp" />
+    <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="View.cpp" />
     <ClCompile Include="ViewManager.cpp" />
     <ClCompile Include="View_Game.cpp" />
@@ -147,6 +148,7 @@
     <ClInclude Include="Shared.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Text.h" />
+    <ClInclude Include="TextureManager.h" />
     <ClInclude Include="View.h" />
     <ClInclude Include="ViewManager.h" />
     <ClInclude Include="View_Game.h" />
