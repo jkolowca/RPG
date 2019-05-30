@@ -17,5 +17,5 @@ public:
 	void Interact(sf::Event::KeyEvent);
 	void Escape(sf::Event::KeyEvent);
 private:
-	Sprite sprite;
+	sf::Sprite sprite;
 };

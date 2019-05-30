@@ -19,6 +19,5 @@ public:
 	sf::Vector2f GetPosition();
 	sf::Vector2f GetSize();
 private:
-	sf::Texture texture;			//tekstura wyswietlana na obrazku
 	sf::Sprite sprite;				//obrazek
 };

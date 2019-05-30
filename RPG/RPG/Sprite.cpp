@@ -21,8 +21,7 @@ void Sprite::SetPosition(sf::Vector2f _position) {
 }
 
 void Sprite::SetTexture(const std::string& _file) {
-	texture.loadFromFile(_file);
-	sprite.setTexture(texture);
+	sprite.setTexture();
 	sprite.setOrigin(GetSize().x / 2.0f, GetSize().y / 2.0f);
 }
 

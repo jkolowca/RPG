@@ -130,7 +130,6 @@
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
-    <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="View.cpp" />
@@ -146,7 +145,6 @@
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Shared.h" />
-    <ClInclude Include="Sprite.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="View.h" />

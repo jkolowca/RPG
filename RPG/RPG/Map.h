@@ -12,12 +12,12 @@
 #define TileSize 72
 
 class Tile {
-	sf::Texture texture;
+	Shared* shared;
 	sf::Sprite sprite;
 	sf::RenderWindow* window;
 public:
-	Tile(sf::Vector2i location, sf::RenderWindow* _window);
-	~Tile() {}
+	Tile(sf::Vector2i location, Shared* _shared);
+	~Tile();
 	void Draw();
 	void Position(sf::Vector2f _position);
 };
