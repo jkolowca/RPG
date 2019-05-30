@@ -25,7 +25,8 @@ void Map::Load(int _level) {
 
 	int layer = 0;
 	sf::Vector2i position = { 0,0 }, tiletype;
-	std::regex r("(\\d*):(\\d*)");
+	std::regex r("(\\d*):(\\d*),(\\w{1})");
+	std::regex pp("(\\d*):(\\d*)");
 	std::regex size("(\\d*)x(\\d*)x(\\d*)");
 	std::smatch m;
 
@@ -34,7 +35,11 @@ void Map::Load(int _level) {
 	layers = stoi(m[1]);
 	mapSize = {stoi(m[2]), stoi(m[3])};
 
-	mmap.create(layers, mapSize.x, mapSize.y);
+	getline(file, tmp);
+	std::regex_search(tmp, m, pp);
+	playerposition = { stoi(m[1]),stoi(m[2]) };
+
+	map.create(layers, mapSize.x, mapSize.y);
 	
 
 	std::map<std::pair<int, int>, std::shared_ptr<Tile>> existingTiles;
@@ -55,7 +60,10 @@ void Map::Load(int _level) {
 				existingTiles[{tiletype.x, tiletype.y}] = ptr;
 			}
 
-			mmap(layer,position.x,position.y).tile = existingTiles[{tiletype.x, tiletype.y}];
+			map(layer,position.x,position.y).tile = existingTiles[{tiletype.x, tiletype.y}];
+			if (m[3] == 'y')
+				map(layer, position.x, position.y).solid = true;
+			else map(layer, position.x, position.y).solid = false;
 			tmp = m.suffix().str();
 			position.x++;
 		}
@@ -64,8 +72,8 @@ void Map::Load(int _level) {
 
 }
 
-int Map::Draw(int _layer) {
-	if (_layer + 1 > layers)return -1;
+bool Map::Draw(int _layer) {
+	if (_layer + 1 > layers)return false;
 	sf::Vector2i windowsize = { (int)shared->renderWindow->getSize().x, (int)shared->renderWindow->getSize().y };
 	sf::Vector2i margin = { (windowsize.x / 2 - (TileSize / 2)) / TileSize+1,(windowsize.y / 2 - (TileSize / 2)) / TileSize+1 };
 
@@ -112,16 +120,28 @@ int Map::Draw(int _layer) {
 			if (firstDrawn.x + x == playerposition.x&&firstDrawn.y + y == playerposition.y) {
 				player.setPosition({ (float)offset.x + x * 72, (float)offset.y + y * 72 });
 			}
-			if (mmap(_layer, firstDrawn.x + x,firstDrawn.y + y).tile) {
+			if (map(_layer, firstDrawn.x + x,firstDrawn.y + y).tile) {
 				
-				mmap(_layer, firstDrawn.x + x, firstDrawn.y + y).tile->Position({ (float)offset.x + x * 72, (float)offset.y + y * 72 });
-				mmap(_layer, firstDrawn.x + x, firstDrawn.y + y).tile->Draw();
+				map(_layer, firstDrawn.x + x, firstDrawn.y + y).tile->Position({ (float)offset.x + x * 72, (float)offset.y + y * 72 });
+				map(_layer, firstDrawn.x + x, firstDrawn.y + y).tile->Draw();
 			}
 		}
 	}
 	if (_layer + 1 != layers) {
 		shared->renderWindow->draw(player);
 	}
-	return 1;
+	return true;
 
 };
+
+bool Map::MakeMove(int _x, int _y) {
+	bool solid = false;
+	for (unsigned int i = 0; i < layers; i++) {
+		if (map(layers, playerposition.x + _x, playerposition.y + _y).solid) solid = true;
+}
+	if (!solid) {
+		playerposition = { playerposition.x + _x, playerposition.y + _y };
+		return true;
+	}
+	return false;
+}

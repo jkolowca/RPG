@@ -50,7 +50,6 @@ public:
 class Map {
 public:
 	Map(Shared* _shared) : shared(_shared) {
-		playerposition = { 0,0 };
 		player.setSize({ TileSize, TileSize });
 		player.setFillColor(sf::Color::Red);
 		player.setOrigin({ TileSize / 2, TileSize / 2 });
@@ -59,13 +58,14 @@ public:
 
 	void Load(int _level);
 
-	int Draw(int _layer);
-	sf::Vector2i playerposition;
+	bool Draw(int _layer);
+	bool MakeMove(int, int);
 private:
 
+	sf::Vector2i playerposition;
 	sf::Vector2i mapSize;
 	int layers;
-	Array3d mmap;
+	Array3d map;
 	Shared* shared;
 	sf::RectangleShape player;
 };

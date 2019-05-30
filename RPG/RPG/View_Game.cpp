@@ -46,14 +46,14 @@ void View_Game::Escape(sf::Event::KeyEvent) {
 	manager->SwitchTo(MainMenu);
 }
 void View_Game::Up(sf::Event::KeyEvent) {
-	map.playerposition.y--;
+	map.MakeMove(0, -1);
 }
 void View_Game::Down(sf::Event::KeyEvent) {
-	map.playerposition.y++;
+	map.MakeMove(0, 1);
 }
 void View_Game::Right(sf::Event::KeyEvent) {
-	map.playerposition.x++;
+	map.MakeMove(1, 0);
 }
 void View_Game::Left(sf::Event::KeyEvent) {
-	map.playerposition.x--;
+	map.MakeMove(-1, 0);
 }
