@@ -41,9 +41,10 @@ void EventManager::ProcessEvent(sf::Event _event) {
 	int keyCode;
 	if (_event.type == sf::Event::KeyPressed) {
 		keyCode = _event.key.code;
-	}
 	events[handles[keyCode]] = _event.key;
+	if(callbacks.count("keyPressed")>0)
 	events["keyPressed"] = _event.key;
+	}
 }
 
 void EventManager::Update() {
