@@ -21,6 +21,7 @@ public:
 	bool IsSelected();
 
 	sf::Vector2f GetSize();
+	std::string GetLabel();
 private:
 	bool selected;
 

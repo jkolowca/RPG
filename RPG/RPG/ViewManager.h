@@ -13,6 +13,7 @@ enum ViewType {
 	Game,
 	Paused,
 	GameOver,
+	Settings
 };
 
 class ViewManager {

@@ -1,13 +1,13 @@
 #include "Map.h"
 
 Tile::Tile(sf::Vector2i location, Shared* _shared) : window(_shared->renderWindow), shared(_shared) {
-	//texture.loadFromFile("dep\\ts\\lev0.png");
 	sprite.setTexture(*shared->textureManager.GetResource("dep\\ts\\lev0.png"));
 	sprite.setTextureRect({ location.x*TileSize, location.y*TileSize, TileSize, TileSize });
 	sprite.setOrigin(TileSize / 2, TileSize / 2);
 }
 Tile::~Tile() {
 	shared->textureManager.FreeResource("dep\\ts\\lev0.png");
+	std::cout << "tile destroyed" << std::endl;
 }
 void Tile::Draw() {
 	window->draw(sprite);

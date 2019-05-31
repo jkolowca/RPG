@@ -64,3 +64,7 @@ bool Button::IsSelected() {
 sf::Vector2f Button::GetSize() {
 	return rect.getSize();
 }
+
+std::string Button::GetLabel() {
+	return label.GetText();
+}

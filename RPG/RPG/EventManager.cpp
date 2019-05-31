@@ -17,6 +17,7 @@ void EventManager::RemoveAllCallbacks() {
 }
 
 void EventManager::ImportHandles() {
+	handles.clear();
 	std::ifstream file;
 	file.open("dep\\keys.txt"); 
 	if (!file) {
@@ -42,13 +43,20 @@ void EventManager::ProcessEvent(sf::Event _event) {
 		keyCode = _event.key.code;
 	}
 	events[handles[keyCode]] = _event.key;
+	events["keyPressed"] = _event.key;
 }
 
 void EventManager::Update() {
+	
 	for (auto const& it : events) {
 		if (callbacks[it.first]) {
 			callbacks[it.first](it.second);
 		}
 	}
+	
+	events.clear();
+}
+
+void EventManager::ClearEvents() {
 	events.clear();
 }

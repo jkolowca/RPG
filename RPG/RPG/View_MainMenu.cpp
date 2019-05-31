@@ -7,14 +7,9 @@ View_MainMenu::View_MainMenu(ViewManager* _manager) : View(_manager) {
 	title.SetText("MAIN MENU");
 
 
-	std::string str[3];
-	str[0] = "PLAY";
-	str[1] = "LOAD GAME";
-	str[2] = "EXIT";
-
-	for (int i = 0; i < 3; ++i) {
-		buttons[i].SetLabel(str[i]);
-	}
+	buttons[0].SetLabel("PLAY");
+	buttons[1].SetLabel("SETTINGS");
+	buttons[2].SetLabel("EXIT");
 }
 View_MainMenu::~View_MainMenu() {}
 
@@ -33,6 +28,7 @@ void View_MainMenu::Deactivate() {
 	manager->GetShared()->eventManager->RemoveCallback("up");
 	manager->GetShared()->eventManager->RemoveCallback("down");
 	manager->GetShared()->eventManager->RemoveCallback("escape");
+	buttons[selected].Deselect();
 }
 
 void View_MainMenu::Update(const sf::Time& l_time) {}
@@ -59,7 +55,7 @@ void View_MainMenu::select(sf::Event::KeyEvent) {
 		manager->SwitchTo(Game);
 	}
 	else if (selected == 1) {
-		manager->SwitchTo(Intro);
+		manager->SwitchTo(Settings);
 	}
 	else if (selected == 2) {
 		manager->GetShared()->window->Close();

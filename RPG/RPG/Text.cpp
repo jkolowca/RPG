@@ -34,3 +34,7 @@ void Text::SetText(const std::string& _text) {
 void Text::SetColor(sf::Color _color) {
 	text.setFillColor(_color);
 }
+
+std::string Text::GetText() {
+	return text.getString();
+}

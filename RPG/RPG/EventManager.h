@@ -21,6 +21,8 @@ public:
 
 	void ProcessEvent(sf::Event);
 	void Update();
+
+	void ClearEvents();
 private:
 	std::unordered_map<std::string, std::function<void(sf::Event::KeyEvent)>> callbacks;
 	std::unordered_map < int, std::string > handles;
