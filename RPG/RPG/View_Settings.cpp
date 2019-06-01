@@ -4,6 +4,7 @@
 #include <Windows.h>
 #include <fstream>
 #include <iostream>
+#include <stdio.h>
 
 View_Settings::View_Settings(ViewManager* _manager) : View(_manager), 
 key_names{"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
@@ -99,19 +100,19 @@ void View_Settings::Position() {
 	for (unsigned int i = 0; i < 4; i++) {
 		labels[i].SetPosition
 		({ (float)3*windowSize.x / 9, 
-			windowSize.y / 2+20 - 5*buttonSize.y + 4*i*buttonSize.y/3 });
+			windowSize.y / 2+10 - 5*buttonSize.y + 4*i*buttonSize.y/3 });
 		labels[7 - i].SetPosition
 		({ (float)3*windowSize.x / 9, 
-			windowSize.y / 2+20 + 5* buttonSize.y-4*i*buttonSize.y/3 });
+			windowSize.y / 2+10 + 5* buttonSize.y-4*i*buttonSize.y/3 });
 		buttons[i].SetPosition
 		({ 3*windowSize.x / 9 + 2*buttonSize.x, 
-			windowSize.y / 2+20 - 5 * buttonSize.y + 4 * i*buttonSize.y / 3 });
+			windowSize.y / 2+10 - 5 * buttonSize.y + 4 * i*buttonSize.y / 3 });
 		buttons[7-i].SetPosition
 		({ 3*windowSize.x / 9 + 2*buttonSize.x, 
-			windowSize.y / 2+20 + 5 * buttonSize.y - 4 * i*buttonSize.y / 3 });
+			windowSize.y / 2+10 + 5 * buttonSize.y - 4 * i*buttonSize.y / 3 });
 		buttons[11 - i].SetPosition
 		({ 3*windowSize.x / 9 + 3*buttonSize.x+buttonSize.x/2, 
-			windowSize.y / 2+20 + 5 * buttonSize.y - 4 * i*buttonSize.y / 3 });
+			windowSize.y / 2+10 + 5 * buttonSize.y - 4 * i*buttonSize.y / 3 });
 	}
 }
 
@@ -119,9 +120,54 @@ void View_Settings::Escape(sf::Event::KeyEvent) {
 	manager->SwitchTo(MainMenu);
 }
 void View_Settings::Select(sf::Event::KeyEvent) {
-	Deactivate();
-	//manager->GetShared()->eventManager->ClearEvents();
-	manager->GetShared()->eventManager->AddCallback("keyPressed", &View_Settings::KeyPressed, this);
+	if (selected != -1) {
+		Deactivate();
+		manager->GetShared()->eventManager->AddCallback("keyPressed", &View_Settings::KeyPressed, this);
+	}
+	else Save();
+}
+
+void View_Settings::Save() {
+	for (unsigned int i = 0; i < 11; i++) {
+		for (unsigned int j = i + 1; j < 12; j++) {
+			if (buttons[i].GetLabel() == buttons[j].GetLabel()) {
+				buttons[i].Select();
+				buttons[j].Select();
+				return;
+			}
+		}
+	}
+	std::ofstream file("dep\\keystemp.txt");
+	std::string temp;
+	int code;
+	for (unsigned int i = 0; i < 8; i++) {
+		temp = labels[i].GetText();
+		temp.pop_back();
+		file << temp << " ";
+		temp = buttons[i].GetLabel();
+		for (unsigned int j = 0; j < 101; j++) {
+			if (key_names[j] == temp) {
+				code = j;
+				break;
+			}
+		}
+		file << code;
+		if (i > 3) {
+			temp = buttons[i+4].GetLabel();
+			for (unsigned int j = 0; j < 101; j++) {
+				if (key_names[j] == temp) {
+					code = j;
+					break;
+				}
+			}
+			file << ", " << code;
+		}
+		file << ";\n";
+	}
+	file.close();
+	remove("dep\\keys.txt");
+	rename("dep\\keystemp.txt", "dep\\keys.txt");
+	manager->GetShared()->eventManager->ImportHandles();
 }
 void View_Settings::Up(sf::Event::KeyEvent) {
 	if (selected>0 && selected!=8) {

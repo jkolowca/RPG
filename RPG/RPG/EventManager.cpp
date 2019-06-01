@@ -57,7 +57,3 @@ void EventManager::Update() {
 	
 	events.clear();
 }
-
-void EventManager::ClearEvents() {
-	events.clear();
-}

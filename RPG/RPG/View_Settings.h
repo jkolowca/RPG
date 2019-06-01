@@ -26,6 +26,7 @@ public:
 private:
 	void AddCallbacks();
 	void LoadSettings();
+	void Save();
 
 	Text title;
 	Text labels[8];
