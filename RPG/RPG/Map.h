@@ -1,13 +1,6 @@
 #pragma once
-#include <SFML\Graphics.hpp>
-#include <memory>
-#include <regex>
-#include <fstream>
-#include <iostream>
-#include <map>
-#include <vector>
-#include <cmath>
 #include "Shared.h"
+#include <memory>
 
 #define TileSize 72
 

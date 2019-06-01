@@ -1,5 +1,4 @@
 #include "View_Intro.h"
-#include "Shared.h"
 #include "ViewManager.h"
 
 View_Intro::View_Intro(ViewManager* _manager) : View(_manager) {

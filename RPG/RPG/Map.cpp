@@ -1,4 +1,8 @@
 #include "Map.h"
+#include <regex>
+#include <iostream>
+#include <cmath>
+#include <fstream>
 
 Tile::Tile(sf::Vector2i location, Shared* _shared) : window(_shared->renderWindow), shared(_shared) {
 	sprite.setTexture(*shared->textureManager.GetResource("dep\\ts\\lev0.png"));
@@ -97,8 +101,10 @@ void Map::Load(int _level) {
 }
 bool Map::Draw(int _layer) {
 	if (_layer + 1 > layers)return false;
-	sf::Vector2i windowsize = { (int)shared->renderWindow->getSize().x, (int)shared->renderWindow->getSize().y };
-	sf::Vector2i margin = { (windowsize.x / 2 - (TileSize / 2)) / TileSize+1,(windowsize.y / 2 - (TileSize / 2)) / TileSize+1 };
+	sf::Vector2i windowsize =
+	{ (int)shared->renderWindow->getSize().x, (int)shared->renderWindow->getSize().y };
+	sf::Vector2i margin = 
+	{ (windowsize.x / 2 - (TileSize / 2)) / TileSize+1,(windowsize.y / 2 - (TileSize / 2)) / TileSize+1 };
 
 	sf::Vector2i firstDrawn = { 0,0 }, numberDrawn = { 2 * margin.x + 1, 2 * margin.y + 1 };
 	sf::Vector2i offset = { windowsize.x/2 - margin.x*TileSize, windowsize.y/2 - margin.y*TileSize };
@@ -145,7 +151,8 @@ bool Map::Draw(int _layer) {
 			}
 			if (map(_layer, firstDrawn.x + x,firstDrawn.y + y).tile) {
 				
-				map(_layer, firstDrawn.x + x, firstDrawn.y + y).tile->Position({ (float)offset.x + x * 72, (float)offset.y + y * 72 });
+				map(_layer, firstDrawn.x + x, firstDrawn.y + y).tile->Position
+				({ (float)offset.x + x * 72, (float)offset.y + y * 72 });
 				map(_layer, firstDrawn.x + x, firstDrawn.y + y).tile->Draw();
 			}
 		}

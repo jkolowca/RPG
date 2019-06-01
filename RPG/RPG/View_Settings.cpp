@@ -1,5 +1,4 @@
 #include "View_Settings.h"
-#include "Shared.h"
 #include "ViewManager.h"
 #include <Windows.h>
 #include <fstream>

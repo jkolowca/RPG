@@ -1,6 +1,5 @@
 #include "View_MainMenu.h"
 #include "ViewManager.h"
-#include "Application.h"
 
 View_MainMenu::View_MainMenu(ViewManager* _manager) : View(_manager) {
 	title.SetSize(25);
