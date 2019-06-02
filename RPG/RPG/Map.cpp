@@ -4,7 +4,7 @@
 #include <cmath>
 #include <fstream>
 
-Tile::Tile(sf::Vector2i location, Shared* _shared) : window(_shared->renderWindow), shared(_shared) {
+	Tile::Tile(sf::Vector2i location, Shared* _shared) : window(_shared->renderWindow), shared(_shared) {
 	sprite.setTexture(*shared->textureManager.GetResource("dep\\ts\\lev0.png"));
 	sprite.setTextureRect({ location.x*TileSize, location.y*TileSize, TileSize, TileSize });
 	sprite.setOrigin(TileSize / 2, TileSize / 2);
@@ -37,10 +37,11 @@ TileInfo& Array3d::operator()(int K, int L, int M) {
 
 
 Map::Map(Shared* _shared) : shared(_shared) {
-	player.setSize({ TileSize, TileSize });
-	player.setFillColor(sf::Color::Red);
-	player.setOrigin({ TileSize / 2, TileSize / 2 });
+	player.setSize({ TileSize/2, TileSize });
+	player.setFillColor(sf::Color::White);
+	player.setOrigin({ player.getSize().x/2, 3* player.getSize().y / 4 });
 }
+
 void Map::Load(int _level) {
 	std::string tmp = "dep\\map\\lev" + std::to_string(_level) + ".txt";
 
@@ -61,14 +62,14 @@ void Map::Load(int _level) {
 	getline(file, tmp);
 	std::regex_search(tmp, m, size);
 	layers = stoi(m[1]);
-	mapSize = {stoi(m[2]), stoi(m[3])};
+	mapSize = { stoi(m[2]), stoi(m[3]) };
 
 	getline(file, tmp);
 	std::regex_search(tmp, m, pp);
-	playerposition = { stoi(m[1]),stoi(m[2]) };
+	playerposition = { stof(m[1]),stof(m[2]) };
 
 	map.Create(layers, mapSize.x, mapSize.y);
-	
+
 
 	std::map<std::pair<int, int>, std::shared_ptr<Tile>> existingTiles;
 	while (getline(file, tmp)) {
@@ -88,7 +89,7 @@ void Map::Load(int _level) {
 				existingTiles[{tiletype.x, tiletype.y}] = ptr;
 			}
 
-			map(layer,position.x,position.y).tile = existingTiles[{tiletype.x, tiletype.y}];
+			map(layer, position.x, position.y).tile = existingTiles[{tiletype.x, tiletype.y}];
 			if (m[3] == 'y')
 				map(layer, position.x, position.y).solid = true;
 			else map(layer, position.x, position.y).solid = false;
@@ -101,15 +102,15 @@ void Map::Load(int _level) {
 }
 bool Map::Draw(int _layer) {
 	if (_layer + 1 > layers)return false;
-	sf::Vector2i windowsize =
-	{ (int)shared->renderWindow->getSize().x, (int)shared->renderWindow->getSize().y };
+	sf::Vector2f windowsize =
+	{ (float)shared->renderWindow->getSize().x, (float)shared->renderWindow->getSize().y };
 	sf::Vector2i margin = 
-	{ (windowsize.x / 2 - (TileSize / 2)) / TileSize+1,(windowsize.y / 2 - (TileSize / 2)) / TileSize+1 };
+	{ (int)ceil((windowsize.x / 2 - (TileSize / 2)) / TileSize),(int)ceil((windowsize.y / 2 - (TileSize / 2)) / TileSize) };
 
 	sf::Vector2i firstDrawn = { 0,0 }, numberDrawn = { 2 * margin.x + 1, 2 * margin.y + 1 };
-	sf::Vector2i offset = { windowsize.x/2 - margin.x*TileSize, windowsize.y/2 - margin.y*TileSize };
+	sf::Vector2f offset = { windowsize.x/2 - margin.x*TileSize, windowsize.y/2 - margin.y*TileSize };
 	
-	if (mapSize.x < windowsize.x / TileSize) {
+	if ((float)mapSize.x < windowsize.x / TileSize) {
 		numberDrawn.x = mapSize.x;
 		offset.x = TileSize / 2 + windowsize.x / 2 - mapSize.x*TileSize/2;
 	}
@@ -126,7 +127,7 @@ bool Map::Draw(int _layer) {
 		firstDrawn.x = playerposition.x - margin.x;
 	}
 
-	if (mapSize.y < windowsize.y / TileSize) {
+	if ((float)mapSize.y < windowsize.y / TileSize) {
 		numberDrawn.y = mapSize.y;
 		offset.y = TileSize / 2 + windowsize.y / 2 - mapSize.y*TileSize/2;
 	}
@@ -157,10 +158,12 @@ bool Map::Draw(int _layer) {
 			}
 		}
 	}
+	if(_layer==0)
 	shared->renderWindow->draw(player);
 	return true;
 
 };
+
 bool Map::MakeMove(int _x, int _y) {
 	bool s = false;
 	for (unsigned int i = 0; i < layers; i++) {

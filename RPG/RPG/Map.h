@@ -41,7 +41,7 @@ public:
 	bool MakeMove(int, int);
 
 private:
-	sf::Vector2i playerposition;
+	sf::Vector2f playerposition;
 	sf::Vector2i mapSize;
 	int layers;
 	Array3d map;

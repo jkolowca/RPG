@@ -1,5 +1,6 @@
 #include "View_Game.h"
 #include "ViewManager.h"
+#include <iostream>
 
 View_Game::View_Game(ViewManager* _manager) : View(_manager), map(manager->GetShared()) {
 	map.Load(0);
@@ -32,6 +33,7 @@ void View_Game::Update(const sf::Time& l_time) {}
 void View_Game::Draw() {
 	map.Draw(0);
 	map.Draw(1);
+	map.Draw(2);
 }
 
 void View_Game::Position() {
