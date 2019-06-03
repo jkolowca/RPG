@@ -1,6 +1,5 @@
 #pragma once
 #include "EntityBase.h"
-#include "Sprite.h"
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -16,7 +15,7 @@ public:
 	void Draw(sf::RenderWindow* l_wind);
 protected:
 	//void Animate();
-	Sprite m_spriteSheet;
+	sf::Sprite m_spriteSheet;
 	
 
 };

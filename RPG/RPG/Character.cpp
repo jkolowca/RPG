@@ -1,5 +1,5 @@
 #include "Character.h"
-
+#include "EntityManager.h"
 
 Character::Character(EntityManager* l_entityMgr)
 	:EntityBase(l_entityMgr)
@@ -35,7 +35,7 @@ void Character::Load(const std::string & l_path)
 		else if (type == "Spritesheet") {
 			std::string path;
 			keystream >> path;
-			m_spriteSheet.SetTexture(path);
+			m_spriteSheet.setTexture(*m_entityManager->GetContext()->textureManager.GetResource(path));
 		}
 		else if (type == "BoundingBox") {
 			sf::Vector2f boundingSize;
@@ -58,11 +58,11 @@ void Character::Load(const std::string & l_path)
 void Character::Update(float l_dT)
 {
 	EntityBase::Update(l_dT);
-	m_spriteSheet.SetPosition(m_position);
+	m_spriteSheet.setPosition(m_position);
 }
 
 void Character::Draw(sf::RenderWindow * l_wind)
 {
-	m_spriteSheet.Draw(l_wind);
+	l_wind->draw(m_spriteSheet);
 }
 

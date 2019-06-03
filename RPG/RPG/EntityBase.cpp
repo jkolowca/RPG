@@ -1,4 +1,5 @@
 #include "EntityBase.h"
+#include "EntityManager.h"
 
 
 EntityBase::EntityBase(EntityManager * l_entityMgr):m_entityManager(l_entityMgr), m_name("BaseEntity"),
