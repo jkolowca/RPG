@@ -7,13 +7,14 @@ Player::Player()
 	texture.loadFromFile("dep\\Player\\Player.png");
 	_Sprite.setTexture(texture);
 	_Sprite.setPosition(600 - 64, 350 - 64); //Set Sprite Position
-	_Sprite.setScale(1.5, 1.5);
+	_Sprite.setOrigin({ 64 / 2, 3 * 72 / 4 });
+	_Sprite.setScale(1.3, 1.3);
 	sf::Vector2i _Source(0, 10); //Default Sprite Sheet Crop
 	_Sprite.setTextureRect(sf::IntRect(_Source.x *64, _Source.y *64, 64, 64)); //Crop Sprite Sheet (Default Crop)
 
 	//PLAYER / ANIMATION SPEED
 	_AnimTime = sf::milliseconds(80); //Animation Speed
-	_Speed = 5.1f; //Player Speed
+	_Speed = 2.1f; //Player Speed
 }
 
 

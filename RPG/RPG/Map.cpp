@@ -37,9 +37,11 @@ TileInfo& Array3d::operator()(int K, int L, int M) {
 
 
 Map::Map(Shared* _shared) : shared(_shared) {
-	player.setSize({ TileSize/2, TileSize });
-	player.setFillColor(sf::Color::White);
-	player.setOrigin({ player.getSize().x/2, 3* player.getSize().y / 4 });
+	//player.setSize({ TileSize/2, TileSize });
+	/*player.setFillColor(sf::Color::White);*/
+	//player.setOrigin({ player.getSize().x/2, 3* player.getSize().y / 4 });
+
+	
 }
 
 void Map::Load(int _level) {
@@ -148,7 +150,7 @@ bool Map::Draw(int _layer) {
 	for (int x = 0; x < numberDrawn.x; x++) {
 		for (int y = 0; y < numberDrawn.y; y++) {
 			if (firstDrawn.x + x == playerposition.x&&firstDrawn.y + y == playerposition.y) {
-				player.setPosition({ (float)offset.x + x * 72, (float)offset.y + y * 72 });
+				player.SetPosition( (float)offset.x + x * 72, (float)offset.y + y * 72 );
 			}
 			if (map(_layer, firstDrawn.x + x,firstDrawn.y + y).tile) {
 				
@@ -158,8 +160,10 @@ bool Map::Draw(int _layer) {
 			}
 		}
 	}
-	if(_layer==0)
-	shared->renderWindow->draw(player);
+	if (_layer == 0)
+		//shared->renderWindow->draw(player);
+		shared->renderWindow->draw(player.getSprite());
+
 	return true;
 
 };
@@ -170,7 +174,7 @@ bool Map::MakeMove(int _x, int _y) {
 		if (map(i, playerposition.x + _x, playerposition.y + _y).solid) s = true;
 }
 	if (!s) {
-		playerposition = { playerposition.x + _x, playerposition.y + _y };
+		playerposition = { playerposition.x + _x, playerposition.y + _y};
 		return true;
 	}
 	return false;

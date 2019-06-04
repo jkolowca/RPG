@@ -1,7 +1,7 @@
 #pragma once
 #include "Shared.h"
 #include <memory>
-
+#include "Player.h"
 #define TileSize 72
 
 class Tile {
@@ -46,5 +46,7 @@ private:
 	int layers;
 	Array3d map;
 	Shared* shared;
-	sf::RectangleShape player;
+	//sf::RectangleShape player;
+	Player player;
+
 };

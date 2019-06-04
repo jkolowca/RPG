@@ -12,13 +12,13 @@ public:
 	void moveRight();
 	void moveLeft();
 	void setSpeed(float sp, sf::Time anTime);
-	
+	sf::Sprite getSprite() { return _Sprite; }
 	void Draw(sf::RenderWindow &window)
 	{
 		window.draw(_Sprite);
 	}
 	void SetPosition(const float& l_x, const float& l_y);
-
+	sf::Vector2f GetPosition() { return m_position; }
 private:
 	
 	sf::Vector2f m_position; //aktualna pozycja jednostki
