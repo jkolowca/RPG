@@ -2,111 +2,86 @@
 
 
 
-Player::Player()
+Player::Player(Shared* _shared): shared(_shared)
 {
 	texture.loadFromFile("dep\\Player\\Player.png");
 	_Sprite.setTexture(texture);
-	_Sprite.setPosition(600 - 64, 350 - 64); //Set Sprite Position
 	_Sprite.setOrigin({ 64 / 2, 3 * 72 / 4 });
 	_Sprite.setScale(1.3, 1.3);
 	sf::Vector2i _Source(0, 10); //Default Sprite Sheet Crop
 	_Sprite.setTextureRect(sf::IntRect(_Source.x *64, _Source.y *64, 64, 64)); //Crop Sprite Sheet (Default Crop)
 
 	//PLAYER / ANIMATION SPEED
-	_AnimTime = sf::milliseconds(80); //Animation Speed
-	_Speed = 2.1f; //Player Speed
+	frameTime = sf::milliseconds(70);
+	animationTime = sf::milliseconds(300);
 }
 
 
-Player::~Player()
-{
+Player::~Player() {}
+
+void Player::Update() {
+	if (animationClock.getElapsedTime() < animationTime) {
+		_Sprite.setPosition(m_position.x + speed.x*animationClock.getElapsedTime().asSeconds(), m_position.y + speed.y*animationClock.getElapsedTime().asSeconds());
+		if (frameClock.getElapsedTime() > frameTime) {
+			_Source.x++;
+			if (_Source.x >= 9) {
+				_Source.x = 0;
+			}
+			_Sprite.setTextureRect(sf::IntRect(_Source.x * 64, _Source.y * 64, 64, 64));
+			frameClock.restart();
+		}
+	}
+	else {
+		m_position = { m_position.x + speed.x*animationTime.asSeconds(), m_position.y + speed.y*animationTime.asSeconds() };
+		_Sprite.setPosition(m_position.x, m_position.y);
+		speed = { 0,0 };
+		moving = false;
+	}
 }
 
-
-void Player::moveUp()
+void Player::moveUp(float _shift)
 {
 	_Source.y = 8; //Set '_Source.y' Equal To 'Up' (_Direction Enum)
-	_Sprite.move(0, -_Speed); //Move Player Sprite
-
-	if (_AnimClock.getElapsedTime() > _AnimTime)
-	{
-		_Sprite.setTextureRect(sf::IntRect(_Source.x * 64, _Source.y * 64, 64, 64)); //Crop Sprite Sheet
-
-		//Animation
-		_Source.x++;
-		if (_Source.x * 64 >= 576) //last anim.
-		{
-			_Source.x = 0;
-		}
-		_AnimClock.restart();
-	}
+	speed.y = _shift / animationTime.asSeconds();
+	moving = true;
+	frameClock.restart();
+	animationClock.restart();
 }
-void Player::moveDown()
+void Player::moveDown(float _shift)
 {
 	_Source.y = 10; //Set '_Source.y' Equal To 'Down'
-	_Sprite.move(0, _Speed); //Move Player Sprite
-
-	if (_AnimClock.getElapsedTime() > _AnimTime)
-	{
-		_Sprite.setTextureRect(sf::IntRect(_Source.x * 64, _Source.y * 64, 64, 64)); //Crop Sprite Sheet
-
-		//Animation
-		_Source.x++;
-		if (_Source.x * 64 >= 576)
-		{
-			_Source.x = 0;
-		}
-		_AnimClock.restart();
-
-	}
-
+	speed.y = _shift / animationTime.asSeconds();
+	moving = true;
+	frameClock.restart();
+	animationClock.restart();
 }
 
-void Player::moveRight()
+void Player::moveRight(float _shift)
 {
 	_Source.y = 11; //Set '_Source.y' Equal To 'Right'
-	_Sprite.move(_Speed, 0); //Move Player Sprite
-
-	if (_AnimClock.getElapsedTime() > _AnimTime)
-	{
-		_Sprite.setTextureRect(sf::IntRect(_Source.x * 64, _Source.y * 64, 64, 64)); //Crop Sprite Sheet
-
-		//Animation
-		_Source.x++;
-		if (_Source.x * 64 >= 576)
-		{
-			_Source.x = 0;
-		}
-		_AnimClock.restart();
-	}
+	speed.x = _shift / animationTime.asSeconds();
+	moving = true;
+	frameClock.restart();
+	animationClock.restart();
 }
 
-void Player::moveLeft()
+void Player::moveLeft(float _shift)
 {
 	_Source.y = 9; //Set '_Source.y' Equal To 'Left'
-	_Sprite.move(-_Speed, 0); //Move Player Sprite
-
-	if (_AnimClock.getElapsedTime() > _AnimTime)
-	{
-		_Sprite.setTextureRect(sf::IntRect(_Source.x * 64, _Source.y * 64, 64,64)); //Crop Sprite Sheet
-
-		//Animation
-		_Source.x++;
-		if (_Source.x * 64 >= 576)
-		{
-			_Source.x = 0;
-		}
-		_AnimClock.restart();
-	}
+	speed.x = _shift / animationTime.asSeconds();
+	moving = true;
+	frameClock.restart();
+	animationClock.restart();
 }
-void Player::SetPosition(const float & l_x, const float & l_y)
+
+void Player::SetPosition(sf::Vector2f _position)
 {
-	m_position = sf::Vector2f(l_x, l_y);
-	_Sprite.setPosition(l_x, l_y);
+	m_position = _position;
+	_Sprite.setPosition(_position.x, _position.y);
 }
 void Player::setSpeed(float sp, sf::Time anTime)
 {
-	_Speed = sp;
-	_AnimTime = anTime;
+	//_Speed = sp;
+	//_AnimTime = anTime;
 }
 

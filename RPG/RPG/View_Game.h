@@ -1,6 +1,7 @@
 #pragma once
 #include "View.h"
 #include "Map.h"
+#include "Player.h"
 
 class View_Game : public View {
 public:
@@ -10,7 +11,7 @@ public:
 	void Activate();
 	void Deactivate();
 
-	void Update(const sf::Time& l_time);
+	void Update();
 	void Draw();
 	void Position();
 
@@ -23,4 +24,5 @@ public:
 
 private:
 	Map map;
+	Player player;
 };

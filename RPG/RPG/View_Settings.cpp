@@ -74,7 +74,7 @@ void View_Settings::Deactivate() {
 	manager->GetShared()->eventManager->RemoveCallback("left");
 }
 
-void View_Settings::Update(const sf::Time& l_time) {}
+void View_Settings::Update() {}
 
 void View_Settings::Draw() {
 	sf::RenderWindow* window = manager->GetShared()->renderWindow;

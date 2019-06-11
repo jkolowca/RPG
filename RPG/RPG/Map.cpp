@@ -36,13 +36,7 @@ TileInfo& Array3d::operator()(int K, int L, int M) {
 }
 
 
-Map::Map(Shared* _shared) : shared(_shared) {
-	//player.setSize({ TileSize/2, TileSize });
-	/*player.setFillColor(sf::Color::White);*/
-	//player.setOrigin({ player.getSize().x/2, 3* player.getSize().y / 4 });
-
-	
-}
+Map::Map(Shared* _shared) : shared(_shared) {}
 
 void Map::Load(int _level) {
 	std::string tmp = "dep\\map\\lev" + std::to_string(_level) + ".txt";
@@ -68,7 +62,7 @@ void Map::Load(int _level) {
 
 	getline(file, tmp);
 	std::regex_search(tmp, m, pp);
-	playerposition = { stof(m[1]),stof(m[2]) };
+	playercoordinates = { stoi(m[1]),stoi(m[2]) };
 
 	map.Create(layers, mapSize.x, mapSize.y);
 
@@ -100,58 +94,15 @@ void Map::Load(int _level) {
 		}
 		position.y++;
 	}
-
+	calculateMapPosition();
 }
+
 bool Map::Draw(int _layer) {
 	if (_layer + 1 > layers)return false;
-	sf::Vector2f windowsize =
-	{ (float)shared->renderWindow->getSize().x, (float)shared->renderWindow->getSize().y };
-	sf::Vector2i margin = 
-	{ (int)ceil((windowsize.x / 2 - (TileSize / 2)) / TileSize),(int)ceil((windowsize.y / 2 - (TileSize / 2)) / TileSize) };
-
-	sf::Vector2i firstDrawn = { 0,0 }, numberDrawn = { 2 * margin.x + 1, 2 * margin.y + 1 };
-	sf::Vector2f offset = { windowsize.x/2 - margin.x*TileSize, windowsize.y/2 - margin.y*TileSize };
-	
-	if ((float)mapSize.x < windowsize.x / TileSize) {
-		numberDrawn.x = mapSize.x;
-		offset.x = TileSize / 2 + windowsize.x / 2 - mapSize.x*TileSize/2;
-	}
-	else if (playerposition.x < margin.x) {
-		numberDrawn.x = windowsize.x/TileSize +1;
-		offset.x = TileSize / 2;
-	}
-	else if (mapSize.x - playerposition.x - 1 < margin.x) {
-		numberDrawn.x = windowsize.x / TileSize + 1;
-		firstDrawn.x = mapSize.x - numberDrawn.x;
-		offset.x = windowsize.x - numberDrawn.x*TileSize+TileSize/2;
-	}
-	else {
-		firstDrawn.x = playerposition.x - margin.x;
-	}
-
-	if ((float)mapSize.y < windowsize.y / TileSize) {
-		numberDrawn.y = mapSize.y;
-		offset.y = TileSize / 2 + windowsize.y / 2 - mapSize.y*TileSize/2;
-	}
-	else if (playerposition.y < margin.y) {
-		numberDrawn.y = windowsize.y / TileSize + 1;
-		offset.y = TileSize / 2;
-	}
-	else if (mapSize.y - playerposition.y - 1 < margin.y) {
-		numberDrawn.y = windowsize.y / TileSize + 1;
-		firstDrawn.y = mapSize.y - numberDrawn.y;
-		offset.y = windowsize.y - numberDrawn.y*TileSize+TileSize/2;
-	}
-	else {
-		firstDrawn.y = playerposition.y - margin.y;
-	}
 
 
 	for (int x = 0; x < numberDrawn.x; x++) {
 		for (int y = 0; y < numberDrawn.y; y++) {
-			if (firstDrawn.x + x == playerposition.x&&firstDrawn.y + y == playerposition.y) {
-				player.SetPosition( (float)offset.x + x * 72, (float)offset.y + y * 72 );
-			}
 			if (map(_layer, firstDrawn.x + x,firstDrawn.y + y).tile) {
 				
 				map(_layer, firstDrawn.x + x, firstDrawn.y + y).tile->Position
@@ -160,9 +111,6 @@ bool Map::Draw(int _layer) {
 			}
 		}
 	}
-	if (_layer == 0)
-		//shared->renderWindow->draw(player);
-		shared->renderWindow->draw(player.getSprite());
 
 	return true;
 
@@ -171,11 +119,59 @@ bool Map::Draw(int _layer) {
 bool Map::MakeMove(int _x, int _y) {
 	bool s = false;
 	for (unsigned int i = 0; i < layers; i++) {
-		if (map(i, playerposition.x + _x, playerposition.y + _y).solid) s = true;
+		if (map(i, playercoordinates.x + _x, playercoordinates.y + _y).solid) s = true;
 }
 	if (!s) {
-		playerposition = { playerposition.x + _x, playerposition.y + _y};
+		playercoordinates = { playercoordinates.x + _x, playercoordinates.y + _y};
+		calculateMapPosition();
 		return true;
 	}
 	return false;
+}
+
+void Map::calculateMapPosition() {
+	sf::Vector2f oldPlayerPosition = playerposition;
+	sf::Vector2f windowsize = { (float)shared->renderWindow->getSize().x, (float)shared->renderWindow->getSize().y };
+
+	 margin = { (int)ceil((windowsize.x / 2 - (TileSize / 2)) / TileSize),(int)ceil((windowsize.y / 2 - (TileSize / 2)) / TileSize) };
+	firstDrawn = { 0,0 };
+	numberDrawn = { 2 * margin.x + 1, 2 * margin.y + 1 };
+	offset = { windowsize.x / 2 - margin.x*TileSize, windowsize.y / 2 - margin.y*TileSize };
+
+	if ((float)mapSize.x < windowsize.x / TileSize) {
+		numberDrawn.x = mapSize.x;
+		offset.x = TileSize / 2 + windowsize.x / 2 - mapSize.x*TileSize / 2;
+	}
+	else if (playercoordinates.x < margin.x) {
+		numberDrawn.x = windowsize.x / TileSize + 1;
+		offset.x = TileSize / 2;
+	}
+	else if (mapSize.x - playercoordinates.x - 1 < margin.x) {
+		numberDrawn.x = windowsize.x / TileSize + 1;
+		firstDrawn.x = mapSize.x - numberDrawn.x;
+		offset.x = windowsize.x - numberDrawn.x*TileSize + TileSize / 2;
+	}
+	else {
+		firstDrawn.x = playercoordinates.x - margin.x;
+	}
+
+	if ((float)mapSize.y < windowsize.y / TileSize) {
+		numberDrawn.y = mapSize.y;
+		offset.y = TileSize / 2 + windowsize.y / 2 - mapSize.y*TileSize / 2;
+	}
+	else if (playercoordinates.y < margin.y) {
+		numberDrawn.y = windowsize.y / TileSize + 1;
+		offset.y = TileSize / 2;
+	}
+	else if (mapSize.y - playercoordinates.y - 1 < margin.y) {
+		numberDrawn.y = windowsize.y / TileSize + 1;
+		firstDrawn.y = mapSize.y - numberDrawn.y;
+		offset.y = windowsize.y - numberDrawn.y*TileSize + TileSize / 2;
+	}
+	else {
+		firstDrawn.y = playercoordinates.y - margin.y;
+	}
+
+	playerposition = { (float)offset.x + (playercoordinates.x-firstDrawn.x) * 72, (float)offset.y + (playercoordinates.y-firstDrawn.y) * 72 };
+	playerShift = {playerposition.x-oldPlayerPosition.x, playerposition.y-oldPlayerPosition.y};
 }

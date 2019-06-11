@@ -22,6 +22,7 @@ public:
 	~ViewManager();
 
 	void Draw();
+	void Update();
 
 	void SwitchTo(ViewType);
 	Shared* GetShared();

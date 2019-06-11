@@ -1,7 +1,6 @@
 #pragma once
 #include "Shared.h"
 #include <memory>
-#include "Player.h"
 #define TileSize 72
 
 class Tile {
@@ -40,13 +39,22 @@ public:
 	bool Draw(int _layer);
 	bool MakeMove(int, int);
 
+
+	sf::Vector2f getPlayerPosition() {
+		return playerposition;
+	}
+
+	sf::Vector2f getPlayerShift() {
+		return playerShift;
+	}
 private:
-	sf::Vector2f playerposition;
+	void calculateMapPosition();
+	sf::Vector2f playerposition, playerShift;
+	sf::Vector2i playercoordinates;
 	sf::Vector2i mapSize;
 	int layers;
 	Array3d map;
 	Shared* shared;
-	//sf::RectangleShape player;
-	Player player;
-
+	sf::Vector2i firstDrawn, margin, numberDrawn;
+	sf::Vector2f offset;
 };
