@@ -1,5 +1,5 @@
 #pragma once
-#include "EntityBase.h"
+#include "EntityManager.h"
 #include <fstream>
 #include <iostream>
 #include <string>

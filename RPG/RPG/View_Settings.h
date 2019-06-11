@@ -11,7 +11,7 @@ public:
 	void Activate();
 	void Deactivate();
 
-	void Update();
+	void Update(const sf::Time& l_time);
 	void Draw();
 	void Position();
 

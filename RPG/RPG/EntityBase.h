@@ -35,7 +35,7 @@ protected:
 	std::string m_name;
 	EntityType m_type;
 	unsigned int m_id; 
-	sf::Vector2f m_position; //aktualna pozycja
+	sf::Vector2f m_position; //aktualna pozycja jednostki
 	sf::Vector2f m_positionOld; //pozycja przed wykonaniem ruchu
 	sf::Vector2f m_velocity; //aktualna prêdkoœæ
 	sf::Vector2f m_size; //size of the collision box
@@ -43,7 +43,7 @@ protected:
 	EntityState m_state; //aktualny stan
 	bool m_collidingOnX; //koliduje z X
 	bool m_collidingOnY; //koliduje z Y
-	EntityManager*m_entityManager;
+	EntityManager* m_entityManager;
 	
 };
 

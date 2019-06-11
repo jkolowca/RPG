@@ -22,7 +22,7 @@ class EntityManager
 	void Update(float l_dT);
 	void Draw();
 	void Purge(); //usuwa wszystkie jednostki
-	Shared*GetContext() { return m_context; };
+	Shared*GetContext() { return m_context; }
 	private:
 
 	template<class T>

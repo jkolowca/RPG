@@ -30,7 +30,7 @@ void View_MainMenu::Deactivate() {
 	buttons[selected].Deselect();
 }
 
-void View_MainMenu::Update() {}
+void View_MainMenu::Update(const sf::Time& l_time) {}
 void View_MainMenu::Draw() {
 	for (int i = 0; i < 3; ++i) {
 		buttons[i].Draw(manager->GetShared()->renderWindow);

@@ -21,7 +21,7 @@ void View_Intro::Deactivate() {
 	manager->GetShared()->eventManager->RemoveCallback("escape");
 }
 
-void View_Intro::Update() {}
+void View_Intro::Update(const sf::Time& l_time) {}
 
 void View_Intro::Draw() {
 	manager->GetShared()->renderWindow->draw(sprite);
