@@ -10,6 +10,7 @@ public:
 	virtual void Deactivate() = 0;
 	virtual void Position() = 0;
 	virtual void Draw() = 0;
+	virtual void Update() = 0;
 protected:
 	ViewManager * manager;
 };

@@ -5,6 +5,7 @@ Application::~Application() {}
 
 void Application::Update() {
 	window.Update();
+	v_manager.Update();
 }
 void Application::Render() {
 	window.Clear();

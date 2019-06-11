@@ -60,3 +60,7 @@ Shared* ViewManager::GetShared() {
 void ViewManager::Draw() {
 	views_container.back().second->Draw();
 }
+
+void ViewManager::Update() {
+	views_container.back().second->Update();
+}

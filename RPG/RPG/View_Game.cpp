@@ -2,9 +2,9 @@
 #include "ViewManager.h"
 #include <iostream>
 
-View_Game::View_Game(ViewManager* _manager) : View(_manager), map(manager->GetShared()),player() {
+View_Game::View_Game(ViewManager* _manager) : View(_manager), map(manager->GetShared()), player(manager->GetShared()) {
 	map.Load(0);
-
+	player.SetPosition(map.getPlayerPosition());
 }
 View_Game::~View_Game() {}
 
@@ -29,14 +29,15 @@ void View_Game::Deactivate() {
 	manager->GetShared()->eventManager->RemoveCallback("left");
 }
 
-void View_Game::Update(const sf::Time& l_time) {}
+void View_Game::Update() {
+	player.Update();
+}
 
 void View_Game::Draw() {
 	map.Draw(0);
 	map.Draw(1);
+	player.Draw();
 	map.Draw(2);
-	
-
 }
 
 void View_Game::Position() {
@@ -51,20 +52,22 @@ void View_Game::Escape(sf::Event::KeyEvent) {
 	manager->SwitchTo(MainMenu);
 }
 void View_Game::Up(sf::Event::KeyEvent) {
-	map.MakeMove(0, -1);
-	
-	
-	
+	if(!player.isMoving())
+	if (map.MakeMove(0, -1)) 
+		player.moveUp(map.getPlayerShift().y);
 }
 void View_Game::Down(sf::Event::KeyEvent) {
-	map.MakeMove(0, 1);
-	
+	if (!player.isMoving())
+	if(map.MakeMove(0, 1)) 
+		player.moveDown(map.getPlayerShift().y);
 }
 void View_Game::Right(sf::Event::KeyEvent) {
-	map.MakeMove(1, 0);
-	
+	if (!player.isMoving())
+	if(map.MakeMove(1, 0)) 
+		player.moveRight(map.getPlayerShift().x);
 }
 void View_Game::Left(sf::Event::KeyEvent) {
-	map.MakeMove(-1, 0);
-	
+	if (!player.isMoving())
+	if(map.MakeMove(-1, 0)) 
+		player.moveLeft(map.getPlayerShift().x);
 }
