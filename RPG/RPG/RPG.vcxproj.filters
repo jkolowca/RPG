@@ -131,5 +131,8 @@
     <Image Include="dep\Player\Player0.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="dep\Player\Player1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

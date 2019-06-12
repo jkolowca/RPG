@@ -3,6 +3,14 @@
 #include <SFML/Graphics.hpp>
 #include "Shared.h"
 
+//stworzyæ liste postaci
+//dodawaæ je po id do listy
+//funkcja zwracaj¹ca postaaæ
+//shared??
+
+
+
+
 class Player
 {
 public:
@@ -17,6 +25,8 @@ public:
 	void moveLeft(float);
 	void setSpeed(float sp, sf::Time anTime);
 	sf::Sprite getSprite() { return _Sprite; }
+	void setID(int _id) { m_id = _id; }
+	int getID() { return m_id; }
 	void Draw()
 	{
 		shared->renderWindow->draw(_Sprite);
