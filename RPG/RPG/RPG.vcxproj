@@ -145,6 +145,7 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="EventManager.h" />
+    <ClInclude Include="C_Movable.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Shared.h" />
