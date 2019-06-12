@@ -2,9 +2,9 @@
 
 
 
-Player::Player(Shared* _shared): shared(_shared)
+Player::Player(Shared* _shared, int id): shared(_shared),m_id(id)
 {
-	texture.loadFromFile("dep\\Player\\Player.png");
+	texture.loadFromFile("dep\\Player\\Player"+std::to_string(id)+".png");
 	_Sprite.setTexture(texture);
 	_Sprite.setOrigin({ 64 / 2, 3 * 72 / 4 });
 	_Sprite.setScale(1.3, 1.3);

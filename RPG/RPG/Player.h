@@ -2,10 +2,11 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "Shared.h"
+
 class Player
 {
 public:
-	Player(Shared*);
+	Player(Shared*,int id);
 	~Player();
 
 	void Update();
@@ -30,7 +31,7 @@ private:
 	Shared* shared;
 	sf::Texture texture;
 	sf::Vector2f _Source;
-
+	int m_id; //dodanie id jednostki
 	//animation
 	sf::Time frameTime, animationTime;
 	sf::Clock frameClock, animationClock;
