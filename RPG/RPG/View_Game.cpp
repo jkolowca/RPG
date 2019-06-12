@@ -2,7 +2,7 @@
 #include "ViewManager.h"
 #include <iostream>
 
-View_Game::View_Game(ViewManager* _manager) : View(_manager), map(manager->GetShared()), player(manager->GetShared()) {
+View_Game::View_Game(ViewManager* _manager) : View(_manager), map(manager->GetShared()), player(manager->GetShared(), 0) {
 	map.Load(0);
 	player.SetPosition(map.getPlayerPosition());
 }

@@ -5,7 +5,7 @@
 class Player
 {
 public:
-	Player(Shared*);
+	Player(Shared*, int);
 	~Player();
 
 	void Update();
@@ -23,8 +23,15 @@ public:
 	void SetPosition(sf::Vector2f _position);
 	sf::Vector2f GetPosition() { return m_position; }
 	bool isMoving() { return moving; }
+	void setId(int _id) {
+		id = _id;
+	}
+
+	int getId() {
+		return id;
+	}
 private:
-	
+	int id;
 	sf::Vector2f m_position; //aktualna pozycja jednostki
 	sf::Sprite _Sprite;
 	Shared* shared;

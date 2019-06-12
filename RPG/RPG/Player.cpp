@@ -2,10 +2,9 @@
 
 
 
-Player::Player(Shared* _shared): shared(_shared)
+Player::Player(Shared* _shared, int _id): shared(_shared), id(_id)
 {
-	texture.loadFromFile("dep\\Player\\Player.png");
-	_Sprite.setTexture(texture);
+	_Sprite.setTexture(*shared->textureManager.GetResource("dep\\Player\\Player"+std::to_string(id)+".png"));
 	_Sprite.setOrigin({ 64 / 2, 3 * 72 / 4 });
 	_Sprite.setScale(1.3, 1.3);
 	sf::Vector2i _Source(0, 10); //Default Sprite Sheet Crop
