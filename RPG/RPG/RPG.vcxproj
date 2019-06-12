@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{47F3554A-2667-474A-9686-45A2F9E92F43}</ProjectGuid>
     <RootNamespace>RPG</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -127,9 +127,6 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Button.cpp" />
-    <ClCompile Include="Character.cpp" />
-    <ClCompile Include="EntityBase.cpp" />
-    <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
@@ -147,9 +144,6 @@
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="Button.h" />
-    <ClInclude Include="Character.h" />
-    <ClInclude Include="EntityBase.h" />
-    <ClInclude Include="EntityManager.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="C_Movable.h" />
     <ClInclude Include="Map.h" />
@@ -172,6 +166,9 @@
   </ItemGroup>
   <ItemGroup>
     <Font Include="dep\norwester.otf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="dep\Player\Player0.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
