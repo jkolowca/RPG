@@ -3,7 +3,7 @@
 #include <iostream>
 
 View_Game::View_Game(ViewManager* _manager) : View(_manager), map(manager->GetShared()), player(manager->GetShared(),1) {
-	map.Load(0);
+	map.Load(2);
 	player.SetPosition(map.getPlayerPosition());
 }
 View_Game::~View_Game() {}
