@@ -44,8 +44,8 @@ void View_Game::Draw() {
 }
 
 void View_Game::Position() {
-	sf::Vector2u windowSize = manager->GetShared()->renderWindow->getSize();
-	
+	map.MakeMove(0, 0);
+	entityMgr.Find(0)->setPosition( map.getPlayerPosition());
 }
 
 void View_Game::Interact(sf::Event::KeyEvent) {
