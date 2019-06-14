@@ -1,16 +1,13 @@
 #include "Player.h"
 
-
 Player::Player(Shared* _shared, int _id): shared(_shared), id(_id)
 {
 	_Sprite.setTexture(*shared->textureManager.GetResource("dep\\Player\\Player"+std::to_string(id)+".png"));
-	_Sprite.setOrigin({ 64 / 2, 3 * 72 / 4 });
+	_Sprite.setOrigin({ PlayerSize / 2, 3 * TileSize / 4 });
 	_Sprite.setScale(1.3, 1.3);
-	sf::Vector2i _Source(0, 10); //Default Sprite Sheet Crop
-	_Sprite.setTextureRect(sf::IntRect(_Source.x *64, _Source.y *64, 64, 64)); //Crop Sprite Sheet (Default Crop)
+	_Sprite.setTextureRect(sf::IntRect(0 *PlayerSize, 10 *PlayerSize, PlayerSize, PlayerSize)); //Crop Sprite Sheet (Default Crop)
 
 	//PLAYER / ANIMATION SPEED
-	frameTime = sf::milliseconds(70);
 	moveTime = sf::milliseconds(300);
 }
 

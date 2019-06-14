@@ -1,6 +1,6 @@
 #include "Application.h"
 
-Application::Application(): v_manager(&shared), shared{&window, window.GetEventManager(), window.GetRenderWindow()} {}
+Application::Application(): v_manager(&shared), window(&shared), shared{&window, window.GetEventManager(), window.GetRenderWindow(), &v_manager} {}
 Application::~Application() {}
 
 void Application::Update() {

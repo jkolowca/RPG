@@ -3,11 +3,11 @@
 #include <SFML/Graphics.hpp>
 #include "EventManager.h"
 
-#define WINDOWSIZE sf::Vector2u(1200,800);
+struct Shared;
 
 class Window {
 public:
-	Window();
+	Window(Shared*);
 	~Window();
 
 	void Create();
@@ -16,7 +16,7 @@ public:
 	void Display();
 	void Update();
 
-	void SwitchFullscreen();
+	void SwitchFullscreen(sf::Event::KeyEvent);
 	void Close();
 	
 	sf::RenderWindow* GetRenderWindow();
@@ -31,4 +31,5 @@ private:
 	std::string title;
 	sf::RenderWindow window;
 	EventManager eventManager;
+	Shared* shared;
 };

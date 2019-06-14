@@ -1,12 +1,16 @@
-#ifndef  SHARED
-#define SHARED
+#pragma once
 #include "Window.h"
 #include "TextureManager.h"
+#include "ViewManager.h"
+#define TileSize 72
+#define PlayerSize 64
+#define WindowSize sf::Vector2u(1200,800);
+
 struct  Shared {
-	Shared(Window* _w, EventManager* _e, sf::RenderWindow* _r) :window(_w), eventManager(_e), renderWindow(_r){}
+	Shared(Window* _w, EventManager* _e, sf::RenderWindow* _r, ViewManager* _v) :window(_w), eventManager(_e), renderWindow(_r), viewManager(_v){}
 	Window* window;
 	sf::RenderWindow* renderWindow;
 	EventManager* eventManager;
 	TextureManager textureManager;
+	ViewManager* viewManager;
 };
-#endif

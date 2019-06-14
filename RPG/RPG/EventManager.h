@@ -22,7 +22,7 @@ public:
 	void ProcessEvent(sf::Event);
 	void Update();
 private:
-	std::unordered_map<std::string, std::function<void(sf::Event::KeyEvent)>> callbacks;
+	std::unordered_map <std::string, std::function<void(sf::Event::KeyEvent)>> callbacks;
 	std::unordered_map < int, std::string > handles;
 	std::unordered_map < std::string, sf::Event::KeyEvent> events;
 };

@@ -1,9 +1,10 @@
 #include "Window.h"
-#include "Application.h"
+#include "Shared.h"
 
-Window::Window() 
-	:isOpen(true), isFullscreen(false){
+Window::Window(Shared* _shared) 
+	: shared(_shared), isOpen(true), isFullscreen(false){
 	Create();
+	eventManager.AddCallback("resize", &Window::SwitchFullscreen, this);
 }
 
 Window::~Window() {
@@ -15,7 +16,7 @@ void Window::Create() {
 		size = sf::Vector2u(sf::VideoMode::getDesktopMode().width,
 			sf::VideoMode::getDesktopMode().height);
 	}
-	else size = WINDOWSIZE;
+	else size = WindowSize;
 	window.create(sf::VideoMode(size.x, size.y, 32), title, sf::Style::None);
 	window.setFramerateLimit(60);
 }
@@ -40,10 +41,11 @@ void Window::Display() {
 	window.display();
 }
 
-void Window::SwitchFullscreen() {
+void Window::SwitchFullscreen(sf::Event::KeyEvent) {
 	isFullscreen = !isFullscreen;
 	window.close();
 	Create();
+	shared->viewManager->Position();
 }
 
 void Window::Close() {

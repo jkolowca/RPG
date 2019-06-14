@@ -64,3 +64,7 @@ void ViewManager::Draw() {
 void ViewManager::Update() {
 	views_container.back().second->Update();
 }
+
+void ViewManager::Position() {
+	views_container.back().second->Position();
+}
