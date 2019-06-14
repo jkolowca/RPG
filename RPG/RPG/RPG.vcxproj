@@ -145,6 +145,7 @@
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="C_Animated.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="C_Moveable.h" />
     <ClInclude Include="Map.h" />
