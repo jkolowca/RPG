@@ -5,8 +5,6 @@
 
 struct Shared;
 
-#define WINDOWSIZE sf::Vector2u(1200,800);
-
 class Window {
 public:
 	Window(Shared*);

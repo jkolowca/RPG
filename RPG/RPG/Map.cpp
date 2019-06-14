@@ -118,7 +118,7 @@ bool Map::Draw(int _layer) {
 
 bool Map::MakeMove(int _x, int _y) {
 	bool s = false;
-	for (unsigned int i = 0; i < layers; i++) {
+	for (int i = 0; i < layers; i++) {
 		if (map(i, playercoordinates.x + _x, playercoordinates.y + _y).solid) s = true;
 }
 	if (!s) {
@@ -143,11 +143,11 @@ void Map::calculateMapPosition() {
 		offset.x = TileSize / 2 + windowsize.x / 2 - mapSize.x*TileSize / 2;
 	}
 	else if (playercoordinates.x < margin.x) {
-		numberDrawn.x = windowsize.x / TileSize + 1;
+		numberDrawn.x = (int)windowsize.x / TileSize + 1;
 		offset.x = TileSize / 2;
 	}
 	else if (mapSize.x - playercoordinates.x - 1 < margin.x) {
-		numberDrawn.x = windowsize.x / TileSize + 1;
+		numberDrawn.x = (int)windowsize.x / TileSize + 1;
 		firstDrawn.x = mapSize.x - numberDrawn.x;
 		offset.x = windowsize.x - numberDrawn.x*TileSize + TileSize / 2;
 	}
@@ -160,11 +160,11 @@ void Map::calculateMapPosition() {
 		offset.y = TileSize / 2 + windowsize.y / 2 - mapSize.y*TileSize / 2;
 	}
 	else if (playercoordinates.y < margin.y) {
-		numberDrawn.y = windowsize.y / TileSize + 1;
+		numberDrawn.y = (int)windowsize.y / TileSize + 1;
 		offset.y = TileSize / 2;
 	}
 	else if (mapSize.y - playercoordinates.y - 1 < margin.y) {
-		numberDrawn.y = windowsize.y / TileSize + 1;
+		numberDrawn.y = (int)windowsize.y / TileSize + 1;
 		firstDrawn.y = mapSize.y - numberDrawn.y;
 		offset.y = windowsize.y - numberDrawn.y*TileSize + TileSize / 2;
 	}

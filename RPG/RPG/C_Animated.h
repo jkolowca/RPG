@@ -33,7 +33,7 @@ public:
 				if (frame.x >= animation.frames) {
 					frame=animation.firstFrame;
 				}
-				getSprite().setTextureRect(sf::IntRect(frame.x * 64, frame.y * 64, 64, 64));
+				getSprite().setTextureRect(sf::IntRect(frame.x * PlayerSize, frame.y * PlayerSize, PlayerSize, PlayerSize));
 				frameClock.restart();
 			}
 		}
