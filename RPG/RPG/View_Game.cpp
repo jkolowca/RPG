@@ -45,6 +45,7 @@ void View_Game::Draw() {
 
 void View_Game::Position() {
 	sf::Vector2u windowSize = manager->GetShared()->renderWindow->getSize();
+	
 }
 
 void View_Game::Interact(sf::Event::KeyEvent) {

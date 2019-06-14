@@ -1,7 +1,6 @@
 #pragma once
 #include "Shared.h"
 #include <memory>
-#define TileSize 72
 
 class Tile {
 	Shared* shared;

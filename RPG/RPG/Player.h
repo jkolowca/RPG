@@ -30,9 +30,4 @@ private:
 	int id;
 	sf::Sprite _Sprite;
 	Shared* shared;
-	//sf::Vector2f _Source;
-
-	//animation
-	sf::Time frameTime;
-	sf::Clock frameClock;
 };

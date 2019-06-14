@@ -23,6 +23,7 @@ public:
 
 	void Draw();
 	void Update();
+	void Position();
 
 	void SwitchTo(ViewType);
 	Shared* GetShared();

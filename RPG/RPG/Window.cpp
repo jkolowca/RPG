@@ -1,9 +1,10 @@
 #include "Window.h"
-#include "Application.h"
+#include "Shared.h"
 
-Window::Window() 
-	:isOpen(true), isFullscreen(false){
+Window::Window(Shared* _shared) 
+	: shared(_shared), isOpen(true), isFullscreen(false){
 	Create();
+	eventManager.AddCallback("resize", &Window::SwitchFullscreen, this);
 }
 
 Window::~Window() {
@@ -40,10 +41,11 @@ void Window::Display() {
 	window.display();
 }
 
-void Window::SwitchFullscreen() {
+void Window::SwitchFullscreen(sf::Event::KeyEvent) {
 	isFullscreen = !isFullscreen;
 	window.close();
 	Create();
+	shared->viewManager->Position();
 }
 
 void Window::Close() {
