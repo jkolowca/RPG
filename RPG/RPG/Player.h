@@ -2,8 +2,10 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "Shared.h"
+//class EntityManager;
 class Player
 {
+	//friend class EntityManager;
 public:
 	Player(Shared*, int);
 	~Player();
@@ -35,6 +37,7 @@ private:
 	sf::Vector2f m_position; //aktualna pozycja jednostki
 	sf::Sprite _Sprite;
 	Shared* shared;
+	//EntityManager*entityMgr;
 	sf::Texture texture;
 	sf::Vector2f _Source;
 
