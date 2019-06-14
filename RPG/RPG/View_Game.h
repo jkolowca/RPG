@@ -2,6 +2,7 @@
 #include "View.h"
 #include "Map.h"
 #include "Player.h"
+#include "EntityManager.h"
 
 class View_Game : public View {
 public:
@@ -24,5 +25,6 @@ public:
 
 private:
 	Map map;
-	Player player;
+	//Player player;
+	EntityManager entityMgr;
 };
