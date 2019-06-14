@@ -1,13 +1,6 @@
 #pragma once
 #include <SFML\Graphics.hpp>
 
-enum direction {
-	Up = 0,
-	Down,
-	Left,
-	Right
-};
-
 class C_Moveable {
 public:
 	void Update();

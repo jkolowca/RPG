@@ -1,11 +1,11 @@
 #pragma once
 #include <iostream>
-#include <SFML/Graphics.hpp>
 #include "Shared.h"
 #include "C_Moveable.h"
+#include "C_Animated.h"
 
 
-class Player : public C_Moveable
+class Player : public C_Moveable, public C_Animated
 {
 public:
 	Player(Shared*, int);
@@ -13,7 +13,7 @@ public:
 
 	void Update();
 
-	void move(sf::Vector2f, direction);
+	void Move(sf::Vector2f, animation_type);
 	sf::Sprite& getSprite() { return _Sprite; }
 	void Draw()
 	{
@@ -30,7 +30,7 @@ private:
 	int id;
 	sf::Sprite _Sprite;
 	Shared* shared;
-	sf::Vector2f _Source;
+	//sf::Vector2f _Source;
 
 	//animation
 	sf::Time frameTime;

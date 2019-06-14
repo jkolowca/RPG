@@ -19,35 +19,12 @@ Player::~Player() {}
 
 void Player::Update() {
 	C_Moveable::Update();
-	if (isMoving()) {
-		if (frameClock.getElapsedTime() > frameTime) {
-			_Source.x++;
-			if (_Source.x >= 9) {
-				_Source.x = 0;
-			}
-			_Sprite.setTextureRect(sf::IntRect(_Source.x * 64, _Source.y * 64, 64, 64));
-			frameClock.restart();
-		}
-	}
+	C_Animated::Update();
 }
 
-void Player::move(sf::Vector2f _shift, direction _dir)
+void Player::Move(sf::Vector2f _shift, animation_type _dir)
 {
-	Move(_shift);
-
-	switch (_dir) {
-	case 0:
-		_Source.y = 8;
-		break;
-	case 1:
-		_Source.y = 10;
-		break;
-	case 2:
-		_Source.y = 9;
-		break;
-	case 3:
-		_Source.y = 11;
-		break;
-	}
+	C_Moveable::Move(_shift);
+	C_Animated::Animate(_dir);
 	frameClock.restart();
 }
