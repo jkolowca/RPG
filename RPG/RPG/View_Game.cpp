@@ -3,8 +3,8 @@
 #include <iostream>
 
 View_Game::View_Game(ViewManager* _manager) : View(_manager), map(manager->GetShared()), player(manager->GetShared(),0) {
-	map.Load(2);
-	player.SetPosition(map.getPlayerPosition());
+	map.Load(0);
+	player.setPosition(map.getPlayerPosition());
 }
 View_Game::~View_Game() {}
 
@@ -54,20 +54,20 @@ void View_Game::Escape(sf::Event::KeyEvent) {
 void View_Game::Up(sf::Event::KeyEvent) {
 	if(!player.isMoving())
 	if (map.MakeMove(0, -1)) 
-		player.moveUp(map.getPlayerShift().y);
+		player.move(map.getPlayerShift(), direction::Up);
 }
 void View_Game::Down(sf::Event::KeyEvent) {
 	if (!player.isMoving())
 	if(map.MakeMove(0, 1)) 
-		player.moveDown(map.getPlayerShift().y);
+		player.move(map.getPlayerShift(), direction::Down);
 }
 void View_Game::Right(sf::Event::KeyEvent) {
 	if (!player.isMoving())
-	if(map.MakeMove(1, 0)) 
-		player.moveRight(map.getPlayerShift().x);
+		if (map.MakeMove(1, 0))
+			player.move(map.getPlayerShift(), direction::Right);
 }
 void View_Game::Left(sf::Event::KeyEvent) {
 	if (!player.isMoving())
 	if(map.MakeMove(-1, 0)) 
-		player.moveLeft(map.getPlayerShift().x);
+		player.move(map.getPlayerShift(), direction::Left);
 }
