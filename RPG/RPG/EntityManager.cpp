@@ -6,6 +6,7 @@ EntityManager::EntityManager(Shared * _Shareed_context):Shared_context(_Shareed_
 {
 }
 
+
 EntityManager::~EntityManager()
 {
 	Purge();
