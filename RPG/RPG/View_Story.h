@@ -19,6 +19,7 @@ public:
 	void Escape(sf::Event::KeyEvent);
 private:
 	sf::Sprite left, right;
-	int activeSpeaker;
+	bool activeSpeaker;
 	Text textL, textR;
+	std::vector<std::string> texts;
 };

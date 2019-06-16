@@ -6,9 +6,11 @@ View_Story::View_Story(ViewManager* _manager) : View(_manager) {
 	right.setTexture(*manager->GetShared()->textureManager.GetResource("dep\\im\\fp.png"));
 	left.setOrigin({ (float)left.getTextureRect().width / 2, (float)left.getTextureRect().height / 2 });
 	right.setOrigin({ (float)right.getTextureRect().width / 2, (float)right.getTextureRect().height / 2 });
-	activeSpeaker = 1;
-	textL.SetText("Left Player!");
-	textR.SetText("Just an NPC...");
+	activeSpeaker = 0;
+	texts.emplace_back("Left Player!");
+	texts.emplace_back("Just an NPC...");
+	texts.emplace_back("dafafad");
+	texts.emplace_back("3434");
 }
 View_Story::~View_Story() {
 	manager->GetShared()->textureManager.FreeResource("dep\\im\\f1.png");
@@ -17,6 +19,7 @@ View_Story::~View_Story() {
 
 void View_Story::Activate() {
 	Position();
+	textL.SetText(texts.front());
 	manager->GetShared()->eventManager->AddCallback("select", &View_Story::Interact, this);
 	manager->GetShared()->eventManager->AddCallback("interact", &View_Story::Interact, this);
 	manager->GetShared()->eventManager->AddCallback("escape", &View_Story::Escape, this);
@@ -30,7 +33,7 @@ void View_Story::Deactivate() {
 void View_Story::Update() {}
 
 void View_Story::Draw() {
-	if (activeSpeaker % 2) {
+	if (activeSpeaker) {
 		manager->GetShared()->renderWindow->draw(right);
 		textR.Draw(manager->GetShared()->renderWindow);
 	}
@@ -49,7 +52,14 @@ void View_Story::Position() {
 }
 
 void View_Story::Interact(sf::Event::KeyEvent) {
-	activeSpeaker++;
+	activeSpeaker = !activeSpeaker;
+	if (texts.empty()) {
+		manager->SwitchTo(Game);
+		return;
+	}
+	if (!activeSpeaker) textL.SetText( texts.front());
+	else textR.SetText(texts.front());
+	texts.erase(texts.begin());
 }
 void View_Story::Escape(sf::Event::KeyEvent) {
 	manager->GetShared()->window->Close();
