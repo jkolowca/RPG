@@ -34,6 +34,7 @@ void View_Game::Deactivate() {
 
 void View_Game::Update() {
 	//player.Update();
+	map.Update();
 	entityMgr.Update();
 }
 
@@ -46,7 +47,7 @@ void View_Game::Draw() {
 }
 
 void View_Game::Position() {
-	map.MakeMove(0, 0);
+	map.Move({ 0, 0 });
 	entityMgr.Find(0)->setPosition( map.getPlayerPosition());
 }
 
@@ -60,7 +61,7 @@ void View_Game::Escape(sf::Event::KeyEvent) {
 void View_Game::Up(sf::Event::KeyEvent) {
 	//if(!player.isMoving())
 	if (!entityMgr.Find(0)->isMoving())
-		if (map.MakeMove(0, -1))
+		if (map.MakeMove( 0, -1 ))
 			//player.move(map.getPlayerShift(), direction::Up);
 			entityMgr.Find(0)->Move(map.getPlayerShift(), animation_type::Up);
 }

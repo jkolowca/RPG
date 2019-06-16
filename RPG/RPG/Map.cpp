@@ -31,12 +31,14 @@ void Array3d::Create(int _layer, int _column, int _row) {
 	row = _row;
 	arr = new TileInfo[layer*column*row];
 }
-TileInfo& Array3d::operator()(int K, int L, int M) {
-	return arr[(K*column + L)*row + M];
+TileInfo& Array3d::operator()(int L, int C, int R) {
+	return arr[(L*column + C)*row + R];
 }
 
 
-Map::Map(Shared* _shared) : shared(_shared) {}
+Map::Map(Shared* _shared) : shared(_shared) {
+	moveTime = sf::milliseconds(300);
+}
 
 void Map::Load(int _level) {
 	std::string tmp = "dep\\map\\lev" + std::to_string(_level) + ".txt";
@@ -49,7 +51,7 @@ void Map::Load(int _level) {
 	}
 
 	int layer = 0;
-	sf::Vector2i position = { 0,0 }, tiletype;
+	sf::Vector2i tile = { 0,0 }, tiletype;
 	std::regex r("(\\d*):(\\d*),(\\w{1})");
 	std::regex pp("(\\d*):(\\d*)");
 	std::regex size("(\\d*)x(\\d*)x(\\d*)");
@@ -62,7 +64,7 @@ void Map::Load(int _level) {
 
 	getline(file, tmp);
 	std::regex_search(tmp, m, pp);
-	playercoordinates = { stoi(m[1]),stoi(m[2]) };
+	playerCoordinates = { stoi(m[1]),stoi(m[2]) };
 
 	map.Create(layers, mapSize.x, mapSize.y);
 
@@ -70,11 +72,11 @@ void Map::Load(int _level) {
 	std::map<std::pair<int, int>, std::shared_ptr<Tile>> existingTiles;
 	while (getline(file, tmp)) {
 		if (!std::regex_search(tmp, m, r)) {
-			position = { 0,0 };
+			tile = { 0,0 };
 			layer++;
 			continue;
 		}
-		position.x = 0;
+		tile.x = 0;
 		while (std::regex_search(tmp, m, r)) {
 			tiletype.x = stoi(m[1]);
 			tiletype.y = stoi(m[2]);
@@ -85,93 +87,114 @@ void Map::Load(int _level) {
 				existingTiles[{tiletype.x, tiletype.y}] = ptr;
 			}
 
-			map(layer, position.x, position.y).tile = existingTiles[{tiletype.x, tiletype.y}];
+			map(layer, tile.x, tile.y).tile = existingTiles[{tiletype.x, tiletype.y}];
 			if (m[3] == 'y')
-				map(layer, position.x, position.y).solid = true;
-			else map(layer, position.x, position.y).solid = false;
+				map(layer, tile.x, tile.y).solid = true;
+			else map(layer, tile.x, tile.y).solid = false;
 			tmp = m.suffix().str();
-			position.x++;
+			tile.x++;
 		}
-		position.y++;
+		tile.y++;
 	}
 	calculateMapPosition();
+	oldPosition = position = newPosition;
+	playerShift = shift = { 0,0 };
 }
 
 bool Map::Draw(int _layer) {
-	if (_layer + 1 > layers)return false;
-
+	if (_layer + 1 > layers) return false;
 
 	for (int x = 0; x < numberDrawn.x; x++) {
 		for (int y = 0; y < numberDrawn.y; y++) {
 			if (map(_layer, firstDrawn.x + x,firstDrawn.y + y).tile) {
 				
 				map(_layer, firstDrawn.x + x, firstDrawn.y + y).tile->Position
-				({ (float)offset.x + x * 72, (float)offset.y + y * 72 });
+				({ position.x + x * TileSize, position.y + y * TileSize });
 				map(_layer, firstDrawn.x + x, firstDrawn.y + y).tile->Draw();
 			}
 		}
 	}
 
 	return true;
-
 };
 
 bool Map::MakeMove(int _x, int _y) {
-	bool s = false;
-	for (int i = 0; i < layers; i++) {
-		if (map(i, playercoordinates.x + _x, playercoordinates.y + _y).solid) s = true;
-}
-	if (!s) {
-		playercoordinates = { playercoordinates.x + _x, playercoordinates.y + _y};
-		calculateMapPosition();
-		return true;
-	}
-	return false;
+	if (isSolid({playerCoordinates.x+_x, playerCoordinates.y+_y})) return false;
+	playerCoordinates += { _x,  _y};
+	calculateMapPosition();
+	oldPosition = position;
+	shift = { -1 * _x*shift.x, -1*_y*shift.y };
+	playerShift = { _x*playerShift.x, _y*playerShift.y };
+	C_Moveable::Move(shift);
+	return true;
 }
 
 void Map::calculateMapPosition() {
-	sf::Vector2f oldPlayerPosition = playerposition;
 	sf::Vector2f windowsize = { (float)shared->renderWindow->getSize().x, (float)shared->renderWindow->getSize().y };
+	sf::Vector2i oldFirstDrawn = firstDrawn;
+	sf::Vector2i margin = { (int)ceil((windowsize.x / 2 - (TileSize / 2)) / TileSize),(int)ceil((windowsize.y / 2 - (TileSize / 2)) / TileSize) };
 
-	 margin = { (int)ceil((windowsize.x / 2 - (TileSize / 2)) / TileSize),(int)ceil((windowsize.y / 2 - (TileSize / 2)) / TileSize) };
 	firstDrawn = { 0,0 };
-	numberDrawn = { 2 * margin.x + 1, 2 * margin.y + 1 };
-	offset = { windowsize.x / 2 - margin.x*TileSize, windowsize.y / 2 - margin.y*TileSize };
-
 	if ((float)mapSize.x < windowsize.x / TileSize) {
 		numberDrawn.x = mapSize.x;
-		offset.x = TileSize / 2 + windowsize.x / 2 - mapSize.x*TileSize / 2;
+		newPosition.x = TileSize / 2 + windowsize.x / 2 - mapSize.x*TileSize / 2;
 	}
-	else if (playercoordinates.x < margin.x) {
+	else if (playerCoordinates.x < margin.x) {
 		numberDrawn.x = (int)windowsize.x / TileSize + 1;
-		offset.x = TileSize / 2;
+		newPosition.x = TileSize / 2;
 	}
-	else if (mapSize.x - playercoordinates.x - 1 < margin.x) {
+	else if (mapSize.x - playerCoordinates.x - 1 < margin.x) {
 		numberDrawn.x = (int)windowsize.x / TileSize + 1;
 		firstDrawn.x = mapSize.x - numberDrawn.x;
-		offset.x = windowsize.x - numberDrawn.x*TileSize + TileSize / 2;
+		newPosition.x = windowsize.x - numberDrawn.x*TileSize + TileSize / 2;
 	}
 	else {
-		firstDrawn.x = playercoordinates.x - margin.x;
+		numberDrawn.x = 2 * margin.x + 1;
+		firstDrawn.x = playerCoordinates.x - margin.x;
+		newPosition.x = windowsize.x / 2 - margin.x*TileSize;
+		if(firstDrawn.x != oldFirstDrawn.x){
+			numberDrawn.x++;
+			marg.x = 1;
+			if (firstDrawn.x > oldFirstDrawn.x) {
+				marg.x = -1;
+				firstDrawn.x--;
+				newPosition.x -= TileSize;
+			}
+		}
 	}
 
 	if ((float)mapSize.y < windowsize.y / TileSize) {
 		numberDrawn.y = mapSize.y;
-		offset.y = TileSize / 2 + windowsize.y / 2 - mapSize.y*TileSize / 2;
+		newPosition.y = TileSize / 2 + windowsize.y / 2 - mapSize.y*TileSize / 2;
 	}
-	else if (playercoordinates.y < margin.y) {
+	else if (playerCoordinates.y < margin.y) {
 		numberDrawn.y = (int)windowsize.y / TileSize + 1;
-		offset.y = TileSize / 2;
+		newPosition.y = TileSize / 2;
 	}
-	else if (mapSize.y - playercoordinates.y - 1 < margin.y) {
+	else if (mapSize.y - playerCoordinates.y - 1 < margin.y) {
 		numberDrawn.y = (int)windowsize.y / TileSize + 1;
 		firstDrawn.y = mapSize.y - numberDrawn.y;
-		offset.y = windowsize.y - numberDrawn.y*TileSize + TileSize / 2;
+		newPosition.y = windowsize.y - numberDrawn.y*TileSize + TileSize / 2;
 	}
 	else {
-		firstDrawn.y = playercoordinates.y - margin.y;
+		numberDrawn.y = 2 * margin.y + 1;
+		firstDrawn.y = playerCoordinates.y - margin.y;
+		newPosition.y = windowsize.y / 2 - margin.y*TileSize;
+		if (firstDrawn.y != oldFirstDrawn.y) {
+			numberDrawn.y++;
+			marg.y = 1;
+			if (firstDrawn.y > oldFirstDrawn.y) {
+				marg.y = -1;
+				firstDrawn.y--;
+				newPosition.y -= TileSize;
+			}
+		}
 	}
 
-	playerposition = { (float)offset.x + (playercoordinates.x-firstDrawn.x) * 72, (float)offset.y + (playercoordinates.y-firstDrawn.y) * 72 };
-	playerShift = {playerposition.x-oldPlayerPosition.x, playerposition.y-oldPlayerPosition.y};
+	if (firstDrawn != oldFirstDrawn)
+		position = { (firstDrawn.x - oldFirstDrawn.x)* TileSize + position.x, (firstDrawn.y - oldFirstDrawn.y)* TileSize + position.y }; 
+
+	shift = { abs(newPosition.x - position.x), abs(newPosition.y - position.y) };
+
+	playerShift = { (TileSize - shift.x),(TileSize - shift.y) };
 }
