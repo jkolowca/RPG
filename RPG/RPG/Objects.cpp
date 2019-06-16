@@ -10,7 +10,7 @@ Objects::Objects(Shared *_shared, std::string name, sf::Vector2f size,unsigned i
 	_Sprite.setPosition(position);
 	_Sprite.setOrigin({ size.x / 2, 3 * TileSize / 4 });
 	_Sprite.setScale(1, 1);
-	_Sprite.setTextureRect(sf::IntRect(0 * size.x, 10 * size.y, size.x, size.y)); //Crop Sprite Sheet (Default Crop)
+	_Sprite.setTextureRect(sf::IntRect(10 * size.x, 10000* size.y, size.x, size.y)); //Crop Sprite Sheet (Default Crop)
 
 }
 
