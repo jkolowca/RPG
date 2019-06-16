@@ -127,6 +127,7 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="C_Interface.cpp" />
     <ClCompile Include="C_Moveable.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="EventManager.cpp" />
@@ -150,6 +151,7 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="C_Animated.h" />
+    <ClInclude Include="C_Interface.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="C_Moveable.h" />
