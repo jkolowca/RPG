@@ -19,6 +19,7 @@ public:
 	void down(sf::Event::KeyEvent);
 	void escape(sf::Event::KeyEvent);
 private:
+	bool first = true;
 	Text title;
 	Button buttons[3];
 	int selected;

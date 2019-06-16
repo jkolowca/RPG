@@ -51,13 +51,16 @@ void View_MainMenu::Position() {
 
 void View_MainMenu::select(sf::Event::KeyEvent) {
 	if (selected == 0) {
-		manager->SwitchTo(Game);
+		if (first) {
+			manager->SwitchTo(Story);
+			first = false;
+		}
+		else manager->SwitchTo(Game);
 	}
 	else if (selected == 1) {
 		manager->SwitchTo(Settings);
 	}
 	else if (selected == 2) {
-		manager->SwitchTo(Story);
 		//manager->GetShared()->window->Close();
 	}
 }
