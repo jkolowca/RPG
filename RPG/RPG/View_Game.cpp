@@ -7,7 +7,7 @@ View_Game::View_Game(ViewManager* _manager) : View(_manager), map(manager->GetSh
 	//player.setPosition(map.getPlayerPosition());
 	entityMgr.FindEntity(entityMgr.AddEntity())->setPosition(map.getPlayerPosition());
 	entityMgr.FindEntity(entityMgr.AddEntity())->setPosition(sf::Vector2f(map.getPlayerPosition().x-72,map.getPlayerPosition().y));
-	entityMgr.FindEntity(entityMgr.AddObjects("dep\\Player\\test.png", sf::Vector2f(72, 72)))->setPosition(sf::Vector2f(TileSize*30,TileSize*30));
+	entityMgr.FindObj(entityMgr.AddObjects("dep\\Player\\test.png", sf::Vector2f(72, 72)))/*->SetObjPosition(sf::Vector2f(72*10,72))*/;
 	
 
 }

@@ -18,9 +18,19 @@ public:
 	int getId() {
 		return ID;
 	}
+	void SetObjPosition(sf::Vector2f _position)
+	{
+		position = _position;
+		getSprite().setPosition(_position);
+	}
+sf::Sprite getSprite()
+{
+	return _Sprite;
+}
 private:
 	Shared* shared;
 	sf::Sprite _Sprite;
 	unsigned int ID;
+	sf::Vector2f position;
 };
 

@@ -3,9 +3,10 @@
 
 
 
-Objects::Objects(Shared *_shared, std::string name, sf::Vector2f size,unsigned int _ID) : shared(_shared),ID(_ID)
+Objects::Objects(Shared *_shared, std::string name, sf::Vector2f size,unsigned int _ID) : shared(_shared),ID(_ID),position(72 * 5, 72 * 3)
 {
 	_Sprite.setTexture(*shared->textureManager.GetResource(name));
+	_Sprite.setPosition(position);
 	_Sprite.setOrigin({ size.x / 2, 3 * TileSize / 4 });
 	_Sprite.setScale(1, 1);
 	_Sprite.setTextureRect(sf::IntRect(0 * size.x, 10 * size.y, size.x, size.y)); //Crop Sprite Sheet (Default Crop)
