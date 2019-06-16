@@ -2,15 +2,15 @@
 #include "Objects.h"
 using ObjectsContainer = std::unordered_map<unsigned int, Objects*>;
 
-class Inventory
+class ObjectManager
 {
 public:
-	Inventory(Shared* _Shareed_context);
-	~Inventory();
+	ObjectManager(Shared* _Shareed_context);
+	~ObjectManager();
 	int AddObjects(std::string, sf::Vector2f);
 	Objects*FindObj(unsigned int _Obj_ID);
 	void RemoveObj(unsigned int _Obj_ID);
-	void Update(); //update wszystkich jednostek
+	void Update(); //update wszystkich obiektów
 	void Draw();
 	void Purge();
 	void ProcessRemovals();

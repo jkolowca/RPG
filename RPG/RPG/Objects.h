@@ -29,7 +29,7 @@ public:
 		position = _position;
 		getSprite().setPosition(position);
 	}
-
+	sf::Vector2f ObjGetPosition() { return position; }
 private:
 	Shared* shared;
 	sf::Sprite _Sprite;

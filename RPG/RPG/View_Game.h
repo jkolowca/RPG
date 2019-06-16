@@ -3,7 +3,7 @@
 #include "Map.h"
 #include "Player.h"
 #include "EntityManager.h"
-#include "Inventory.h"
+#include "ObjectManager.h"
 
 class View_Game : public View {
 public:
@@ -28,5 +28,5 @@ private:
 	Map map;
 	//Player player;
 	EntityManager entityMgr;
-	Inventory inventory;
+	ObjectManager inventory;
 };

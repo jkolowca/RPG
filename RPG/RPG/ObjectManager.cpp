@@ -1,19 +1,19 @@
-#include "Inventory.h"
+#include "ObjectManager.h"
 
 
 
-Inventory::Inventory(Shared * _Shareed_context) :Shared_context(_Shareed_context) , Obj_counter(0)
+ObjectManager::ObjectManager(Shared * _Shareed_context) :Shared_context(_Shareed_context) , Obj_counter(0)
 {
 
 }
 
 
-Inventory::~Inventory()
+ObjectManager::~ObjectManager()
 {
 	Purge();
 }
 
-int Inventory::AddObjects(std::string nazwa, sf::Vector2f size)
+int ObjectManager::AddObjects(std::string nazwa, sf::Vector2f size)
 {
 	Objects* object = new Objects(Shared_context, nazwa, size, Obj_counter);
 	objects.emplace(Obj_counter, object); //dodanie do kontenera
@@ -21,19 +21,19 @@ int Inventory::AddObjects(std::string nazwa, sf::Vector2f size)
 	return Obj_counter - 1;
 }
 
-Objects * Inventory::FindObj(unsigned int _Obj_ID)
+Objects * ObjectManager::FindObj(unsigned int _Obj_ID)
 {
 	auto itr = objects.find(_Obj_ID);
 	if (itr == objects.end()) { return nullptr; }
 	return itr->second;
 }
 
-void Inventory::RemoveObj(unsigned int _Obj_ID)
+void ObjectManager::RemoveObj(unsigned int _Obj_ID)
 {
 	objects_To_Remove.emplace_back(_Obj_ID);
 }
 
-void Inventory::Update()
+void ObjectManager::Update()
 {
 	for (auto &itr : objects)
 	{
@@ -44,7 +44,7 @@ void Inventory::Update()
 
 }
 
-void Inventory::Draw()
+void ObjectManager::Draw()
 {
 	for (auto &itr : objects)
 	{
@@ -52,7 +52,7 @@ void Inventory::Draw()
 	}
 }
 
-void Inventory::Purge()
+void ObjectManager::Purge()
 {
 	for (auto &itr : objects) {
 		delete itr.second;
@@ -61,7 +61,7 @@ void Inventory::Purge()
 	Obj_counter = 0;
 }
 
-void Inventory::ProcessRemovals()
+void ObjectManager::ProcessRemovals()
 {
 	while (objects_To_Remove.begin() != objects_To_Remove.end())
 	{
@@ -69,7 +69,7 @@ void Inventory::ProcessRemovals()
 		auto itr = objects.find(id);
 		if (itr != objects.end())
 		{
-			std::cout << "Discarding entity: "
+			std::cout << "Discarding object: "
 				<< itr->second->getId() << std::endl;
 			delete itr->second;
 			objects.erase(itr);
