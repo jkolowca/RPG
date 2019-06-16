@@ -11,6 +11,7 @@ enum ViewType {
 	Load,
 	Save,
 	Game,
+	Story,
 	Paused,
 	GameOver,
 	Settings

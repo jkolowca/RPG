@@ -143,6 +143,7 @@
     <ClCompile Include="View_Intro.cpp" />
     <ClCompile Include="View_MainMenu.cpp" />
     <ClCompile Include="View_Settings.cpp" />
+    <ClCompile Include="View_Story.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -165,6 +166,7 @@
     <ClInclude Include="View_Intro.h" />
     <ClInclude Include="View_MainMenu.h" />
     <ClInclude Include="View_Settings.h" />
+    <ClInclude Include="View_Story.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>

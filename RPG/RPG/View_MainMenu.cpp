@@ -57,7 +57,8 @@ void View_MainMenu::select(sf::Event::KeyEvent) {
 		manager->SwitchTo(Settings);
 	}
 	else if (selected == 2) {
-		manager->GetShared()->window->Close();
+		manager->SwitchTo(Story);
+		//manager->GetShared()->window->Close();
 	}
 }
 void View_MainMenu::up(sf::Event::KeyEvent) {
