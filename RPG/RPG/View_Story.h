@@ -1,6 +1,7 @@
 #pragma once
 #include "View.h"
 #include "Sprite.h"
+#include "Text.h"
 
 class View_Story : public View {
 public:
@@ -17,5 +18,7 @@ public:
 	void Interact(sf::Event::KeyEvent);
 	void Escape(sf::Event::KeyEvent);
 private:
-	sf::Sprite sprite;
+	sf::Sprite left, right;
+	int activeSpeaker;
+	Text textL, textR;
 };

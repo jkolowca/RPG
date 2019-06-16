@@ -13,6 +13,7 @@ public:
 	void SetPosition(sf::Vector2f);
 	void SetText(const std::string&);
 	void SetColor(sf::Color);
+	void SetWidth(unsigned int);
 
 	std::string GetText();
 private:
