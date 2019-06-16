@@ -24,7 +24,17 @@ public:
 	int getId() {
 		return id;
 	}
+
+	sf::Vector2i getCoordinates() {
+		return coordinates;
+
+	}
+	void setCoordinates(sf::Vector2i _coordinates) {
+		coordinates = _coordinates;
+	}
+
 private:
+	sf::Vector2i coordinates;
 	int id;
 	sf::Sprite _Sprite;
 	Shared* shared;

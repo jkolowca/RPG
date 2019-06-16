@@ -2,7 +2,7 @@
 
 
 
-EntityManager::EntityManager(Shared * _Shareed_context):Shared_context(_Shareed_context),ID_counter(0)
+EntityManager::EntityManager(Shared * _Shareed_context, Map* _map):Shared_context(_Shareed_context),ID_counter(0), map(_map)
 {
 }
 
@@ -39,6 +39,9 @@ void EntityManager::Update()
 {
 	for (auto &itr : entities)
 	{
+		if (itr.second->getId() != 0)
+		itr.second->setPosition(map->getTilePosition(itr.second->getCoordinates()));
+
 		itr.second->Update();
 	}
 	
