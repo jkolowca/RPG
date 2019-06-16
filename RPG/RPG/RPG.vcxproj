@@ -130,6 +130,7 @@
     <ClCompile Include="C_Moveable.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="EventManager.cpp" />
+    <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Objects.cpp" />
@@ -151,6 +152,7 @@
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="C_Moveable.h" />
+    <ClInclude Include="Inventory.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Objects.h" />
     <ClInclude Include="Player.h" />
@@ -177,7 +179,7 @@
   <ItemGroup>
     <Image Include="dep\Player\Player0.png" />
     <Image Include="dep\Player\Player1.png" />
-    <Image Include="dep\test.png" />
+    <Image Include="dep\Player\test.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

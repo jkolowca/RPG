@@ -3,8 +3,9 @@
 
 
 
-Objects::Objects(Shared *_shared, std::string name, sf::Vector2f size,unsigned int _ID) : shared(_shared),ID(_ID),position(72 * 5, 72 * 3)
+Objects::Objects(Shared *_shared, std::string name, sf::Vector2f size,unsigned int _ID) : shared(_shared),ID(_ID)
 {
+	position = sf::Vector2f(72 * 5, 72 * 3);
 	_Sprite.setTexture(*shared->textureManager.GetResource(name));
 	_Sprite.setPosition(position);
 	_Sprite.setOrigin({ size.x / 2, 3 * TileSize / 4 });

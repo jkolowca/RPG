@@ -2,14 +2,13 @@
 #include "ViewManager.h"
 #include <iostream>
 
-View_Game::View_Game(ViewManager* _manager) : View(_manager), map(manager->GetShared()), entityMgr(manager->GetShared())/*player(manager->GetShared(),0)*/ {
+View_Game::View_Game(ViewManager* _manager) : View(_manager), map(manager->GetShared()), entityMgr(manager->GetShared()), inventory(manager->GetShared()) {
 	map.Load(0);
 	//player.setPosition(map.getPlayerPosition());
 	entityMgr.FindEntity(entityMgr.AddEntity())->setPosition(map.getPlayerPosition());
-	entityMgr.FindEntity(entityMgr.AddEntity())->setPosition(sf::Vector2f(map.getPlayerPosition().x-72,map.getPlayerPosition().y));
-	entityMgr.FindObj(entityMgr.AddObjects("dep\\Player\\test.png", sf::Vector2f(72, 72)))/*->SetObjPosition(sf::Vector2f(72*10,72))*/;
+	entityMgr.FindEntity(entityMgr.AddEntity())->setPosition(sf::Vector2f(map.getPlayerPosition().x - 72, map.getPlayerPosition().y));
+	inventory.FindObj(inventory.AddObjects("dep\\Player\\test.png", { 72,72 }))->SetObjPosition({ 72*10, 72*2 });
 	
-
 }
 View_Game::~View_Game() {}
 
@@ -38,6 +37,7 @@ void View_Game::Update() {
 	//player.Update();
 	map.Update();
 	entityMgr.Update();
+	inventory.Update();
 }
 
 void View_Game::Draw() {
@@ -45,6 +45,7 @@ void View_Game::Draw() {
 	map.Draw(1);
 	//player.Draw();
 	entityMgr.Draw();
+	inventory.Draw();
 	map.Draw(2);
 
 }
