@@ -69,7 +69,7 @@ void Inventory::ProcessRemovals()
 		auto itr = objects.find(id);
 		if (itr != objects.end())
 		{
-			std::cout << "Discarding entity: "
+			std::cout << "Discarding object: "
 				<< itr->second->getId() << std::endl;
 			delete itr->second;
 			objects.erase(itr);

@@ -10,7 +10,7 @@ public:
 	int AddObjects(std::string, sf::Vector2f);
 	Objects*FindObj(unsigned int _Obj_ID);
 	void RemoveObj(unsigned int _Obj_ID);
-	void Update(); //update wszystkich jednostek
+	void Update(); //update wszystkich obiektów
 	void Draw();
 	void Purge();
 	void ProcessRemovals();
