@@ -2,11 +2,13 @@
 #include "ViewManager.h"
 #include <iostream>
 
-View_Game::View_Game(ViewManager* _manager) : View(_manager), map(manager->GetShared()), entityMgr(manager->GetShared()), inventory(manager->GetShared()) {
+View_Game::View_Game(ViewManager* _manager) : View(_manager), map(manager->GetShared()), entityMgr(manager->GetShared(), &map), inventory(manager->GetShared()) {
 	map.Load(0);
 	//player.setPosition(map.getPlayerPosition());
 	entityMgr.FindEntity(entityMgr.AddEntity())->setPosition(map.getPlayerPosition());
-	entityMgr.FindEntity(entityMgr.AddEntity())->setPosition(sf::Vector2f(map.getPlayerPosition().x - 72, map.getPlayerPosition().y));
+	entityMgr.FindEntity(0)->setCoordinates({ 26, 2 });
+	entityMgr.FindEntity(entityMgr.AddEntity())->setPosition(map.getTilePosition({ 25, 2 }));
+	entityMgr.FindEntity(1)->setCoordinates({ 25,2 });
 	inventory.FindObj(inventory.AddObjects("dep\\Player\\test.png", { 72,72 }))->SetObjPosition({ 72*10, 72*2 });
 	
 }
