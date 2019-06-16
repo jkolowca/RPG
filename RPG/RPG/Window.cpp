@@ -22,7 +22,7 @@ void Window::Create() {
 }
 
 void Window::Clear() {
-	window.clear(sf::Color(0, 0, 0, 255));
+	window.clear(sf::Color(35, 35, 35, 255));
 }
 
 void Window::Update() {

@@ -198,3 +198,55 @@ void Map::calculateMapPosition() {
 
 	playerShift = { (TileSize - shift.x),(TileSize - shift.y) };
 }
+
+void Map::Update() {
+	if (moving) {
+		if (moveClock.getElapsedTime() < moveTime) {
+			position = { oldPosition.x + speed.x*moveClock.getElapsedTime().asSeconds(), oldPosition.y + speed.y*moveClock.getElapsedTime().asSeconds() };
+		}
+		else {
+			position = newPosition;
+			speed = shift = { 0,0 };
+			moving = false;
+			if (marg.x) {
+				numberDrawn.x--;
+				if (marg.x < 0) {
+					firstDrawn.x++;
+					position.x += TileSize;
+				}
+			}
+			else if (marg.y) {
+				numberDrawn.y--;
+				if (marg.y < 0) {
+					firstDrawn.y++;
+					position.y += TileSize;
+				}
+			}
+			marg = { 0,0 };
+		}
+	}
+}
+
+sf::Vector2f Map::getPlayerShift() {
+	return playerShift;
+}
+
+bool Map::isSolid(sf::Vector2i _coord) {
+	bool s = false;
+	for (int i = 0; i < layers; i++) {
+		if (map(i, _coord.x, _coord.y).solid)
+			s = true;
+	}
+	return s;
+}
+
+sf::Sprite& Map::getSprite() { return map(0, firstDrawn.x, firstDrawn.y).tile->getSprite(); }
+
+sf::Vector2f Map::getTilePosition(sf::Vector2i _coord) {
+	return { (_coord.x - firstDrawn.x) * TileSize + position.x, (_coord.y - firstDrawn.y)*TileSize + position.y };
+	//return position;
+}
+
+sf::Vector2f Map::getPlayerPosition() {
+	return getTilePosition(playerCoordinates);
+}

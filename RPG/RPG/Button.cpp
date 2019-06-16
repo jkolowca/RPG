@@ -4,7 +4,7 @@ Button::Button() {
 	SetSize(sf::Vector2f(300.0f, 40.0f));
 	SetLabel("");
 	SetFont("dep\\norwester.otf", 15);
-	SetColor(sf::Color(0, 128, 128));
+	SetColor(sf::Color(80, 85, 84));
 	selected = false;
 }
 Button::~Button() {}
@@ -49,12 +49,12 @@ void Button::SetPosition(sf::Vector2f _position) {
 
 void Button::Select() {
 	selected = true;
-	SetColor(sf::Color(0, 200, 200));
+	SetColor(sf::Color(110, 110, 110));
 }
 
 void Button::Deselect() {
 	selected = false;
-	SetColor(sf::Color(0, 128, 128));
+	SetColor(sf::Color(80, 80, 80));
 }
 
 bool Button::IsSelected() {

@@ -29,7 +29,7 @@ void View_Intro::Draw() {
 
 void View_Intro::Position() {
 	sf::Vector2u windowSize = manager->GetShared()->renderWindow->getSize();
-	sprite.setPosition({ windowSize.x / 2.0f, windowSize.y / 2.0f - 30 });
+	sprite.setPosition({ windowSize.x / 2.0f, windowSize.y / 2.0f });
 }
 
 void View_Intro::Interact(sf::Event::KeyEvent) {
