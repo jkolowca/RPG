@@ -11,8 +11,6 @@ public:
 	Player(Shared*, int);
 	~Player();
 
-	void Update();
-
 	void Move(sf::Vector2f, animation_type);
 	sf::Sprite& getSprite() { return _Sprite; }
 	void Draw()

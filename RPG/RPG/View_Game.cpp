@@ -6,6 +6,8 @@ View_Game::View_Game(ViewManager* _manager) : View(_manager), map(manager->GetSh
 	map.Load(0);
 	//player.setPosition(map.getPlayerPosition());
 	entityMgr.Find(entityMgr.Add())->setPosition(map.getPlayerPosition());
+	
+
 }
 View_Game::~View_Game() {}
 
