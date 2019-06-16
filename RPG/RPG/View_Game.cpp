@@ -2,14 +2,15 @@
 #include "ViewManager.h"
 #include <iostream>
 
-View_Game::View_Game(ViewManager* _manager) : View(_manager), map(manager->GetShared()), entityMgr(manager->GetShared(), &map), inventory(manager->GetShared()) {
+View_Game::View_Game(ViewManager* _manager) : View(_manager), map(manager->GetShared()), entityMgr(manager->GetShared(), &map), ObjMgr(manager->GetShared(),&map) {
 	map.Load(0);
 	//player.setPosition(map.getPlayerPosition());
 	entityMgr.FindEntity(entityMgr.AddEntity())->setPosition(map.getPlayerPosition());
 	entityMgr.FindEntity(0)->setCoordinates({ 26, 2 });
 	entityMgr.FindEntity(entityMgr.AddEntity())->setPosition(map.getTilePosition({ 25, 2 }));
 	entityMgr.FindEntity(1)->setCoordinates({ 25,2 });
-	inventory.FindObj(inventory.AddObjects("dep\\Player\\test.png", { 72,72 }))->SetObjPosition({ 72*10, 72*2 });
+	ObjMgr.FindObj(ObjMgr.AddObjects("dep\\Player\\test.png", { 72,72 }))->SetObjPosition(map.getTilePosition({ 22, 2 }));
+	ObjMgr.FindObj(0)->setCoordinates({ 22, 2 });
 	
 }
 View_Game::~View_Game() {}
@@ -39,7 +40,7 @@ void View_Game::Update() {
 	//player.Update();
 	map.Update();
 	entityMgr.Update();
-	inventory.Update();
+	ObjMgr.Update();
 }
 
 void View_Game::Draw() {
@@ -47,7 +48,7 @@ void View_Game::Draw() {
 	map.Draw(1);
 	//player.Draw();
 	entityMgr.Draw();
-	inventory.Draw();
+	ObjMgr.Draw();
 	map.Draw(2);
 
 }

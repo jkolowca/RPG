@@ -29,8 +29,18 @@ public:
 		position = _position;
 		getSprite().setPosition(position);
 	}
+
+	sf::Vector2i getCoordinates() {
+		return coordinates;
+
+	}
+	void setCoordinates(sf::Vector2i _coordinates) {
+		coordinates = _coordinates;
+	}
+
 	sf::Vector2f ObjGetPosition() { return position; }
 private:
+	sf::Vector2i coordinates;
 	Shared* shared;
 	sf::Sprite _Sprite;
 	unsigned int ID;

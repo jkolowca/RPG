@@ -28,5 +28,5 @@ private:
 	Map map;
 	//Player player;
 	EntityManager entityMgr;
-	ObjectManager inventory;
+	ObjectManager ObjMgr;
 };
