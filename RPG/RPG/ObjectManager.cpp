@@ -2,7 +2,7 @@
 
 
 
-ObjectManager::ObjectManager(Shared * _Shareed_context) :Shared_context(_Shareed_context) , Obj_counter(0)
+ObjectManager::ObjectManager(Shared * _Shareed_context,Map* _map) :Shared_context(_Shareed_context) , Obj_counter(0),map(_map)
 {
 
 }
@@ -37,6 +37,7 @@ void ObjectManager::Update()
 {
 	for (auto &itr : objects)
 	{
+		itr.second->SetObjPosition(map->getTilePosition(itr.second->getCoordinates()));
 		itr.second->Update();
 	}
 
