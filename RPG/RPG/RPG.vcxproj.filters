@@ -69,6 +69,9 @@
     <ClCompile Include="EntityManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Objects.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -125,6 +128,9 @@
     <ClInclude Include="Shared.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Objects.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="dep\keys.txt">
@@ -150,6 +156,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="dep\Player\Player1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="dep\test.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

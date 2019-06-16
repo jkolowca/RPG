@@ -5,7 +5,9 @@
 View_Game::View_Game(ViewManager* _manager) : View(_manager), map(manager->GetShared()), entityMgr(manager->GetShared())/*player(manager->GetShared(),0)*/ {
 	map.Load(0);
 	//player.setPosition(map.getPlayerPosition());
-	entityMgr.Find(entityMgr.Add())->setPosition(map.getPlayerPosition());
+	entityMgr.FindEntity(entityMgr.AddEntity())->setPosition(map.getPlayerPosition());
+	entityMgr.FindEntity(entityMgr.AddEntity())->setPosition(sf::Vector2f(map.getPlayerPosition().x-72,map.getPlayerPosition().y));
+	entityMgr.FindEntity(entityMgr.AddObjects("dep\\Player\\test.png", sf::Vector2f(72, 72)))->setPosition(sf::Vector2f(TileSize*30,TileSize*30));
 	
 
 }
@@ -44,11 +46,12 @@ void View_Game::Draw() {
 	//player.Draw();
 	entityMgr.Draw();
 	map.Draw(2);
+
 }
 
 void View_Game::Position() {
 	map.Move({ 0, 0 });
-	entityMgr.Find(0)->setPosition( map.getPlayerPosition());
+	entityMgr.FindEntity(0)->setPosition( map.getPlayerPosition());
 }
 
 void View_Game::Interact(sf::Event::KeyEvent) {
@@ -60,29 +63,29 @@ void View_Game::Escape(sf::Event::KeyEvent) {
 }
 void View_Game::Up(sf::Event::KeyEvent) {
 	//if(!player.isMoving())
-	if (!entityMgr.Find(0)->isMoving())
+	if (!entityMgr.FindEntity(0)->isMoving())
 		if (map.MakeMove( 0, -1 ))
 			//player.move(map.getPlayerShift(), direction::Up);
-			entityMgr.Find(0)->Move(map.getPlayerShift(), animation_type::Up);
+			entityMgr.FindEntity(0)->Move(map.getPlayerShift(), animation_type::Up);
 }
 void View_Game::Down(sf::Event::KeyEvent) {
 	//if (!player.isMoving())
-	if (!entityMgr.Find(0)->isMoving())
+	if (!entityMgr.FindEntity(0)->isMoving())
 		if (map.MakeMove(0, 1))
 			//player.move(map.getPlayerShift(), direction::Down);
-			entityMgr.Find(0)->Move(map.getPlayerShift(), animation_type::Down);
+			entityMgr.FindEntity(0)->Move(map.getPlayerShift(), animation_type::Down);
 }
 void View_Game::Right(sf::Event::KeyEvent) {
 	//if (!player.isMoving())
-	if (!entityMgr.Find(0)->isMoving())
+	if (!entityMgr.FindEntity(0)->isMoving())
 		if (map.MakeMove(1, 0))
 			//player.move(map.getPlayerShift(), direction::Right);
-			entityMgr.Find(0)->Move(map.getPlayerShift(), animation_type::Right);
+			entityMgr.FindEntity(0)->Move(map.getPlayerShift(), animation_type::Right);
 }
 void View_Game::Left(sf::Event::KeyEvent) {
 	//if (!player.isMoving())
-	if (!entityMgr.Find(0)->isMoving())
+	if (!entityMgr.FindEntity(0)->isMoving())
 		if (map.MakeMove(-1, 0))
 			//player.move(map.getPlayerShift(), direction::Left);
-			entityMgr.Find(0)->Move(map.getPlayerShift(), animation_type::Left);
+			entityMgr.FindEntity(0)->Move(map.getPlayerShift(), animation_type::Left);
 }

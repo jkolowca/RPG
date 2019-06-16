@@ -177,6 +177,7 @@
   <ItemGroup>
     <Image Include="dep\Player\Player0.png" />
     <Image Include="dep\Player\Player1.png" />
+    <Image Include="dep\test.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
