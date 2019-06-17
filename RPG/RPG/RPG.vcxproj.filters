@@ -81,6 +81,9 @@
     <ClCompile Include="C_Interface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="View_GameOver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -156,6 +159,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Level_1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="View_GameOver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

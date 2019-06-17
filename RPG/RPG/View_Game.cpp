@@ -6,15 +6,8 @@
 
 View_Game::View_Game(ViewManager* _manager) : View(_manager), map(manager->GetShared()), entityMgr(manager->GetShared(), &map), ObjMgr(manager->GetShared(),&map) {
 	map.Load(0);
-	//player.setPosition(map.getPlayerPosition());
-	//entityMgr.FindEntity(entityMgr.AddEntity())->setPosition(map.getPlayerPosition());
-	//entityMgr.FindEntity(0)->setCoordinates({ 26, 2 });
-	//entityMgr.FindEntity(entityMgr.AddEntity())->setPosition(map.getTilePosition({ 25, 2 }));
-	//entityMgr.FindEntity(1)->setCoordinates({ 25,2 });
-	//ObjMgr.FindObj(ObjMgr.AddObjects("dep\\Player\\test.png", { 72,72 }))->SetObjPosition(map.getTilePosition({ 22, 2 }));
-	//ObjMgr.FindObj(0)->setCoordinates({ 22, 2 });
 	levels.push_back(new Level_0(&map, &entityMgr, &ObjMgr));
-	levels.push_back(new Level_1(&map, &entityMgr, &ObjMgr));
+	levels.push_back(new Level_1(&map, &entityMgr, &ObjMgr, manager));
 	levels[0]->Load();
 }
 View_Game::~View_Game() {}
@@ -42,7 +35,6 @@ void View_Game::Deactivate() {
 }
 
 void View_Game::Update() {
-	//player.Update();
 	map.Update();
 	entityMgr.Update();
 	ObjMgr.Update();
@@ -51,8 +43,9 @@ void View_Game::Update() {
 		if (levels[activeLevel]->isFinished()) {
 			manager->SwitchTo(Story);
 			activeLevel++;
-			if (activeLevel < levels.size())
+			if (activeLevel < levels.size()) {
 				levels[activeLevel]->Load();
+			}
 		}
 	}
 }
