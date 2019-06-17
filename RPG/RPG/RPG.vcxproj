@@ -131,6 +131,7 @@
     <ClCompile Include="C_Moveable.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="EventManager.cpp" />
+    <ClCompile Include="Highlight.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
@@ -156,6 +157,7 @@
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="C_Moveable.h" />
+    <ClInclude Include="Highlight.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="Level_0.h" />
     <ClInclude Include="Level_1.h" />
