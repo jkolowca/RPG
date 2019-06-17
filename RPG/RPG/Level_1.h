@@ -11,10 +11,6 @@ public:
 		e_manager->AddEntity();
 		e_manager->FindEntity(1)->setCoordinates({ 3, 3 });
 		e_manager->FindEntity(1)->setPosition(map->getTilePosition({ 3,3 }));
-		if (map->MakeMove(0, 1))
-			e_manager->FindEntity(0)->Move(map->getPlayerShift(), animation_type::Down);
-		manager->SwitchTo(MainMenu);
-		manager->SwitchTo(Game);
 	}
 	void Update() {
 		if (e_manager->FindEntity(0)->getCoordinates() == sf::Vector2i{ 5, 5 })
