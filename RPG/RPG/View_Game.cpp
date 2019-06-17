@@ -1,17 +1,21 @@
 #include "View_Game.h"
 #include "ViewManager.h"
+#include "Level_0.h"
+#include "Level_1.h"
 #include <iostream>
 
 View_Game::View_Game(ViewManager* _manager) : View(_manager), map(manager->GetShared()), entityMgr(manager->GetShared(), &map), ObjMgr(manager->GetShared(),&map) {
 	map.Load(0);
 	//player.setPosition(map.getPlayerPosition());
-	entityMgr.FindEntity(entityMgr.AddEntity())->setPosition(map.getPlayerPosition());
-	entityMgr.FindEntity(0)->setCoordinates({ 26, 2 });
-	entityMgr.FindEntity(entityMgr.AddEntity())->setPosition(map.getTilePosition({ 25, 2 }));
-	entityMgr.FindEntity(1)->setCoordinates({ 25,2 });
-	ObjMgr.FindObj(ObjMgr.AddObjects("dep\\Player\\test.png", { 72,72 }))->SetObjPosition(map.getTilePosition({ 22, 2 }));
-	ObjMgr.FindObj(0)->setCoordinates({ 22, 2 });
-	
+	//entityMgr.FindEntity(entityMgr.AddEntity())->setPosition(map.getPlayerPosition());
+	//entityMgr.FindEntity(0)->setCoordinates({ 26, 2 });
+	//entityMgr.FindEntity(entityMgr.AddEntity())->setPosition(map.getTilePosition({ 25, 2 }));
+	//entityMgr.FindEntity(1)->setCoordinates({ 25,2 });
+	//ObjMgr.FindObj(ObjMgr.AddObjects("dep\\Player\\test.png", { 72,72 }))->SetObjPosition(map.getTilePosition({ 22, 2 }));
+	//ObjMgr.FindObj(0)->setCoordinates({ 22, 2 });
+	levels.push_back(new Level_0(&map, &entityMgr, &ObjMgr));
+	levels.push_back(new Level_1(&map, &entityMgr, &ObjMgr));
+	levels[0]->Load();
 }
 View_Game::~View_Game() {}
 
@@ -24,6 +28,7 @@ void View_Game::Activate() {
 	manager->GetShared()->eventManager->AddCallback("down", &View_Game::Down, this);
 	manager->GetShared()->eventManager->AddCallback("right", &View_Game::Right, this);
 	manager->GetShared()->eventManager->AddCallback("left", &View_Game::Left, this);
+
 }
 
 void View_Game::Deactivate() {
@@ -41,6 +46,15 @@ void View_Game::Update() {
 	map.Update();
 	entityMgr.Update();
 	ObjMgr.Update();
+	if (activeLevel < levels.size()) {
+		levels[activeLevel]->Update();
+		if (levels[activeLevel]->isFinished()) {
+			manager->SwitchTo(Story);
+			activeLevel++;
+			if (activeLevel < levels.size())
+				levels[activeLevel]->Load();
+		}
+	}
 }
 
 void View_Game::Draw() {

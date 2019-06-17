@@ -4,8 +4,8 @@
 #include <cmath>
 #include <fstream>
 
-	Tile::Tile(sf::Vector2i location, Shared* _shared) : window(_shared->renderWindow), shared(_shared) {
-	sprite.setTexture(*shared->textureManager.GetResource("dep\\ts\\lev0.png"));
+	Tile::Tile(sf::Vector2i location, Shared* _shared, int level) : window(_shared->renderWindow), shared(_shared) {
+	sprite.setTexture(*shared->textureManager.GetResource("dep\\ts\\lev" + std::to_string(level) + ".png"));
 	sprite.setTextureRect({ location.x*TileSize, location.y*TileSize, TileSize, TileSize });
 	sprite.setOrigin(TileSize / 2, TileSize / 2);
 }
@@ -83,7 +83,7 @@ void Map::Load(int _level) {
 
 			if (!existingTiles[{tiletype.x, tiletype.y}]) {
 				std::cout << "creating tile: " << tiletype.x << ":" << tiletype.y << std::endl;
-				std::shared_ptr<Tile> ptr(new Tile(tiletype, shared));
+				std::shared_ptr<Tile> ptr(new Tile(tiletype, shared, _level));
 				existingTiles[{tiletype.x, tiletype.y}] = ptr;
 			}
 

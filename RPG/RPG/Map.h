@@ -8,7 +8,7 @@ class Tile {
 	sf::Sprite sprite;
 	sf::RenderWindow* window;
 public:
-	Tile(sf::Vector2i location, Shared* _shared);
+	Tile(sf::Vector2i location, Shared* _shared, int level);
 	~Tile();
 	sf::Sprite& getSprite(){ return sprite; }
 	void Draw();

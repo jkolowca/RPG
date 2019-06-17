@@ -4,8 +4,8 @@
 #include <regex>
 #include <algorithm>
 
-#define X	16
-#define Y	5
+#define X	10
+#define Y	3
 
 
 int main() {

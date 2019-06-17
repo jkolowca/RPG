@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "EntityManager.h"
 #include "ObjectManager.h"
+#include "Level.h"
 
 class View_Game : public View {
 public:
@@ -25,8 +26,9 @@ public:
 	void Left(sf::Event::KeyEvent);
 
 private:
+	int activeLevel = 0;
+	std::vector<Level*> levels;
 	Map map;
-	//Player player;
 	EntityManager entityMgr;
 	ObjectManager ObjMgr;
 };

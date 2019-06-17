@@ -46,12 +46,14 @@ void View_Story::Position() {
 }
 
 void View_Story::LoadConversation() {
-	player = conversations[conversation].player;
-	manager->GetShared()->textureManager.FreeResource("dep\\im\\f" + std::to_string(player) + ".png");
-	sprite[0].setTexture(*manager->GetShared()->textureManager.GetResource("dep\\im\\f" + std::to_string(player) +".png"));
-	sprite[0].setOrigin({ (float)sprite[0].getTextureRect().width / 2, (float)sprite[0].getTextureRect().height / 2 });
-	activeSpeaker = conversations[conversation].firstPlayer;
-	conversationLength = conversations[conversation].length;
+	if (conversation < conversations.size()) {
+		player = conversations[conversation].player;
+		manager->GetShared()->textureManager.FreeResource("dep\\im\\f" + std::to_string(player) + ".png");
+		sprite[0].setTexture(*manager->GetShared()->textureManager.GetResource("dep\\im\\f" + std::to_string(player) + ".png"));
+		sprite[0].setOrigin({ (float)sprite[0].getTextureRect().width / 2, (float)sprite[0].getTextureRect().height / 2 });
+		activeSpeaker = conversations[conversation].firstPlayer;
+		conversationLength = conversations[conversation].length;
+	}
 }
 
 void View_Story::Interact(sf::Event::KeyEvent) {
@@ -62,13 +64,14 @@ void View_Story::Interact(sf::Event::KeyEvent) {
 		manager->SwitchTo(Game);
 		return;
 	}
+
 	text[activeSpeaker].SetText(texts.front());
 	texts.erase(texts.begin());
 	conversationLength--;
 }
 
 void View_Story::Escape(sf::Event::KeyEvent) {
-	manager->GetShared()->window->Close();
+	manager->SwitchTo(Game);
 }
 
 void View_Story::Load(int _level) {
