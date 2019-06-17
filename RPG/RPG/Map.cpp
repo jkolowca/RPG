@@ -41,6 +41,10 @@ Map::Map(Shared* _shared) : shared(_shared) {
 }
 
 void Map::Load(int _level) {
+
+	firstDrawn = numberDrawn = playerCoordinates = marg = mapSize = { 0,0 };
+	oldPosition = newPosition = playerShift = position = { 0,0 };
+
 	std::string tmp = "dep\\map\\lev" + std::to_string(_level) + ".txt";
 
 	std::ifstream file;

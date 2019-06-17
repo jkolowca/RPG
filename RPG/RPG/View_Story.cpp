@@ -9,9 +9,6 @@ View_Story::View_Story(ViewManager* _manager) : View(_manager) {
 	sprite[1].setOrigin({ (float)sprite[1].getTextureRect().width / 2, (float)sprite[1].getTextureRect().height / 2 });
 	Load(1);
 	LoadConversation();
-	text[activeSpeaker].SetText(texts.front());
-	texts.erase(texts.begin());
-	conversationLength--;
 }
 View_Story::~View_Story() {
 	manager->GetShared()->textureManager.FreeResource(std::string("dep\\im\\f") + std::to_string(player) + ".png");
@@ -23,6 +20,9 @@ void View_Story::Activate() {
 	manager->GetShared()->eventManager->AddCallback("select", &View_Story::Interact, this);
 	manager->GetShared()->eventManager->AddCallback("interact", &View_Story::Interact, this);
 	manager->GetShared()->eventManager->AddCallback("escape", &View_Story::Escape, this);
+	text[activeSpeaker].SetText(texts.front());
+	texts.erase(texts.begin());
+	conversationLength--;
 }
 void View_Story::Deactivate() {
 	manager->GetShared()->eventManager->RemoveCallback("select");
@@ -46,22 +46,23 @@ void View_Story::Position() {
 }
 
 void View_Story::LoadConversation() {
-	if (conversation < conversations.size()) {
 		player = conversations[conversation].player;
 		manager->GetShared()->textureManager.FreeResource("dep\\im\\f" + std::to_string(player) + ".png");
 		sprite[0].setTexture(*manager->GetShared()->textureManager.GetResource("dep\\im\\f" + std::to_string(player) + ".png"));
 		sprite[0].setOrigin({ (float)sprite[0].getTextureRect().width / 2, (float)sprite[0].getTextureRect().height / 2 });
 		activeSpeaker = conversations[conversation].firstPlayer;
 		conversationLength = conversations[conversation].length;
-	}
 }
 
 void View_Story::Interact(sf::Event::KeyEvent) {
 	activeSpeaker = !activeSpeaker;
 	if (!conversationLength) {
 		conversation++;
-		LoadConversation();
-		manager->SwitchTo(Game);
+		if (conversation < conversations.size()) {
+			LoadConversation();
+			manager->SwitchTo(Game);
+		}
+		else	manager->SwitchTo(GameOver);
 		return;
 	}
 
@@ -71,6 +72,12 @@ void View_Story::Interact(sf::Event::KeyEvent) {
 }
 
 void View_Story::Escape(sf::Event::KeyEvent) {
+	while (conversationLength) {
+		texts.erase(texts.begin());
+		conversationLength--;
+	}
+	conversation++;
+	LoadConversation();
 	manager->SwitchTo(Game);
 }
 

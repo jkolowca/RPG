@@ -141,6 +141,7 @@
     <ClCompile Include="View.cpp" />
     <ClCompile Include="ViewManager.cpp" />
     <ClCompile Include="View_Game.cpp" />
+    <ClCompile Include="View_GameOver.cpp" />
     <ClCompile Include="View_Intro.cpp" />
     <ClCompile Include="View_MainMenu.cpp" />
     <ClCompile Include="View_Settings.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="View.h" />
     <ClInclude Include="ViewManager.h" />
     <ClInclude Include="View_Game.h" />
+    <ClInclude Include="View_GameOver.h" />
     <ClInclude Include="View_Intro.h" />
     <ClInclude Include="View_MainMenu.h" />
     <ClInclude Include="View_Settings.h" />
