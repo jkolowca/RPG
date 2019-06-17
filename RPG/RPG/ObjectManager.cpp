@@ -23,6 +23,10 @@ int ObjectManager::AddObjects(std::string nazwa, sf::Vector2f size)
 
 Objects * ObjectManager::FindObj(unsigned int _Obj_ID)
 {
+	if (_Obj_ID < 0)
+	{
+		throw;
+	}
 	auto itr = objects.find(_Obj_ID);
 	if (itr == objects.end()) { return nullptr; }
 	return itr->second;

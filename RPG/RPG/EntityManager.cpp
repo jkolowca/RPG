@@ -24,6 +24,10 @@ int EntityManager::AddEntity()
 
 Player * EntityManager::FindEntity(unsigned int _ID)
 {
+	if (_ID < 0) //wyj¹tek
+	{
+		throw;
+	}
 	auto itr = entities.find(_ID);
 	if (itr == entities.end()) { return nullptr; }
 	return itr->second;
