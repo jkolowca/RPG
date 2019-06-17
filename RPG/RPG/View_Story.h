@@ -3,6 +3,12 @@
 #include "Sprite.h"
 #include "Text.h"
 
+struct Conversation {
+	int player;
+	int length;
+	bool firstPlayer;
+};
+
 class View_Story : public View {
 public:
 	View_Story(ViewManager*);
@@ -14,12 +20,19 @@ public:
 	void Update();
 	void Draw();
 	void Position();
+	void Load(int);
 
 	void Interact(sf::Event::KeyEvent);
 	void Escape(sf::Event::KeyEvent);
 private:
-	sf::Sprite left, right;
+	int conversation = 0;
+	int player;
 	bool activeSpeaker;
-	Text textL, textR;
+	int conversationLength;
+	sf::Sprite sprite[2];
+	Text text[2];
 	std::vector<std::string> texts;
+	std::vector<Conversation> conversations;
+
+	void LoadConversation();
 };

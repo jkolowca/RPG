@@ -157,6 +157,9 @@
     <Text Include="dep\map\lev2.txt">
       <Filter>Resource Files\map</Filter>
     </Text>
+    <Text Include="dep\story\c1.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Font Include="dep\norwester.otf">

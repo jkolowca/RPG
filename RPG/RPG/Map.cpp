@@ -99,6 +99,8 @@ void Map::Load(int _level) {
 	calculateMapPosition();
 	oldPosition = position = newPosition;
 	playerShift = shift = { 0,0 };
+
+	file.close();
 }
 
 bool Map::Draw(int _layer) {
