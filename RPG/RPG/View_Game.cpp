@@ -56,12 +56,12 @@ void View_Game::Draw() {
 	entityMgr.Draw();
 	ObjMgr.Draw();
 	map.Draw(2);
-
+	levels[activeLevel]->Draw();
 }
 
 void View_Game::Position() {
-	map.Move({ 0, 0 });
-	entityMgr.FindEntity(0)->setPosition( map.getPlayerPosition());
+	map.calculateMapPosition();
+	entityMgr.FindEntity(0)->setPosition( map.getTilePosition(map.getPlayerCoordinates()));
 }
 
 void View_Game::Interact(sf::Event::KeyEvent) {

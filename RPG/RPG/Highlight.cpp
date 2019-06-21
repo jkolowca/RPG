@@ -12,16 +12,6 @@ void Highlight::Draw(sf::RenderWindow* _window) {
 	_window->draw(rect);
 }
 
-bool Highlight::Clicked(sf::Vector2i _mousePos) {
-	if (_mousePos.x >= rect.getPosition().x - rect.getSize().x / 2.0f &&
-		_mousePos.x <= rect.getPosition().x + rect.getSize().x / 2.0f &&
-		_mousePos.y >= rect.getPosition().y - rect.getSize().y / 2.0f &&
-		_mousePos.y <= rect.getPosition().y + rect.getSize().y / 2.0f)
-		return true;
-	else
-		return false;
-}
-
 void Highlight::SetColor(sf::Color _color) {
 	rect.setFillColor(_color);
 }

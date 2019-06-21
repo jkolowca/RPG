@@ -48,15 +48,18 @@ public:
 	bool isSolid(sf::Vector2i _coord);
 
 	sf::Vector2f getTilePosition(sf::Vector2i _coord);
-	sf::Vector2f getPlayerPosition();
-private:
+	sf::Vector2i getPlayerCoordinates() {
+		return playerCoordinates;
+	}
+	//sf::Vector2f getPlayerPosition();
 	void calculateMapPosition();
+private:
 	sf::Vector2i firstDrawn, numberDrawn;
 	sf::Vector2i playerCoordinates;
 	sf::Vector2f playerShift;
-	sf::Vector2i mapSize;
 	sf::Vector2f oldPosition, newPosition;
 	sf::Vector2i marg;
+	sf::Vector2i mapSize;
 	int layers;
 	Array3d map;
 	Shared* shared;

@@ -13,7 +13,15 @@ public:
 	void setPosition(sf::Vector2f _position);
 	virtual sf::Sprite& getSprite() = 0;
 
+	sf::Vector2i getCoordinates() {
+		return coordinates;
+
+	}
+	void setCoordinates(sf::Vector2i _coordinates) {
+		coordinates = _coordinates;
+	}
 protected:
+	sf::Vector2i coordinates;
 	sf::Vector2f shift;
 	sf::Vector2f speed;
 	sf::Vector2f position;

@@ -23,9 +23,4 @@ void Player::Move(sf::Vector2f _shift, animation_type _dir)
 {
 	C_Moveable::Move(_shift);
 	C_Animated::Animate(_dir);
-	frameClock.restart();
-	if (_shift.x > 0) coordinates.x++;
-	else if (_shift.x < 0) coordinates.x--;
-	else if (_shift.y > 0) coordinates.y++;
-	else coordinates.y--;
 }

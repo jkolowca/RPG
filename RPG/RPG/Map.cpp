@@ -41,10 +41,6 @@ Map::Map(Shared* _shared) : shared(_shared) {
 }
 
 void Map::Load(int _level) {
-
-	firstDrawn = numberDrawn = playerCoordinates = marg = mapSize = { 0,0 };
-	oldPosition = newPosition = playerShift = position = { 0,0 };
-
 	std::string tmp = "dep\\map\\lev" + std::to_string(_level) + ".txt";
 
 	std::ifstream file;
@@ -100,11 +96,13 @@ void Map::Load(int _level) {
 		}
 		tile.y++;
 	}
+	file.close();
+
 	calculateMapPosition();
 	oldPosition = position = newPosition;
 	playerShift = shift = { 0,0 };
+	marg = {0,0};
 
-	file.close();
 }
 
 bool Map::Draw(int _layer) {
@@ -250,9 +248,8 @@ sf::Sprite& Map::getSprite() { return map(0, firstDrawn.x, firstDrawn.y).tile->g
 
 sf::Vector2f Map::getTilePosition(sf::Vector2i _coord) {
 	return { (_coord.x - firstDrawn.x) * TileSize + position.x, (_coord.y - firstDrawn.y)*TileSize + position.y };
-	//return position;
 }
 
-sf::Vector2f Map::getPlayerPosition() {
-	return getTilePosition(playerCoordinates);
-}
+//sf::Vector2f Map::getPlayerPosition() {
+//	return getTilePosition(playerCoordinates);
+//}

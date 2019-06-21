@@ -77,8 +77,11 @@ void View_Story::Escape(sf::Event::KeyEvent) {
 		conversationLength--;
 	}
 	conversation++;
-	LoadConversation();
-	manager->SwitchTo(Game);
+	if (conversation < conversations.size()) {
+		LoadConversation();
+		manager->SwitchTo(Game);
+	}
+	else manager->SwitchTo(GameOver);
 }
 
 void View_Story::Load(int _level) {

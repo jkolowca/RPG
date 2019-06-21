@@ -7,6 +7,11 @@ void C_Moveable::Update() {
 	else {
 		setPosition({ position.x + shift.x, position.y + shift.y });
 
+		if (shift.x > 0) coordinates.x++;
+		else if (shift.x < 0) coordinates.x--;
+		else if (shift.y > 0) coordinates.y++;
+		else if (shift.y < 0)coordinates.y--;
+
 		speed = shift = { 0,0 };
 		moving = false;
 	}
