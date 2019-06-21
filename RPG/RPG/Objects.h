@@ -3,7 +3,7 @@
 #include "C_Interface.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
-class Objects:C_Interface
+class Objects:public C_Interface
 {
 public:
 	Objects(Shared*,std::string,sf::Vector2f size,unsigned int _ID);
@@ -23,12 +23,6 @@ public:
 		return ID;
 	}
 	sf::Sprite& getSprite() { return _Sprite; }
-	void SetObjPosition(sf::Vector2f _position)
-	{
-		
-		position = _position;
-		getSprite().setPosition(position);
-	}
 
 	sf::Vector2i getCoordinates() {
 		return coordinates;
@@ -37,13 +31,10 @@ public:
 	void setCoordinates(sf::Vector2i _coordinates) {
 		coordinates = _coordinates;
 	}
-
-	//sf::Vector2f ObjGetPosition() { return position; }
 private:
 	sf::Vector2i coordinates;
 	Shared* shared;
 	sf::Sprite _Sprite;
 	unsigned int ID;
-	//sf::Vector2f position;
 };
 

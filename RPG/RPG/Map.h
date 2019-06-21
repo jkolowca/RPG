@@ -51,7 +51,6 @@ public:
 	sf::Vector2i getPlayerCoordinates() {
 		return playerCoordinates;
 	}
-	//sf::Vector2f getPlayerPosition();
 	void calculateMapPosition();
 private:
 	sf::Vector2i firstDrawn, numberDrawn;
