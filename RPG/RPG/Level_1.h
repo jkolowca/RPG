@@ -12,6 +12,10 @@ public:
 		e_manager->AddEntity();
 		e_manager->FindEntity(1)->setCoordinates({ 3, 3 });
 		e_manager->FindEntity(1)->setPosition(map->getTilePosition({ 3,3 }));
+		o_manager->AddObjects("dep\\Player\\test2.png", {72,72});
+		o_manager->FindObj(0)->setCoordinates({ 4,3 });
+		o_manager->FindObj(0)->SetObjPosition({ 4,3 });
+
 	}
 	void Draw() {
 		for (unsigned int i = 0; i < 4; i++) h[i].Draw(manager->GetShared()->renderWindow);
