@@ -4,16 +4,15 @@
 #include "Level_1.h"
 #include <iostream>
 
-View_Game::View_Game(ViewManager* _manager) : View(_manager), map(manager->GetShared()), entityMgr(manager->GetShared(), &map), ObjMgr(manager->GetShared(),&map) {
-	map.Load(0);
+View_Game::View_Game(ViewManager* _manager) : View(_manager), map(manager->GetShared()), entityMgr(manager->GetShared(), &map), ObjMgr(manager->GetShared(), &map) {
 	levels.push_back(new Level_0(&map, &entityMgr, &ObjMgr));
 	levels.push_back(new Level_1(&map, &entityMgr, &ObjMgr, manager));
-	levels[0]->Load();
+	activeLevel = 0;
+	load = new std::thread(&Level::Load, levels[activeLevel]);
 }
 View_Game::~View_Game() {}
 
 void View_Game::Activate() {
-	Position();
 	manager->GetShared()->eventManager->AddCallback("select", &View_Game::Interact, this);
 	manager->GetShared()->eventManager->AddCallback("interact", &View_Game::Interact, this);
 	manager->GetShared()->eventManager->AddCallback("escape", &View_Game::Escape, this);
@@ -21,7 +20,9 @@ void View_Game::Activate() {
 	manager->GetShared()->eventManager->AddCallback("down", &View_Game::Down, this);
 	manager->GetShared()->eventManager->AddCallback("right", &View_Game::Right, this);
 	manager->GetShared()->eventManager->AddCallback("left", &View_Game::Left, this);
-
+	if(load->joinable())
+	load->join();
+	Position();
 }
 
 void View_Game::Deactivate() {
@@ -41,11 +42,11 @@ void View_Game::Update() {
 	if (activeLevel < levels.size()) {
 		levels[activeLevel]->Update();
 		if (levels[activeLevel]->isFinished()) {
-			manager->SwitchTo(Story);
 			activeLevel++;
 			if (activeLevel < levels.size()) {
-				levels[activeLevel]->Load();
+				load = new std::thread(&Level::Load, levels[activeLevel]);
 			}
+			manager->SwitchTo(Story);
 		}
 	}
 }

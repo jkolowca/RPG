@@ -5,6 +5,7 @@
 #include "EntityManager.h"
 #include "ObjectManager.h"
 #include "Level.h"
+#include <thread>
 
 class View_Game : public View {
 public:
@@ -26,6 +27,7 @@ public:
 	void Left(sf::Event::KeyEvent);
 
 private:
+	std::thread* load;
 	int activeLevel = 0;
 	std::vector<Level*> levels;
 	Map map;
