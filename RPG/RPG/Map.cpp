@@ -122,13 +122,13 @@ bool Map::Draw(int _layer) {
 	return true;
 };
 
-bool Map::MakeMove(int _x, int _y) {
-	if (isSolid({playerCoordinates.x+_x, playerCoordinates.y+_y})) return false;
-	playerCoordinates += { _x,  _y};
+bool Map::MakeMove(sf::Vector2i _move) {
+	if (isSolid({playerCoordinates.x+_move.x, playerCoordinates.y+_move.y})) return false;
+	playerCoordinates += _move;
 	calculateMapPosition();
 	oldPosition = position;
-	shift = { -1 * _x*shift.x, -1*_y*shift.y };
-	playerShift = { _x*playerShift.x, _y*playerShift.y };
+	shift = { -1 * _move.x*shift.x, -1*_move.y*shift.y };
+	playerShift = { _move.x*playerShift.x, _move.y*playerShift.y };
 	C_Moveable::Move(shift);
 	return true;
 }

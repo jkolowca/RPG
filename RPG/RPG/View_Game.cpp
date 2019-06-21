@@ -73,22 +73,26 @@ void View_Game::Escape(sf::Event::KeyEvent) {
 	manager->SwitchTo(MainMenu);
 }
 void View_Game::Up(sf::Event::KeyEvent) {
-	if (!entityMgr.FindEntity(0)->isMoving())
-		if (map.MakeMove( 0, -1 ))
-			entityMgr.FindEntity(0)->Move(map.getPlayerShift(), animation_type::Up);
+	Move({ 0,-1 }, animation_type::Up);
 }
 void View_Game::Down(sf::Event::KeyEvent) {
-	if (!entityMgr.FindEntity(0)->isMoving())
-		if (map.MakeMove(0, 1))
-			entityMgr.FindEntity(0)->Move(map.getPlayerShift(), animation_type::Down);
+	Move({ 0,1 }, animation_type::Down);
 }
 void View_Game::Right(sf::Event::KeyEvent) {
-	if (!entityMgr.FindEntity(0)->isMoving())
-		if (map.MakeMove(1, 0))
-			entityMgr.FindEntity(0)->Move(map.getPlayerShift(), animation_type::Right);
+	Move({ 1,0 }, animation_type::Right);
 }
 void View_Game::Left(sf::Event::KeyEvent) {
-	if (!entityMgr.FindEntity(0)->isMoving())
-		if (map.MakeMove(-1, 0))
-			entityMgr.FindEntity(0)->Move(map.getPlayerShift(), animation_type::Left);
+	Move({-1,0}, animation_type::Left);
+}
+
+void View_Game::Move(sf::Vector2i _shift, animation_type _t) {
+	if (entityMgr.FindEntity(0)->isMoving()) return;
+		sf::Vector2i coord = map.getPlayerCoordinates() + _shift;
+		if (!entityMgr.isColliding(coord)) {
+			if (map.MakeMove(_shift)) {
+				entityMgr.FindEntity(0)->Move(map.getPlayerShift(), _t);
+				return;
+			}
+		}
+		entityMgr.FindEntity(0)->Move({ 0,0 }, _t);
 }

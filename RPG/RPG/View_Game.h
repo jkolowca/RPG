@@ -25,7 +25,7 @@ public:
 	void Down(sf::Event::KeyEvent);
 	void Right(sf::Event::KeyEvent);
 	void Left(sf::Event::KeyEvent);
-
+	void Move(sf::Vector2i, animation_type);
 private:
 	std::thread* load;
 	int activeLevel = 0;

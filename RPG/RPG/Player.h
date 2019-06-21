@@ -3,9 +3,10 @@
 #include "Shared.h"
 #include "C_Moveable.h"
 #include "C_Animated.h"
+#include "C_Colliding.h"
 
 
-class Player : public C_Moveable, public C_Animated
+class Player : public C_Moveable, public C_Animated, public C_Colliding
 {
 public:
 	Player(Shared*, int);
@@ -23,6 +24,9 @@ public:
 
 	int getId() {
 		return id;
+	}
+	sf::Vector2i getCoordinates() {
+		return C_Moveable::getCoordinates();
 	}
 
 

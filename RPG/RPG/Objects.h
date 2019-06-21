@@ -7,7 +7,6 @@ class Objects:C_Interface
 {
 public:
 	Objects(Shared*,std::string,sf::Vector2f size,unsigned int _ID);
-	~Objects();
 	void Update()
 	{
 		_Sprite.setPosition(position);

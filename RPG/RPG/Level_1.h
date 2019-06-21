@@ -8,10 +8,8 @@ public:
 	void Load() {
 		map->Load(1);
 		e_manager->FindEntity(0)->setCoordinates(map->getPlayerCoordinates());
-		e_manager->FindEntity(0)->setPosition(map->getTilePosition(map->getPlayerCoordinates()));
 		e_manager->AddEntity();
-		e_manager->FindEntity(1)->setCoordinates({ 3, 3 });
-		e_manager->FindEntity(1)->setPosition(map->getTilePosition({ 3,3 }));
+		e_manager->FindEntity(1)->setCoordinates({ 5, 3 });
 	}
 	void Draw() {
 		for (unsigned int i = 0; i < 4; i++) h[i].Draw(manager->GetShared()->renderWindow);

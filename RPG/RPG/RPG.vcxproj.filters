@@ -170,6 +170,9 @@
     <ClInclude Include="Highlight.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="C_Colliding.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="dep\keys.txt">

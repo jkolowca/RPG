@@ -38,7 +38,7 @@ public:
 
 	void Load(int _level);
 	bool Draw(int _layer);
-	bool MakeMove(int, int);
+	bool MakeMove(sf::Vector2i);
 
 	void Update();
 	sf::Vector2f getPlayerShift();

@@ -13,7 +13,3 @@ Objects::Objects(Shared *_shared, std::string name, sf::Vector2f size,unsigned i
 	_Sprite.setTextureRect(sf::IntRect(10 * size.x, 10000* size.y, size.x, size.y)); //Crop Sprite Sheet (Default Crop)
 
 }
-
-Objects::~Objects()
-{
-}

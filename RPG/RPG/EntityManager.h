@@ -19,7 +19,16 @@ public:
 	void Purge();
 	void ProcessRemovals();
 	Shared*GetContext() { return Shared_context; }
-	private:
+	bool isColliding(sf::Vector2i _coord) {
+		for (auto &itr : entities)
+		{
+			if (itr.second->getId() == 0)continue;
+			if (itr.second->IsColliding(_coord))
+				return true;
+		}
+	}
+
+private:
 	Shared*Shared_context;
 	EntityContainer entities;
 	unsigned int ID_counter;
