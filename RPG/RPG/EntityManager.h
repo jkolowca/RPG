@@ -26,6 +26,7 @@ public:
 			if (itr.second->IsColliding(_coord))
 				return true;
 		}
+		return false;
 	}
 
 private:

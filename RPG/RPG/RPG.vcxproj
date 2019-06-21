@@ -158,6 +158,7 @@
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="C_Moveable.h" />
+    <ClInclude Include="Header.h" />
     <ClInclude Include="Highlight.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="Level_0.h" />
@@ -193,6 +194,9 @@
     <Image Include="dep\Player\Player0.png" />
     <Image Include="dep\Player\Player1.png" />
     <Image Include="dep\Player\test2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

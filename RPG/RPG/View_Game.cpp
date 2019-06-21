@@ -61,7 +61,7 @@ void View_Game::Draw() {
 }
 
 void View_Game::Position() {
-	map.calculateMapPosition();
+	map.MakeMove({ 0,0 });
 	entityMgr.FindEntity(0)->setPosition( map.getTilePosition(map.getPlayerCoordinates()));
 }
 
