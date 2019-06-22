@@ -19,13 +19,7 @@ struct Animation {
 
 class C_Animated {
 public:
-	C_Animated() {
-		animations[Up] = { {0,8},9,sf::milliseconds(300), sf::milliseconds(70) };
-		animations[Down] = { {0,10},9,sf::milliseconds(300), sf::milliseconds(70) };
-		animations[Left] = { {0,9},9,sf::milliseconds(300), sf::milliseconds(70) };
-		animations[Right] = { {0,11},9,sf::milliseconds(300), sf::milliseconds(70) };
-	}
-
+	C_Animated(sf::Vector2f _size) : size(_size) {}
 	void Update() {
 		if (clock.getElapsedTime() < animation.duration) {
 			if (frameClock.getElapsedTime() > animation.frameTime) {
@@ -33,7 +27,7 @@ public:
 				if (frame.x >= animation.frames) {
 					frame=animation.firstFrame;
 				}
-				getSprite().setTextureRect(sf::IntRect(frame.x * PlayerSize, frame.y * PlayerSize, PlayerSize, PlayerSize));
+				getSprite().setTextureRect(sf::IntRect(frame.x * size.x, frame.y * size.y, size.x, size.y));
 				frameClock.restart();
 			}
 		}
@@ -49,7 +43,9 @@ public:
 	virtual sf::Sprite& getSprite() = 0;
 protected:
 	std::map<animation_type, Animation> animations;
+private:
 	Animation animation;
 	sf::Vector2i frame;
 	sf::Clock clock, frameClock;
+	sf::Vector2f size;
 };

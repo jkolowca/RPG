@@ -54,10 +54,11 @@ void View_Game::Update() {
 void View_Game::Draw() {
 	map.Draw(0);
 	map.Draw(1);
-	entityMgr.Draw();
+	levels[activeLevel]->Draw(0);
 	ObjMgr.Draw();
+	entityMgr.Draw();
 	map.Draw(2);
-	levels[activeLevel]->Draw();
+	levels[activeLevel]->Draw(1);
 }
 
 void View_Game::Position() {
@@ -66,7 +67,7 @@ void View_Game::Position() {
 }
 
 void View_Game::Interact(sf::Event::KeyEvent) {
-	manager->SwitchTo(MainMenu);
+	ObjMgr.Interact(map.getPlayerCoordinates());
 }
 
 void View_Game::Escape(sf::Event::KeyEvent) {
@@ -88,7 +89,7 @@ void View_Game::Left(sf::Event::KeyEvent) {
 void View_Game::Move(sf::Vector2i _shift, animation_type _t) {
 	if (entityMgr.FindEntity(0)->isMoving()) return;
 		sf::Vector2i coord = map.getPlayerCoordinates() + _shift;
-		if (!entityMgr.isColliding(coord)) {
+		if (!entityMgr.isColliding(coord)&& !ObjMgr.isColliding(coord)) {
 			if (map.MakeMove(_shift)) {
 				entityMgr.FindEntity(0)->Move(map.getPlayerShift(), _t);
 				return;
