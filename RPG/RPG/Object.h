@@ -4,6 +4,8 @@
 #include "C_Interactive.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
+class ObjectManager;
+
 class Object: public C_Colliding, public C_Interactive
 {
 public:
@@ -16,12 +18,14 @@ public:
 	sf::Vector2i getCoordinates();
 	void setCoordinates(sf::Vector2i _coordinates);
 	void setLocked(bool _t);
+	sf::Sprite& getSprite();
+	virtual void SetObjectManager(ObjectManager*) {};
 protected:
 	bool locked = false;
 	sf::Sprite Sprite;
+	unsigned int ID;
 private:
 	sf::Vector2i coordinates;
 	Shared* shared;
-	unsigned int ID;
 };
 

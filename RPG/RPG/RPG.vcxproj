@@ -139,6 +139,7 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Object_Doors.cpp" />
+    <ClCompile Include="Object_Key.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="TextureManager.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="C_Moveable.h" />
     <ClInclude Include="Highlight.h" />
+    <ClInclude Include="Key_Factory.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="Level_0.h" />
     <ClInclude Include="Level_1.h" />
@@ -171,6 +173,7 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="Object_Doors.h" />
     <ClInclude Include="Object_Factory.h" />
+    <ClInclude Include="Object_Key.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Shared.h" />
     <ClInclude Include="Text.h" />

@@ -12,6 +12,7 @@ public:
 		e_manager->FindEntity(1)->setCoordinates({ 5, 3 });
 		e_manager->FindEntity(1)->SetText("What do you want? Go away...");
 		o_manager->FindObj(o_manager->AddObject(doors))->setCoordinates({ 6,6 });
+		o_manager->FindObj(o_manager->AddObject(key))->setCoordinates({ 3,8 });
 		o_manager->FindObj(o_manager->AddObject(doors))->setCoordinates({ 11,6 });
 		o_manager->FindObj(o_manager->AddObject(doors))->setCoordinates({ 18,6 });
 		o_manager->FindObj(o_manager->AddObject(doors))->setCoordinates({ 23,6 });

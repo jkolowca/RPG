@@ -1,11 +1,12 @@
 #pragma once
 #include "Object.h"
 #include "Doors_Factory.h"
+#include "Key_Factory.h"
 #include"Map.h"
 
 enum ObjectType {
 	doors,
-	trinket
+	key
 };
 
 using ObjectsContainer = std::unordered_map<unsigned int, Object*>;
@@ -27,6 +28,7 @@ public:
 	void Interact(sf::Vector2i _coord);
 private:
 	DoorsFactory doorsFactory;
+	KeyFactory keyFactory;
 	Shared*Shared_context;
 	ObjectsContainer objects;
 	unsigned int Obj_counter;

@@ -31,3 +31,5 @@ void Object::setCoordinates(sf::Vector2i _coordinates) {
 void Object::setLocked(bool _t) {
 	locked = _t;
 }
+
+sf::Sprite& Object::getSprite() { return Sprite; }
