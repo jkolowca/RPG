@@ -96,6 +96,9 @@
     <ClCompile Include="Object_Doors.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Object_Key.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -189,6 +192,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Doors_Factory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Key_Factory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Object_Key.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

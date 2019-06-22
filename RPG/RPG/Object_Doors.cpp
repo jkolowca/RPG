@@ -17,4 +17,4 @@ void Doors::Interact() {
 	colliding = !colliding;
 }
 
-sf::Sprite& Doors::getSprite() { return Sprite; }
+sf::Sprite& Doors::getSprite() { return Object::getSprite(); }

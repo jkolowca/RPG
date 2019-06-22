@@ -11,6 +11,10 @@ int ObjectManager::AddObject(ObjectType _t){
 	if (_t == ObjectType::doors) {
 		objects.emplace(Obj_counter, doorsFactory.create(Shared_context, Obj_counter));
 	}
+	else if (_t == ObjectType::key) {
+		objects.emplace(Obj_counter, keyFactory.create(Shared_context, Obj_counter));
+		objects[Obj_counter]->SetObjectManager(this);
+	}
 
 	++Obj_counter;
 	return Obj_counter - 1;
