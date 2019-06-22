@@ -28,7 +28,7 @@ public:
 	void Move(sf::Vector2i, animation_type);
 private:
 	std::thread* load;
-	int activeLevel = 0;
+	unsigned int activeLevel = 0;
 	std::vector<Level*> levels;
 	Map map;
 	EntityManager entityMgr;

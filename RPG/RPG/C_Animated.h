@@ -12,7 +12,7 @@ enum animation_type {
 };
 
 struct Animation {
-	sf::Vector2f firstFrame;
+	sf::Vector2i firstFrame;
 	int frames;
 	sf::Time duration, frameTime;
 };
@@ -50,6 +50,6 @@ public:
 protected:
 	std::map<animation_type, Animation> animations;
 	Animation animation;
-	sf::Vector2f frame;
+	sf::Vector2i frame;
 	sf::Clock clock, frameClock;
 };
