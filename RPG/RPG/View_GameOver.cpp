@@ -11,6 +11,8 @@ View_GameOver::~View_GameOver() {
 }
 
 void View_GameOver::Activate() {
+	manager->RemoveState(Game);
+	manager->RemoveState(Story);
 	Position();
 	manager->GetShared()->eventManager->AddCallback("select", &View_GameOver::Interact, this);
 	manager->GetShared()->eventManager->AddCallback("interact", &View_GameOver::Interact, this);
