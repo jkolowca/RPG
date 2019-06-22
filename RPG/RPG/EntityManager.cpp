@@ -80,3 +80,9 @@ bool EntityManager::isColliding(sf::Vector2i _coord) {
 	}
 	return false;
 }
+
+void EntityManager::Interact(sf::Vector2i _coord) {
+	for (auto &itr : entities) {
+		itr.second->isInteracting(_coord);
+	}
+}
