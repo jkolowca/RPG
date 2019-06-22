@@ -14,16 +14,6 @@ void Button::Draw(sf::RenderWindow* _window) {
 	label.Draw(_window);
 }
 
-bool Button::Clicked(sf::Vector2i _mousePos) {
-	if (_mousePos.x >= rect.getPosition().x - rect.getSize().x / 2.0f &&
-		_mousePos.x <= rect.getPosition().x + rect.getSize().x / 2.0f &&
-		_mousePos.y >= rect.getPosition().y - rect.getSize().y / 2.0f &&
-		_mousePos.y <= rect.getPosition().y + rect.getSize().y / 2.0f)
-		return true;
-	else
-		return false;
-}
-
 void Button::SetLabel(const std::string& _label) {
 	label.SetText(_label);
 }

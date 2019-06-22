@@ -9,7 +9,7 @@ public:
 		: map(_map), e_manager(_e_manager), o_manager(_o_manager) {}
 
 	virtual void Load() = 0;
-
+	virtual void OnMove() {}
 	bool isFinished() {
 		return finished;
 	}

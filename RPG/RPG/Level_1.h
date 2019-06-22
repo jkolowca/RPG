@@ -26,16 +26,19 @@ public:
 		h[1].SetPosition(map->getTilePosition({ 11,3 }));
 		h[2].SetPosition(map->getTilePosition({ 18,3 }));
 		h[3].SetPosition(map->getTilePosition({ 27,3 }));
-
-		if (map->getPlayerCoordinates() == sf::Vector2i{ 2, 3 })
-			h[0].Select();
-		else if (map->getPlayerCoordinates() == sf::Vector2i{ 11, 3 })
-			h[1].Select();
-		else if (map->getPlayerCoordinates() == sf::Vector2i{ 18, 3 })
-			h[2].Select();
-		else if (map->getPlayerCoordinates() == sf::Vector2i{ 27, 3 })
-			h[3].Select();
-
+	}
+	void OnMove() {
+		for (unsigned int i = 0; i < 4; i++)
+			h[i].Clicked(map->getTilePosition(map->getPlayerCoordinates()));
+		if (h[0].IsSelected() && h[3].IsSelected()) {
+			o_manager->FindObj(2)->setLocked(false);
+		}
+		if (map->getPlayerCoordinates() == sf::Vector2i{ 18,3 }) {
+			o_manager->FindObj(1)->setLocked(false);
+			o_manager->FindObj(2)->Interact();
+			o_manager->FindObj(2)->setLocked(true);
+			h[0].Switch();
+		}
 		if (h[0].IsSelected() && h[1].IsSelected() && h[2].IsSelected() && h[3].IsSelected()) {
 			finished = true;
 		}
