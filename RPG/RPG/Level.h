@@ -13,7 +13,7 @@ public:
 	bool isFinished() {
 		return finished;
 	}
-	virtual void Draw() {};
+	virtual void Draw(int) {};
 	virtual void Update() =0;
 protected:
 	bool finished = false;

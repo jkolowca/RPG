@@ -2,7 +2,7 @@
 
 Highlight::Highlight() {
 	SetSize(sf::Vector2f(72, 72));
-	SetColor(sf::Color(80, 85, 84, 100));
+	SetColor(sf::Color(0, 0, 0, 100));
 	selected = false;
 }
 Highlight::~Highlight() {}

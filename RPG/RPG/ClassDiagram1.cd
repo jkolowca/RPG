@@ -112,11 +112,11 @@
       <FileName>Map.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Objects" Collapsed="true">
+  <Class Name="Object" Collapsed="true">
     <Position X="2" Y="11" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AgQAAAAAAAAAioAAADAgAAAAAAAAAAEAAAAAAQAAEAA=</HashCode>
-      <FileName>Objects.h</FileName>
+      <FileName>Object.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Player" Collapsed="true">

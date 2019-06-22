@@ -10,8 +10,15 @@ public:
 		e_manager->FindEntity(0)->setCoordinates(map->getPlayerCoordinates());
 		e_manager->AddEntity();
 		e_manager->FindEntity(1)->setCoordinates({ 5, 3 });
+		o_manager->FindObj(o_manager->AddObject(doors))->setCoordinates({ 6,6 });
+		o_manager->FindObj(o_manager->AddObject(doors))->setCoordinates({ 11,6 });
+		o_manager->FindObj(o_manager->AddObject(doors))->setCoordinates({ 18,6 });
+		o_manager->FindObj(o_manager->AddObject(doors))->setCoordinates({ 23,6 });
+		o_manager->FindObj(1)->setLocked(true);
+		o_manager->FindObj(2)->setLocked(true);
 	}
-	void Draw() {
+	void Draw(int i) {
+		if(i==0)
 		for (unsigned int i = 0; i < 4; i++) h[i].Draw(manager->GetShared()->renderWindow);
 	}
 	void Update() {

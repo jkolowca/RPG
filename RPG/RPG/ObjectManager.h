@@ -1,22 +1,43 @@
 #pragma once
-#include "Objects.h"
+#include "Object.h"
+#include "Doors_Factory.h"
 #include"Map.h"
-using ObjectsContainer = std::unordered_map<unsigned int, Objects*>;
+
+enum ObjectType {
+	doors,
+	trinket
+};
+
+using ObjectsContainer = std::unordered_map<unsigned int, Object*>;
 
 class ObjectManager
 {
 public:
 	ObjectManager(Shared* _Shareed_context,Map*);
 	~ObjectManager();
-	int AddObjects(std::string, sf::Vector2f);
-	Objects*FindObj(unsigned int _Obj_ID);
+	int AddObject(ObjectType);
+	Object*FindObj(unsigned int _Obj_ID);
 	void RemoveObj(unsigned int _Obj_ID);
 	void Update(); //update wszystkich obiektów
 	void Draw();
 	void Purge();
 	void ProcessRemovals();
 	Shared*GetContext() { return Shared_context; }
+	bool isColliding(sf::Vector2i _coord) {
+		for (auto &itr : objects)
+		{
+			if (itr.second->IsColliding(_coord))
+				return true;
+		}
+		return false;
+	}
+	void Interact(sf::Vector2i _coord) {
+		for (auto &itr : objects) {
+			itr.second->isInteracting(_coord);
+		}
+	}
 private:
+	DoorsFactory doorsFactory;
 	Shared*Shared_context;
 	ObjectsContainer objects;
 	unsigned int Obj_counter;

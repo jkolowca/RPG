@@ -1,30 +1,23 @@
 #include "ObjectManager.h"
 
+ObjectManager::ObjectManager(Shared * _Shareed_context,Map* _map) :Shared_context(_Shareed_context) , Obj_counter(0),map(_map) {}
 
 
-ObjectManager::ObjectManager(Shared * _Shareed_context,Map* _map) :Shared_context(_Shareed_context) , Obj_counter(0),map(_map)
-{
-
-}
-
-
-ObjectManager::~ObjectManager()
-{
+ObjectManager::~ObjectManager(){
 	Purge();
 }
 
-int ObjectManager::AddObjects(std::string nazwa, sf::Vector2f size)
-{
-	Objects* object = new Objects(Shared_context, nazwa, size, Obj_counter);
-	objects.emplace(Obj_counter, object); //dodanie do kontenera
+int ObjectManager::AddObject(ObjectType _t){
+	if (_t == ObjectType::doors) {
+		objects.emplace(Obj_counter, doorsFactory.create(Shared_context, Obj_counter));
+	}
+
 	++Obj_counter;
 	return Obj_counter - 1;
 }
 
-Objects * ObjectManager::FindObj(unsigned int _Obj_ID)
-{
-	if (_Obj_ID < 0)
-	{
+Object * ObjectManager::FindObj(unsigned int _Obj_ID){
+	if (_Obj_ID < 0){
 		throw;
 	}
 	auto itr = objects.find(_Obj_ID);
@@ -32,33 +25,26 @@ Objects * ObjectManager::FindObj(unsigned int _Obj_ID)
 	return itr->second;
 }
 
-void ObjectManager::RemoveObj(unsigned int _Obj_ID)
-{
+void ObjectManager::RemoveObj(unsigned int _Obj_ID){
 	objects_To_Remove.emplace_back(_Obj_ID);
 }
 
-void ObjectManager::Update()
-{
-	for (auto &itr : objects)
-	{
-		itr.second->SetObjPosition(map->getTilePosition(itr.second->getCoordinates()));
+void ObjectManager::Update(){
+	for (auto &itr : objects){
+		itr.second->setPosition(map->getTilePosition(itr.second->getCoordinates()));
 		itr.second->Update();
 	}
 
 	ProcessRemovals();
-
 }
 
-void ObjectManager::Draw()
-{
-	for (auto &itr : objects)
-	{
+void ObjectManager::Draw(){
+	for (auto &itr : objects){
 		itr.second->Draw();
 	}
 }
 
-void ObjectManager::Purge()
-{
+void ObjectManager::Purge(){
 	for (auto &itr : objects) {
 		delete itr.second;
 	}
@@ -66,16 +52,13 @@ void ObjectManager::Purge()
 	Obj_counter = 0;
 }
 
-void ObjectManager::ProcessRemovals()
-{
-	while (objects_To_Remove.begin() != objects_To_Remove.end())
-	{
+void ObjectManager::ProcessRemovals() {
+	while (objects_To_Remove.begin() != objects_To_Remove.end()) {
 		unsigned int id = objects_To_Remove.back();
 		auto itr = objects.find(id);
-		if (itr != objects.end())
-		{
+		if (itr != objects.end()) {
 			std::cout << "Discarding object: "
-				<< itr->second->getId() << std::endl;
+				<< id << std::endl;
 			delete itr->second;
 			objects.erase(itr);
 		}
