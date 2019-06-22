@@ -13,23 +13,13 @@ public:
 	~Player();
 	void Update();
 	void Move(sf::Vector2f, animation_type);
-	sf::Sprite& getSprite() { return _Sprite; }
-	void Draw()
-	{
-		shared->renderWindow->draw(_Sprite);
-	}
-	void setId(int _id) {
-		id = _id;
-	}
+	sf::Sprite& getSprite();
+	void Draw();
 
-	int getId() {
-		return id;
-	}
-	sf::Vector2i getCoordinates() {
-		return C_Moveable::getCoordinates();
-	}
+	void setId(int _id);
+	int getId();
 
-
+	sf::Vector2i getCoordinates();
 private:
 	int id;
 	sf::Sprite _Sprite;

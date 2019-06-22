@@ -44,3 +44,8 @@ void Highlight::Clicked(sf::Vector2f _position) {
 		_position.y <= rect.getPosition().y + rect.getSize().y / 2.0f)
 		selected = true;
 }
+
+
+void Highlight::SetSelection(bool _t) {
+	selected = _t;
+}

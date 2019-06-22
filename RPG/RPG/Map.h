@@ -48,9 +48,7 @@ public:
 	bool isSolid(sf::Vector2i _coord);
 
 	sf::Vector2f getTilePosition(sf::Vector2i _coord);
-	sf::Vector2i getPlayerCoordinates() {
-		return playerCoordinates;
-	}
+	sf::Vector2i getPlayerCoordinates();
 	void calculateMapPosition();
 private:
 	sf::Vector2i firstDrawn, numberDrawn;
