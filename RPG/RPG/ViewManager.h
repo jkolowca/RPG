@@ -1,6 +1,6 @@
 #pragma once
 #include "View.h"
-#include <vector>
+#include <deque>
 #include <map>
 #include <functional>
 #include "Shared.h"
@@ -8,13 +8,13 @@
 enum ViewType {
 	Intro = 0,
 	MainMenu,
-	Load,
-	Save,
+	Settings,
 	Game,
 	Story,
-	Paused,
 	GameOver,
-	Settings
+	Save,
+	Load,
+	Paused,
 };
 
 class ViewManager {
@@ -28,9 +28,9 @@ public:
 
 	void SwitchTo(ViewType);
 	Shared* GetShared();
-private:
 	void CreateState(ViewType);
 	void RemoveState(ViewType);
+private:
 
 	template<class T>
 	void RegisterView(ViewType _type) {

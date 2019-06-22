@@ -19,26 +19,10 @@ struct Animation {
 
 class C_Animated {
 public:
-	C_Animated(sf::Vector2f _size) : size(_size) {}
-	void Update() {
-		if (clock.getElapsedTime() < animation.duration) {
-			if (frameClock.getElapsedTime() > animation.frameTime) {
-				frame.x++;
-				if (frame.x >= animation.frames) {
-					frame=animation.firstFrame;
-				}
-				getSprite().setTextureRect(sf::IntRect(frame.x * size.x, frame.y * size.y, size.x, size.y));
-				frameClock.restart();
-			}
-		}
-	}
+	C_Animated(sf::Vector2f _size);
+	void Update();
 
-	void Animate(animation_type _type) {
-		animation = animations[_type];
-		frame = animation.firstFrame;
-		frameClock.restart();
-		clock.restart();
-	}
+	void Animate(animation_type _type);
 
 	virtual sf::Sprite& getSprite() = 0;
 protected:

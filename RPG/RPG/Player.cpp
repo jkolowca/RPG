@@ -29,3 +29,19 @@ void Player::Move(sf::Vector2f _shift, animation_type _dir)
 	C_Moveable::Move(_shift);
 	C_Animated::Animate(_dir);
 }
+
+sf::Sprite& Player::getSprite() { return _Sprite; }
+void Player::Draw()
+{
+	shared->renderWindow->draw(_Sprite);
+}
+void Player::setId(int _id) {
+	id = _id;
+}
+
+int Player::getId() {
+	return id;
+}
+sf::Vector2i Player::getCoordinates() {
+	return C_Moveable::getCoordinates();
+}

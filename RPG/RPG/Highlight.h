@@ -14,9 +14,7 @@ public:
 	void SetPosition(sf::Vector2f);
 	void Clicked(sf::Vector2f);
 	void Switch();
-	void SetSelection(bool _t) {
-		selected = _t;
-	}
+	void SetSelection(bool _t);
 	bool IsSelected();
 
 	sf::Vector2f GetSize();

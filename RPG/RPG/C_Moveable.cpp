@@ -34,3 +34,11 @@ void C_Moveable::setPosition(sf::Vector2f _position) {
 	position = _position;
 	getSprite().setPosition(position);
 }
+
+sf::Vector2i C_Moveable::getCoordinates() {
+	return coordinates;
+
+}
+void C_Moveable::setCoordinates(sf::Vector2i _coordinates) {
+	coordinates = _coordinates;
+}

@@ -44,7 +44,6 @@ void ViewManager::CreateState(ViewType _type) {
 	if (newView == views.end()) return; 
 	View* screen = newView->second();
 	views_container.emplace_back(_type, screen);
-
 }
 void ViewManager::RemoveState(ViewType _type) {
 	for (auto itr = views_container.begin(); itr != views_container.end(); ++itr)

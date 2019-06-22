@@ -250,6 +250,6 @@ sf::Vector2f Map::getTilePosition(sf::Vector2i _coord) {
 	return { (_coord.x - firstDrawn.x) * TileSize + position.x, (_coord.y - firstDrawn.y)*TileSize + position.y };
 }
 
-//sf::Vector2f Map::getPlayerPosition() {
-//	return getTilePosition(playerCoordinates);
-//}
+sf::Vector2i Map::getPlayerCoordinates() {
+	return playerCoordinates;
+}

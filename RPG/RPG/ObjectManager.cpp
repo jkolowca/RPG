@@ -65,3 +65,17 @@ void ObjectManager::ProcessRemovals() {
 		objects_To_Remove.pop_back();
 	}
 }
+
+bool ObjectManager::isColliding(sf::Vector2i _coord) {
+	for (auto &itr : objects)
+	{
+		if (itr.second->IsColliding(_coord))
+			return true;
+	}
+	return false;
+}
+void ObjectManager::Interact(sf::Vector2i _coord) {
+	for (auto &itr : objects) {
+		itr.second->isInteracting(_coord);
+	}
+}
