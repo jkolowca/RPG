@@ -8,14 +8,15 @@ public:
 	~Highlight();
 
 	void Draw(sf::RenderWindow*);
-	bool Clicked(sf::Vector2i);
 
 	void SetColor(sf::Color);
 	void SetSize(sf::Vector2f);
 	void SetPosition(sf::Vector2f);
-
-	void Select();
-	void Deselect();
+	void Clicked(sf::Vector2f);
+	void Switch();
+	void SetSelection(bool _t) {
+		selected = _t;
+	}
 	bool IsSelected();
 
 	sf::Vector2f GetSize();

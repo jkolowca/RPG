@@ -8,7 +8,6 @@ public:
 	~Button();
 
 	void Draw(sf::RenderWindow*);
-	bool Clicked(sf::Vector2i);
 
 	void SetLabel(const std::string&);
 	void SetFont(const std::string&, unsigned int);

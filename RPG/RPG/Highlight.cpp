@@ -25,12 +25,8 @@ void Highlight::SetPosition(sf::Vector2f _position) {
 	rect.setPosition(_position);
 }
 
-void Highlight::Select() {
-	selected = true;
-}
-
-void Highlight::Deselect() {
-	selected = false;
+void Highlight::Switch() {
+	selected = !selected;
 }
 
 bool Highlight::IsSelected() {
@@ -39,4 +35,12 @@ bool Highlight::IsSelected() {
 
 sf::Vector2f Highlight::GetSize() {
 	return rect.getSize();
+}
+
+void Highlight::Clicked(sf::Vector2f _position) {
+	if (_position.x >= rect.getPosition().x - rect.getSize().x / 2.0f &&
+		_position.x <= rect.getPosition().x + rect.getSize().x / 2.0f &&
+		_position.y >= rect.getPosition().y - rect.getSize().y / 2.0f &&
+		_position.y <= rect.getPosition().y + rect.getSize().y / 2.0f)
+		selected = true;
 }

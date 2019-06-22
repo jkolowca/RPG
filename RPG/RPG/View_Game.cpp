@@ -91,6 +91,7 @@ void View_Game::Move(sf::Vector2i _shift, animation_type _t) {
 		sf::Vector2i coord = map.getPlayerCoordinates() + _shift;
 		if (!entityMgr.isColliding(coord)&& !ObjMgr.isColliding(coord)) {
 			if (map.MakeMove(_shift)) {
+				levels[activeLevel]->OnMove();
 				entityMgr.FindEntity(0)->Move(map.getPlayerShift(), _t);
 				return;
 			}
