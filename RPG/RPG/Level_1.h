@@ -10,6 +10,7 @@ public:
 		e_manager->FindEntity(0)->setCoordinates(map->getPlayerCoordinates());
 		e_manager->AddEntity();
 		e_manager->FindEntity(1)->setCoordinates({ 5, 3 });
+		e_manager->FindEntity(1)->SetText("What do you want? Go away...");
 		o_manager->FindObj(o_manager->AddObject(doors))->setCoordinates({ 6,6 });
 		o_manager->FindObj(o_manager->AddObject(doors))->setCoordinates({ 11,6 });
 		o_manager->FindObj(o_manager->AddObject(doors))->setCoordinates({ 18,6 });

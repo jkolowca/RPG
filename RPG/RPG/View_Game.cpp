@@ -68,6 +68,7 @@ void View_Game::Position() {
 
 void View_Game::Interact(sf::Event::KeyEvent) {
 	ObjMgr.Interact(map.getPlayerCoordinates());
+	entityMgr.Interact(map.getPlayerCoordinates());
 }
 
 void View_Game::Escape(sf::Event::KeyEvent) {

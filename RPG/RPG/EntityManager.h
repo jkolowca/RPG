@@ -20,6 +20,7 @@ public:
 	void ProcessRemovals();
 	Shared*GetContext() { return Shared_context; }
 	bool isColliding(sf::Vector2i _coord);
+	void Interact(sf::Vector2i _coord);
 
 private:
 	Shared*Shared_context;
