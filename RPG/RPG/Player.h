@@ -26,6 +26,7 @@ public:
 
 	sf::Vector2i getCoordinates();
 private:
+	bool talking = false;
 	sf::Clock speakClock;
 	sf::Time speakTime;
 	Text text;

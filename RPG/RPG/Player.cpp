@@ -14,7 +14,7 @@ Player::Player(Shared* _shared, int _id): shared(_shared), id(_id), C_Animated({
 	animations[Left] = { {0,9},9,sf::milliseconds(300), sf::milliseconds(70) };
 	animations[Right] = { {0,11},9,sf::milliseconds(300), sf::milliseconds(70) };
 	moveTime = sf::milliseconds(300);
-	speakTime = sf::seconds(5);
+	speakTime = sf::seconds(2);
 }
 
 
@@ -35,9 +35,11 @@ sf::Sprite& Player::getSprite() { return _Sprite; }
 void Player::Draw()
 {
 	shared->renderWindow->draw(_Sprite);
-	if (speakClock.getElapsedTime() < speakTime) {
-		text.Draw(shared->renderWindow);
-	}
+	if (talking)
+		if (speakClock.getElapsedTime() < speakTime) {
+			text.Draw(shared->renderWindow);
+		}
+		else talking = false;
 }
 void Player::setId(int _id) {
 	id = _id;
@@ -56,4 +58,5 @@ void Player::SetText(std::string _text) {
 
 void Player::Interact() {
 	speakClock.restart();
+	talking = true;
 }
