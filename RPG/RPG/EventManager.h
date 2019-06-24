@@ -4,7 +4,6 @@
 #include <functional>
 #include <SFML\Window\Event.hpp>
 
-class View;
 
 class EventManager {
 public:
